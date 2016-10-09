@@ -6,7 +6,8 @@ $(document).ready(function(){
 
 
 
-
+$("#tr_barbuk_baru").hide();
+$("#tr_satuan_baru").hide();
 
 
 
@@ -21,7 +22,7 @@ var dt_terlapor = $("#terlapor").DataTable(
 		 	{
 		 		// "order": [[ 0, "desc" ]],
 		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
+				"columnDefs": [ { "targets": 7, "orderable": false } ],
 				"processing": true,
 		        "serverSide": true,
 		        "bLengthChange": false,
@@ -36,7 +37,7 @@ var dt_terlapor = $("#terlapor").DataTable(
 		 	{
 		 		// "order": [[ 0, "desc" ]],
 		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
+				"columnDefs": [ { "targets": 7, "orderable": false } ],
 				"processing": true,
 		        "serverSide": true,
 		        "bLengthChange": false,
@@ -49,7 +50,7 @@ var dt_terlapor = $("#terlapor").DataTable(
 		 	{
 		 		// "order": [[ 0, "desc" ]],
 		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
+				"columnDefs": [ { "targets": 7, "orderable": false } ],
 				"processing": true,
 		        "serverSide": true,
 		        "bLengthChange": false,
@@ -61,7 +62,7 @@ var dt_terlapor = $("#terlapor").DataTable(
 		 	{
 		 		// "order": [[ 0, "desc" ]],
 		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
+				"columnDefs": [ { "targets": 3, "orderable": false } ],
 				"processing": true,
 		        "serverSide": true,
 		        "bLengthChange": false,
@@ -70,10 +71,26 @@ var dt_terlapor = $("#terlapor").DataTable(
 		 	});
 
 
+		 	var dt_pasal = $("#pasallap").DataTable(
+		 	{
+		 		// "order": [[ 0, "desc" ]],
+		 		// "iDisplayLength": 50,
+				"columnDefs": [ { "targets": 1, "orderable": true } ],
+				"processing": true,
+		        "serverSide": true,
+		        "bLengthChange": false,
+		        "bInfo": false,
+		        "ajax": '<?php echo $json_url_pasal; ?>'
+		 	});
 
 
 
-	$("#id_fungsi").change(function(){
+
+
+
+
+
+	$("#txt_id_fungsi").change(function(){
 
 		$.ajax({
 
@@ -118,7 +135,8 @@ var dt_terlapor = $("#terlapor").DataTable(
 							$('#saksi').DataTable().ajax.reload();
 							$('#korban').DataTable().ajax.reload();
 							$('#barbuk').DataTable().ajax.reload();
-						$("#formulir")[0].reset(); }
+							$('#pasallap').DataTable().ajax.reload();
+							$("#formulir")[0].reset(); }
 						
 						 
 					}
@@ -229,6 +247,42 @@ $.ajax({
 				$("#id_pasal").html(pasalData);
 			}
  		});
+
+
+
+ 		/// lokasi kejadian
+
+ 		$("#kejadian_id_provinsi").val(jsonData.kejadian_prov_id).attr('selected','selected');
+
+
+ 		$.ajax({
+	      url:'<?php echo site_url("general/get_dropdown_kota_by_prop"); ?>/',
+	      data : {id_prop : jsonData.kejadian_prov_id, id_kota : jsonData.kejadian_kota_id },
+	      type : 'post',
+	      success: function(data){
+	        $("#kejadian_id_kota").html('').append(data);
+	      }
+	    });
+
+
+	    $.ajax({
+	      url:'<?php echo site_url("general/get_dropdown_kec_by_kota"); ?>/',
+	      data : { id_kota : jsonData.kejadian_kota_id, id_kec : jsonData.kejadian_kec_id },
+	      type : 'post',
+	      success: function(data){
+	        $("#kejadian_id_kecamatan").html('').append(data);
+	      }
+	    });
+
+
+	    $.ajax({
+	      url:'<?php echo site_url("general/get_dropdown_desa_by_kec"); ?>/',
+	      data : { id_kec : jsonData.kejadian_kec_id, id_desa : jsonData.kejadian_id_desa  },
+	      type : 'post',
+	      success: function(data){
+	        $("#kejadian_id_desa").html('').append(data);
+	      }
+	    });
  		
  		
  		
@@ -277,68 +331,6 @@ function hapus_row_tersangka(id){
 	//alert(id);
 }
 
-
-function tambah_pasal() {
-	id_fungsi = $("#id_fungsi").val();
-	//alert('adfdfjdk' + id_fungsi);
-	$('#pasalmodal').modal('show');
-
-}
-
-function pasal_simpan() {
-	 
-	// $("#frmModalPasal").submit(function(){
-		$.ajax({
-			url : $("#frmModalPasal").attr('action'),
-			data : $("#frmModalPasal").serialize(),
-			dataType : 'json',
-			type : 'post',
-			success : function(obj) {
-				$('#myPleaseWait').modal('hide');
-				 console.log(obj);
-				if(obj.error==false){
-					 	 
-					 	 BootstrapDialog.alert({
-			                type: BootstrapDialog.TYPE_PRIMARY,
-			                title: 'Informasi',
-			                message: obj.message,
-			                 
-			            });   
-						 
-						$("#pasalmodal").modal('hide'); // tutup modal 
-						$('#frmModalPasal')[0].reset();
-
-						$("#id_fungsi").val($("#txt_id_fungsi").val()).attr('selected','selected');
-
-						// refresh list 
-						$.ajax({
-
-							url : '<?php echo site_url("general/get_pasal") ?>',
-							data : {id_fungsi : $("#txt_id_fungsi").val()},
-							type : 'post',
-							success : function(htmldata) {
-								$("#id_pasal").html(htmldata);
-							}
-
-						});
-
-						 
-						
-						 
-					}
-					else {
-						 BootstrapDialog.alert({
-			                type: BootstrapDialog.TYPE_DANGER,
-			                title: 'Error',
-			                message: obj.message ,
-			                 
-			            }); 
-					}
-			}
-		});
-	// });
-	return false;
-} 
  
 
 
@@ -365,16 +357,17 @@ $.ajax({
     success : function(jsonData) {
     $('#tersangka_modal').modal('show');
        $("#modal_tersangka_judul").html('EDIT DATA TERSANGKA');
-       $(".tombol").prop('value','UPDATE DATA TERSANGKA');       
-      $("#tersangka_nama").val(jsonData.tersangka_nama);
-      $("#tersangka_jk").val(jsonData.tersangka_jk).attr('selected','selected');
+       $(".tombol").prop('value','UPDATE DATA TERSANGKA');   
+
+       $('#form_tersangka').loadJSON(jsonData);
+
+
+       $("#tersangka_jk").val(jsonData.tersangka_jk).attr('selected','selected');
       $("#tersangka_id_suku").val(jsonData.tersangka_id_suku).attr('selected','selected');
-      $("#tersangka_tmp_lahir").val(jsonData.tersangka_tmp_lahir);
-      $("#tersangka_tgl_lahir").val(jsonData.tersangka_tgl_lahir);
+     
       $("#tersangka_id_agama").val(jsonData.tersangka_id_agama).attr('selected','selected');
       $("#tersangka_id_pekerjaan").val(jsonData.tersangka_id_pekerjaan).attr('selected','selected');
-      $("#tersangka_alamat").val(jsonData.tersangka_alamat);
-      $("#tersangka_id").val(jsonData.id);
+     
       $("#tersangka_id_provinsi").val(jsonData.tersangka_prov_id).attr('selected','selected');
 
     
@@ -581,15 +574,32 @@ function korban_edit(id){
     $("#modal_korban").modal('show');
        $("#modal_korban_judul").html('EDIT DATA KORBAN');
        $(".tombol").prop('value','UPDATE DATA KORBAN');
-      $("#korban_nama").val(jsonData.korban_nama);
+      
+
+       $('#form_korban').loadJSON(jsonData);
+
+       //$("#korban_id").val(jsonData.id);
+
       $("#korban_jk").val(jsonData.korban_jk).attr('selected','selected');
-      $("#korban_id_suku").val(jsonData.korban_id_suku).attr('selected','selected');
-      $("#korban_tmp_lahir").val(jsonData.korban_tmp_lahir);
-      $("#korban_tgl_lahir").val(jsonData.korban_tgl_lahir);
       $("#korban_id_agama").val(jsonData.korban_id_agama).attr('selected','selected');
+
       $("#korban_id_pekerjaan").val(jsonData.korban_id_pekerjaan).attr('selected','selected');
-      $("#korban_alamat").val(jsonData.korban_alamat);
-      $("#korban_id").val(jsonData.id);
+
+      $("#korban_id_suku").val(jsonData.korban_id_suku).attr('selected','selected');
+       $("#korban_id_pendidikan").val(jsonData.korban_id_pendidikan).attr('selected','selected');
+
+      $("#korban_residivis").val(jsonData.korban_residivis).attr('selected','selected');
+      $("#korban_klasifikasi").val(jsonData.korban_klasifikasi).attr('selected','selected');
+
+
+
+
+
+
+
+
+
+
       $("#korban_id_provinsi").val(jsonData.korban_prov_id).attr('selected','selected');
 
     
@@ -762,15 +772,25 @@ function saksi_edit(id){
     $("#modal_saksi").modal('show');
        $("#modal_saksi_judul").html('EDIT DATA saksi');
        $(".tombol").prop('value','UPDATE DATA saksi');
-      $("#saksi_nama").val(jsonData.saksi_nama);
-      $("#saksi_jk").val(jsonData.saksi_jk).attr('selected','selected');
-      $("#saksi_id_suku").val(jsonData.saksi_id_suku).attr('selected','selected');
-      $("#saksi_tmp_lahir").val(jsonData.saksi_tmp_lahir);
-      $("#saksi_tgl_lahir").val(jsonData.saksi_tgl_lahir);
-      $("#saksi_id_agama").val(jsonData.saksi_id_agama).attr('selected','selected');
-      $("#saksi_id_pekerjaan").val(jsonData.saksi_id_pekerjaan).attr('selected','selected');
-      $("#saksi_alamat").val(jsonData.saksi_alamat);
-      $("#saksi_id").val(jsonData.id);
+
+
+       $('#form_saksi').loadJSON(jsonData);
+
+      // $("#saksi_nama").val(jsonData.saksi_nama);
+      // $("#saksi_id_suku").val(jsonData.saksi_id_suku).attr('selected','selected');
+      // $("#saksi_tmp_lahir").val(jsonData.saksi_tmp_lahir);
+      // $("#saksi_tgl_lahir").val(jsonData.saksi_tgl_lahir);
+      // $("#saksi_alamat").val(jsonData.saksi_alamat);
+      // $("#saksi_id").val(jsonData.id);
+
+
+	$("#saksi_jk").val(jsonData.saksi_jk).attr('selected','selected');
+
+	$("#saksi_id_agama").val(jsonData.saksi_id_agama).attr('selected','selected');
+
+	$("#saksi_id_pekerjaan").val(jsonData.saksi_id_pekerjaan).attr('selected','selected');
+
+      
       $("#saksi_id_provinsi").val(jsonData.saksi_prov_id).attr('selected','selected');
 
     
@@ -885,6 +905,20 @@ function barbuk_add() {
 
 }
 
+function pasal_add() {
+	 
+
+	$('#pasalmodal').modal('show'); 
+	$("#form_pasal").attr('action','<?php echo $pasal_add_url ?>');
+	$("#exampleModalLabel").html('TAMBAH PASAL');
+
+
+
+}
+
+
+
+
 function barbuk_simpan(){
 	$('#myPleaseWait').modal('show');
 		
@@ -925,6 +959,9 @@ function barbuk_simpan(){
 }
 
 
+
+
+
 function barbuk_edit(id){
 
 
@@ -937,19 +974,15 @@ function barbuk_edit(id){
     dataType : 'json',
     success : function(jsonData) {
     $("#modal_barbuk").modal('show');
-       $("#modal_barbuk_judul").html('EDIT DATA barbuk');
-       $(".tombol").prop('value','UPDATE DATA barbuk');
-      $("#barbuk_nama").val(jsonData.barbuk_nama);
-      $("#barbuk_jk").val(jsonData.barbuk_jk).attr('selected','selected');
-      $("#barbuk_id_suku").val(jsonData.barbuk_id_suku).attr('selected','selected');
-      $("#barbuk_tmp_lahir").val(jsonData.barbuk_tmp_lahir);
-      $("#barbuk_tgl_lahir").val(jsonData.barbuk_tgl_lahir);
-      $("#barbuk_id_agama").val(jsonData.barbuk_id_agama).attr('selected','selected');
-      $("#barbuk_id_pekerjaan").val(jsonData.barbuk_id_pekerjaan).attr('selected','selected');
-      $("#barbuk_alamat").val(jsonData.barbuk_alamat);
+       $("#modal_barbuk_judul").html('EDIT DATA BARANG BUKTI');
+       $(".tombol").prop('value','UPDATE DATA BARANG BUKTI');
+       
+      $("#barbuk_nama").val(jsonData.barbuk_nama).attr('selected','selected');
+      $("#barbuk_satuan").val(jsonData.barbuk_satuan).attr('selected','selected');
+      $("#barbuk_jumlah").val(jsonData.barbuk_jumlah);
       $("#barbuk_id").val(jsonData.id);
-      $("#barbuk_id_provinsi").val(jsonData.barbuk_prov_id).attr('selected','selected');
 
+       
       
 
       
@@ -1019,6 +1052,167 @@ BootstrapDialog.show({
             ]
           });
 }
+
+
+
+
+function barbuk_baru_simpan(){
+	$.ajax({
+		url : '<?php echo site_url("lap_a/barbuk_baru_simpan") ?>',
+		data : { barang_bukti : $("#barbuk_baru").val() },
+		type : 'post',
+		success : function(obj) {
+			$("#barbuk_nama").html('').append(obj);
+			$("#tr_barbuk_baru").hide();
+			$("#barbuk_baru").val('');
+		}
+
+	});
+
+}
+
+
+function show_barbuk_baru(){
+	$("#tr_barbuk_baru").show();
+}
+
+function barbuk_baru_batal(){
+	$("#tr_barbuk_baru").hide();
+}
+
+
+
+
+function satuan_baru_simpan(){
+	$.ajax({
+		url : '<?php echo site_url("lap_a/satuan_baru_simpan") ?>',
+		data : { satuan : $("#satuan_baru").val() },
+		type : 'post',
+		success : function(obj) {
+			$("#barbuk_satuan").html('').append(obj);
+			$("#tr_satuan_baru").hide();
+			$("#satuan_baru").val('');
+		}
+
+	});
+
+}
+
+function show_satuan_baru(){
+	$("#tr_satuan_baru").show();
+}
+
+function satuan_baru_batal(){
+	$("#tr_satuan_baru").hide();
+}
+
+
+
+function pasal_simpan(){
+	$('#myPleaseWait').modal('show');
+		
+		$.ajax({
+			url : $("#form_pasal").attr('action'),
+			data : $("#form_pasal").serialize(),
+			dataType : 'json',
+			type : 'post',
+			success : function(obj) {
+				$('#myPleaseWait').modal('hide');
+				 console.log(obj);
+				if(obj.error==false){
+					 	 
+					 	 BootstrapDialog.alert({
+			                type: BootstrapDialog.TYPE_PRIMARY,
+			                title: 'Informasi',
+			                message: obj.message,
+			                 
+			            });   
+						 
+						$("#pasalmodal").modal('hide'); 
+						$('#pasallap').DataTable().ajax.reload();						 
+						$('#form_pasal')[0].reset();
+						 		
+						 
+					}
+					else {
+						 BootstrapDialog.alert({
+			                type: BootstrapDialog.TYPE_DANGER,
+			                title: 'Error',
+			                message: obj.message ,
+			                 
+			            }); 
+					}
+			}
+		});
+		return false;
+}
+
+
+
+function pasal_hapus(id){
+
+BootstrapDialog.show({
+            message : 'ANDA AKAN MENGHAPUS DATA PASAL. ANDA YAKIN  ?  ',
+            title: 'KONFIRMASI HAPUS DATA ',
+            draggable: true,
+            buttons : [
+              {
+                label : 'IYA',
+                cssClass : 'btn-primary',
+                hotkey: 13,
+                action : function(dialogItself){
+
+
+                  dialogItself.close();
+                  $('#myPleaseWait').modal('show'); 
+                  $.ajax({
+                  	url : '<?php echo site_url("$controller/pasal_hapus") ?>',
+                  	type : 'post',
+                  	data : {id : id},
+                  	dataType : 'json',
+                  	success : function(obj) {
+                  		$('#myPleaseWait').modal('hide'); 
+                  		if(obj.error==false) {
+                  				BootstrapDialog.alert({
+				                      type: BootstrapDialog.TYPE_PRIMARY,
+				                      title: 'Informasi',
+				                      message: obj.message,
+				                       
+				                  });   
+
+                  		 
+
+						$('#pasallap').DataTable().ajax.reload();						 
+						 
+
+
+
+                  		}
+                  		else {
+                  			BootstrapDialog.alert({
+			                      type: BootstrapDialog.TYPE_DANGER,
+			                      title: 'Error',
+			                      message: obj.message,
+			                       
+			                  }); 
+                  		}
+                  	}
+                  });
+
+                }
+              },
+              {
+                label : 'TIDAK',
+                cssClass : 'btn-danger',
+                action: function(dialogItself){
+                    dialogItself.close();
+                }
+              }
+            ]
+          });
+}
+
+
 
 
 </script>

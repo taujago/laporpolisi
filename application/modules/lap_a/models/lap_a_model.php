@@ -395,7 +395,9 @@ function get_lap_a_barbuk_detail($id){
 
 function get_lap_a_barbuk($param){
 	$arr_column = array(
-		"barbuk_nama"
+		"barbuk_nama",
+		"barbuk_jumlah",
+		"barbuk_satuan"
 		 
 	);
 
@@ -571,7 +573,9 @@ function temp_get_lap_a_korban($param){
 
 function temp_get_lap_a_barbuk($param){
 	$arr_column = array(
-		"barbuk_nama"
+		"barbuk_nama",
+		"barbuk_jumlah",
+		"barbuk_satuan"
 		 
 	);
 

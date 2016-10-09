@@ -155,6 +155,18 @@ meng_pangkat.pangkat as mengetahui_pangkat,
 				prov.id as pelapor_prov_id, 
 				prov.provinsi, 
 
+
+
+				k_desa.desa as kejadian_desa, 
+				k_kec.id as kejadian_kec_id, 
+				k_kec.kecamatan as kejadian_kecamatan , 
+				k_kota.id as kejadian_kota_id, 
+				k_kota.kota as kejadian_kota , 
+				k_prov.id as kejadian_prov_id, 
+				k_prov.provinsi as kejadian_provinsi , 
+
+
+
 kerja.pekerjaan, 
 agama.agama,
 pdk.pendidikan,
@@ -178,6 +190,12 @@ u.nama as pengguna ')
 ->join('m_agama agama','a.pelapor_id_agama=agama.id_agama')
 ->join('m_pendidikan pdk','a.pelapor_id_pendidikan=pdk.id_pendidikan')
 ->join('m_warga_negara wn','a.pelapor_id_warga_negara=wn.id_warga_negara')
+
+
+->join('tiger_desa k_desa','k_desa.id = a.pelapor_id_desa ','left')
+->join('tiger_kecamatan k_kec','k_kec.id = k_desa.id_kecamatan ','left')
+->join('tiger_kota k_kota','k_kota.id = k_kec.id_kota ','left')
+->join('tiger_provinsi k_prov','k_prov.id = k_kota.id_provinsi','left')
 
 
 ->where("a.lap_b_id",$id);
@@ -572,14 +590,16 @@ function temp_get_lap_b_korban($param){
 
 function temp_get_lap_b_barbuk($param){
 	$arr_column = array(
-		"barbuk_nama"
+		"barbuk_nama",
+		"barbuk_jumlah",
+		"barbuk_satuan"
 		 
 	);
 
 	$sort_by = $arr_column[$param['sort_by']];
  
 	$this->db->select(
-		't.*')->from("lap_b_barbuk t")
+		't.barbuk_nama,t.barbuk_jumlah,t.barbuk_satuan,t.*')->from("lap_b_barbuk t")
 	->where("temp_lap_b_id",$param['temp_lap_b_id']);
 
 	($param['limit'] != null ? $this->db->limit($param['limit']['end'], $param['limit']['start']) : '');
@@ -594,6 +614,38 @@ function temp_get_lap_b_barbuk($param){
 
 	$res = $this->db->get();
 }
+
+
+
+
+
+function temp_get_lap_b_pasal($param){
+	$arr_column = array(
+		"pasal" 
+		 
+		 
+	);
+
+	$sort_by = $arr_column[$param['sort_by']];
+ 
+	$this->db->select(
+		't.*,p.pasal')->from("lap_b_pasal t")
+	->join("m_pasal p","p.id = t.id_pasal")
+	->where("temp_lap_b_id",$param['temp_lap_b_id']);
+
+	($param['limit'] != null ? $this->db->limit($param['limit']['end'], $param['limit']['start']) : '');
+		//$this->db->limit($param['limit']['end'], $param['limit']['start']) ;
+       
+    ($param['sort_by'] != null) ? $this->db->order_by($sort_by, $param['sort_direction']) :'';
+        
+	$res = $this->db->get();
+		// echo $this->db->last_query();
+ 	return $res;
+
+
+	$res = $this->db->get();
+}
+
 
 
 function get_data_tersangka($lap_b_id) {

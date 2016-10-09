@@ -1251,6 +1251,9 @@ function get_lap_a_barbuk($lap_a_id) {
         	$arr_data[] = array(
    		 
 		$row['barbuk_nama'],
+		
+		$row['barbuk_jumlah'],
+		$row['barbuk_satuan'],
  
         		  			 
         		  			  
@@ -1397,6 +1400,10 @@ function barbuk_update($lap_a_id){
 
 			$data['id'] = $data['barbuk_id'];
 			unset($data['barbuk_id']);
+			unset($data['barbuk_baru']);
+			unset($data['satuan_baru']);
+
+
 			$data['lap_a_id'] = $lap_a_id;
 			 
 
@@ -2105,6 +2112,8 @@ function temp_get_lap_a_barbuk() {
         	$arr_data[] = array(
    		 
 		$row['barbuk_nama'],
+		$row['barbuk_jumlah'],
+		$row['barbuk_satuan'],
  
         		  			 
         		  			  
@@ -2148,7 +2157,10 @@ function tmp_barbuk_simpan(){
  		$this->form_validation->set_error_delimiters('', '<br>');
 		if($this->form_validation->run() == TRUE ) { 
 			unset($data['barbuk_id']);
-			 
+
+
+			unset($data['barbuk_baru']);
+			unset($data['satuan_baru']);			 
 
 
  
@@ -2199,6 +2211,8 @@ function tmp_barbuk_update(){
 
 			$data['id'] = $data['barbuk_id'];
 			unset($data['barbuk_id']);
+			unset($data['satuan_baru']);
+			unset($data['barbuk_baru']);
 			$this->db->where("id",$data['id']);
 
 			 $res = $this->db->update("lap_a_barbuk",$data);
@@ -2218,6 +2232,46 @@ function tmp_barbuk_update(){
 		echo json_encode($ret);
 		
 	}
+
+
+function barbuk_baru_simpan(){
+	$post  = $this->input->post();
+
+	$res = $this->db->insert("m_barang_bukti",$post);
+	if($res){
+
+		$this->db->order_by("barang_bukti");
+		$resx = $this->db->get("m_barang_bukti");
+		$html = "";
+		foreach($resx->result() as $row):
+			$sel = ($post['barang_bukti'] == $row->barang_bukti)?"selected":""; 
+			$html .= "<option value=$row->barang_bukti $sel>$row->barang_bukti</option>";
+		endforeach;
+
+		echo $html;
+	}
+}
+
+
+
+function satuan_baru_simpan(){
+	$post  = $this->input->post();
+
+	$res = $this->db->insert("m_satuan_barbuk",$post);
+	if($res){
+
+		$this->db->order_by("satuan");
+		$resx = $this->db->get("m_satuan_barbuk");
+		$html = "";
+		foreach($resx->result() as $row):
+			$sel = ($post['satuan'] == $row->satuan)?"selected":""; 
+			$html .= "<option value=$row->satuan $sel>$row->satuan</option>";
+		endforeach;
+
+		echo $html;
+	}
+}
+
 
 // #PRINT SECTION 
 

@@ -3,6 +3,10 @@
 
 $(document).ready(function(){
 
+
+$("#tr_barbuk_baru").hide();
+$("#tr_satuan_baru").hide();
+
 $(".tanggal").datepicker()
 		.on('changeDate', function(ev){                 
 		    $(this).datepicker('hide');
@@ -14,7 +18,7 @@ $(".tanggal").datepicker()
 		 	{
 		 		// "order": [[ 0, "desc" ]],
 		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
+				"columnDefs": [ { "targets": 7, "orderable": false } ],
 				"processing": true,
 		        "serverSide": true,
 		        "bLengthChange": false,
@@ -29,7 +33,7 @@ $(".tanggal").datepicker()
 		 	{
 		 		// "order": [[ 0, "desc" ]],
 		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
+				"columnDefs": [ { "targets": 7, "orderable": false } ],
 				"processing": true,
 		        "serverSide": true,
 		        "bLengthChange": false,
@@ -42,7 +46,7 @@ $(".tanggal").datepicker()
 		 	{
 		 		// "order": [[ 0, "desc" ]],
 		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
+				"columnDefs": [ { "targets": 7, "orderable": false } ],
 				"processing": true,
 		        "serverSide": true,
 		        "bLengthChange": false,
@@ -54,7 +58,7 @@ $(".tanggal").datepicker()
 		 	{
 		 		// "order": [[ 0, "desc" ]],
 		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
+				"columnDefs": [ { "targets": 3, "orderable": false } ],
 				"processing": true,
 		        "serverSide": true,
 		        "bLengthChange": false,
@@ -921,18 +925,14 @@ function barbuk_edit(id){
     dataType : 'json',
     success : function(jsonData) {
     $("#modal_barbuk").modal('show');
-       $("#modal_barbuk_judul").html('EDIT DATA barbuk');
-       $(".tombol").prop('value','UPDATE DATA barbuk');
+       $("#modal_barbuk_judul").html('EDIT DATA BARANG BUKTI');
+       $(".tombol").prop('value','UPDATE DATA BARANG BUKTI');
+       
       $("#barbuk_nama").val(jsonData.barbuk_nama);
-      $("#barbuk_jk").val(jsonData.barbuk_jk).attr('selected','selected');
-      $("#barbuk_id_suku").val(jsonData.barbuk_id_suku).attr('selected','selected');
-      $("#barbuk_tmp_lahir").val(jsonData.barbuk_tmp_lahir);
-      $("#barbuk_tgl_lahir").val(jsonData.barbuk_tgl_lahir);
-      $("#barbuk_id_agama").val(jsonData.barbuk_id_agama).attr('selected','selected');
-      $("#barbuk_id_pekerjaan").val(jsonData.barbuk_id_pekerjaan).attr('selected','selected');
-      $("#barbuk_alamat").val(jsonData.barbuk_alamat);
+      $("#barbuk_satuan").val(jsonData.barbuk_satuan);
+      $("#barbuk_jumlah").val(jsonData.barbuk_jumlah);
       $("#barbuk_id").val(jsonData.id);
-      $("#barbuk_id_provinsi").val(jsonData.barbuk_prov_id).attr('selected','selected');
+      
 
       
 
@@ -1004,5 +1004,54 @@ BootstrapDialog.show({
           });
 }
 
+
+function barbuk_baru_simpan(){
+	$.ajax({
+		url : '<?php echo site_url("$this->controller/barbuk_baru_simpan") ?>',
+		data : { barang_bukti : $("#barbuk_baru").val() },
+		type : 'post',
+		success : function(obj) {
+			$("#barbuk_nama").html('').append(obj);
+			$("#tr_barbuk_baru").hide();
+			$("#barbuk_baru").val('');
+		}
+
+	});
+
+}
+
+function show_barbuk_baru(){
+	$("#tr_barbuk_baru").show();
+}
+
+function barbuk_baru_batal(){
+	$("#tr_barbuk_baru").hide();
+}
+
+
+
+
+function satuan_baru_simpan(){
+	$.ajax({
+		url : '<?php echo site_url("$this->controller/satuan_baru_simpan") ?>',
+		data : { satuan : $("#satuan_baru").val() },
+		type : 'post',
+		success : function(obj) {
+			$("#barbuk_satuan").html('').append(obj);
+			$("#tr_satuan_baru").hide();
+			$("#satuan_baru").val('');
+		}
+
+	});
+
+}
+
+function show_satuan_baru(){
+	$("#tr_satuan_baru").show();
+}
+
+function satuan_baru_batal(){
+	$("#tr_satuan_baru").hide();
+}
 
 </script>

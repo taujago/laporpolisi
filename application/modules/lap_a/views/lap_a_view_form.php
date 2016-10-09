@@ -121,8 +121,48 @@
 
 
             </td>       
-      <tr><td>Telpon </td>
-            <td><input type="text" class="form-control" name="pelapor_tel" id="pelapor_tel" placeholder="Telpon Pelapor" />        </td>
+
+            <tr><td>Telpon </td>
+            <td><input type="text" class="form-control" name="pelapor_tel" id="pelapor_tel" placeholder="Telpon Pelapor" /></td></tr>
+
+
+            <tr><td>Subdit  </td>
+            <td>
+              <?php 
+                $arr = array(
+                            "1" =>"1",
+                            "2" =>"2",
+                            "3" =>"3",
+                            "4" =>"4",
+                            "5" =>"5",
+                            "GAKUM" =>"GAKUM",
+                            "LAKA" =>"LAKA",
+                            "UNIT KAPAL" =>"UNIT KAPAL"
+                                              );
+                echo form_dropdown("pelapor_subdit",$arr,'','id="pelapor_subdit" class="form-control"');
+              ?>
+
+            </td></tr>
+
+            <tr><td>Unit  </td>
+            <td>
+              <?php 
+                $arr = array(
+                            "1" =>"1",
+                            "2" =>"2",
+                            "3" =>"3",
+                            "4" =>"4",
+                            "5" =>"5",
+                            "6" =>"6");
+
+                echo form_dropdown("pelapor_unit",$arr,'','id="pelapor_unit" class="form-control"');
+              ?>
+
+            </td></tr>
+
+            <tr><td>Email </td>
+            <td><input type="text" class="form-control" name="pelapor_email" id="pelapor_email" placeholder="Email Pelapor" /></td></tr>
+
 
    <tr class="separator"> <td colspan="2"> <b> PERISTIWA YANG TERJADI </b>  </td> </tr>
 
@@ -135,7 +175,7 @@
 
 
 
-<tr><td>  </td>
+    <tr><td>Provinsi  </td>
               <TD>
           <?php 
                   $arr_provinsi = $this->cm->get_arr_dropdown("tiger_provinsi", 
@@ -148,7 +188,7 @@
                 ?>
 
 
-                <tr><td> </td>
+                <tr><td> Kabupaten / Kota  </td>
               <TD>
           <?php 
                   
@@ -159,7 +199,7 @@
 
               </TD></tr>
 
-               <tr><td>  </td>
+               <tr><td>  Kecamatan </td>
               <TD>
           <?php 
                   
@@ -171,7 +211,7 @@
               </TD></tr>
 
 
-              <tr><td> </td>
+              <tr><td>Desa / Kelurahan </td>
               <TD>
           <?php 
                   
@@ -213,6 +253,13 @@
             </td>
 
       </tr>
+
+
+      <tr><td>Modus Operandi </td>
+            <td><!-- <input type="text" class="form-control" name="kp_uraian_singkat" id="kp_uraian_singkat" placeholder="Uraian Singkat" />    -->     
+              <textarea   class="form-control" name="modus_operandi" id="modus_operandi" placeholder="Modus Operandi" ></textarea>
+
+            </td>
 
 
 
@@ -316,7 +363,9 @@
 <thead>
    <tr >
 
-        <th width="90%">BARANG BUKTI</th>         
+        <th width="70%">BARANG BUKTI</th>         
+        <th width="10%">JUMLAH</th>     
+        <th width="10%">SATUAN</th>     
         <th width="10%">PROS</th>
       
     </tr>
@@ -513,7 +562,7 @@
 
                 <tr><td>Pekerjaan</td>
               <TD>
-<?php 
+            <?php 
                   $arr_pekerjaan = $this->cm->get_arr_dropdown("m_pekerjaan", 
       "id_pekerjaan","pekerjaan",'pekerjaan');
 
@@ -527,8 +576,66 @@
 
               <tr><td>Email </td>
               <TD><input type="text" class="form-control" name="tersangka_email" id="tersangka_email" placeholder="Email" /></TD></tr>
-               <tr><td>Telpon </td>
+              
+              <tr><td>Telpon </td>
               <TD><input type="text" class="form-control" name="tersangka_telpon" id="tersangka_telpon" placeholder="No. Telpon" /></TD></tr>
+
+
+              <tr><td>Pendidikan </td>
+              <TD>
+              <?php 
+                  $arr_pendidikan = $this->cm->get_arr_dropdown("m_pendidikan", 
+                "id_pendidikan","pendidikan",'pendidikan');
+
+                  echo form_dropdown("tersangka_id_pendidikan",$arr_pendidikan,'','id="tersangka_id_pendidikan" class="form-control"'); 
+
+
+
+                ?>
+                  
+                </TD></tr>
+
+                <tr><td>Warga Negara </td>
+              <TD><input type="text" class="form-control" name="tersangka_wn" id="tersangka_wn" placeholder="Warga negara" /></TD></tr>
+
+              <tr><td>No. KTP</td>
+              <TD><input type="text" class="form-control" name="tersangka_nik" id="tersangka_nik" placeholder="Nomor KTP" /></TD></tr>
+
+              <tr><td>No. Passport</td>
+              <TD><input type="text" class="form-control" name="tersangka_no_passport" id="tersangka_no_passport" placeholder="Nomor Passport" /></TD></tr>
+
+
+              <tr><td>No. Kitas</td>
+              <TD><input type="text" class="form-control" name="tersangka_no_kitas" id="tersangka_no_kitas" placeholder="Nomor KItas" /></TD></tr>
+
+              <tr><td>Residivis ? </td>
+              <TD>
+              <?php 
+                  $arr_rsdv = array("ya"=>"Ya","tidak"=>"Tidak");
+
+                  echo form_dropdown("tersangka_residivis",$arr_rsdv,'','id="tersangka_residivis" class="form-control"');                ?>
+                
+              </TD></tr>
+
+
+              <tr><td>Jika Ya, Apa </td>
+              <TD>
+              <?php 
+                  $arr_rsdv = array(
+                      ""=>"TIDAK ADA ",
+                      "PRODUSEN" => "PRODUSEN",
+                      "BANDAR" => "BANDAR",
+                      "PENGEDAR" => "PENGEDAR",
+                      "PENGGUNA" => "PENGGUNA"
+
+                    );
+
+                  echo form_dropdown("  tersangka_klasifikasi",$arr_rsdv,'','id="  tersangka_klasifikasi" class="form-control"');                ?>
+                
+              </TD></tr>
+
+
+              
 
 
                 <tr><td>Alamat </td>
@@ -672,6 +779,65 @@
                <tr><td>Telpon </td>
               <TD><input type="text" class="form-control" name="korban_telpon" id="korban_telpon" placeholder="No. Telpon" /></TD></tr>
 
+
+
+               <tr><td>Pendidikan </td>
+              <TD>
+              <?php 
+                  $arr_pendidikan = $this->cm->get_arr_dropdown("m_pendidikan", 
+                "id_pendidikan","pendidikan",'pendidikan');
+
+                  echo form_dropdown("korban_id_pendidikan",$arr_pendidikan,'','id="korban_id_pendidikan" class="form-control"'); 
+
+
+
+                ?>
+                  
+                </TD></tr>
+
+                <tr><td>Warga Negara </td>
+              <TD><input type="text" class="form-control" name="korban_wn" id="korban_wn" placeholder="Warga negara" /></TD></tr>
+
+              <tr><td>No. KTP</td>
+              <TD><input type="text" class="form-control" name="korban_nik" id="korban_nik" placeholder="Nomor KTP" /></TD></tr>
+
+              <tr><td>No. Passport</td>
+              <TD><input type="text" class="form-control" name="korban_no_passport" id="korban_no_passport" placeholder="Nomor Passport" /></TD></tr>
+
+
+              <tr><td>No. Kitas</td>
+              <TD><input type="text" class="form-control" name="korban_no_kitas" id="korban_no_kitas" placeholder="Nomor KItas" /></TD></tr>
+
+              <tr><td>Residivis ? </td>
+              <TD>
+              <?php 
+                  $arr_rsdv = array("ya"=>"Ya","tidak"=>"Tidak");
+
+                  echo form_dropdown("korban_residivis",$arr_rsdv,'','id="tersangka_residivis" class="form-control"');                ?>
+                
+              </TD></tr>
+
+
+              <tr><td>Jika Ya, Apa </td>
+              <TD>
+              <?php 
+                  $arr_rsdv = array(
+                      ""=>"TIDAK ADA ",
+                      "PRODUSEN" => "PRODUSEN",
+                      "BANDAR" => "BANDAR",
+                      "PENGEDAR" => "PENGEDAR",
+                      "PENGGUNA" => "PENGGUNA"
+
+                    );
+
+                  echo form_dropdown("korban_klasifikasi",$arr_rsdv,'','id="  korban_klasifikasi" class="form-control"');                ?>
+                
+              </TD></tr>
+
+
+
+
+
                <tr><td>Alamat </td>
               <TD><input type="text" class="form-control" name="korban_alamat" id="korban_alamat" placeholder="Alamat" /></TD></tr>
 
@@ -786,9 +952,6 @@
       "id_pekerjaan","pekerjaan",'pekerjaan');
 
                   echo form_dropdown("saksi_id_pekerjaan",$arr_pekerjaan,'','id="saksi_id_pekerjaan" class="form-control"'); 
-
-
-
                 ?>
 
                </TD></tr>
@@ -797,6 +960,62 @@
               <TD><input type="text" class="form-control" name="saksi_email" id="saksi_email" placeholder="Email" /></TD></tr>
                <tr><td>Telpon </td>
               <TD><input type="text" class="form-control" name="saksi_telpon" id="saksi_telpon" placeholder="No. Telpon" /></TD></tr>
+
+
+
+        <tr><td>Pendidikan </td>
+              <TD>
+              <?php 
+                  $arr_pendidikan = $this->cm->get_arr_dropdown("m_pendidikan", 
+                "id_pendidikan","pendidikan",'pendidikan');
+
+                  echo form_dropdown("saksi_id_pendidikan",$arr_pendidikan,'','id="saksi_id_pendidikan" class="form-control"'); 
+
+
+
+                ?>
+                  
+                </TD></tr>
+
+                <tr><td>Warga Negara </td>
+              <TD><input type="text" class="form-control" name="saksi_wn" id="saksi_wn" placeholder="Warga negara" /></TD></tr>
+
+              <tr><td>No. KTP</td>
+              <TD><input type="text" class="form-control" name="saksi_nik" id="saksi_nik" placeholder="Nomor KTP" /></TD></tr>
+
+              <tr><td>No. Passport</td>
+              <TD><input type="text" class="form-control" name="saksi_no_passport" id="saksi_no_passport" placeholder="Nomor Passport" /></TD></tr>
+
+
+              <tr><td>No. Kitas</td>
+              <TD><input type="text" class="form-control" name="saksi_no_kitas" id="saksi_no_kitas" placeholder="Nomor KItas" /></TD></tr>
+
+              <tr><td>Residivis ? </td>
+              <TD>
+              <?php 
+                  $arr_rsdv = array("ya"=>"Ya","tidak"=>"Tidak");
+
+                  echo form_dropdown("saksi_residivis",$arr_rsdv,'','id="tersangka_residivis" class="form-control"');                ?>
+                
+              </TD></tr>
+
+
+              <tr><td>Jika Ya, Apa </td>
+              <TD>
+              <?php 
+                  $arr_rsdv = array(
+                      ""=>"TIDAK ADA ",
+                      "PRODUSEN" => "PRODUSEN",
+                      "BANDAR" => "BANDAR",
+                      "PENGEDAR" => "PENGEDAR",
+                      "PENGGUNA" => "PENGGUNA"
+
+                    );
+
+                  echo form_dropdown("saksi_klasifikasi",$arr_rsdv,'','id="  saksi_klasifikasi" class="form-control"');                ?>
+                
+              </TD></tr>
+
 
 
 
@@ -885,10 +1104,30 @@
               <tr>
                
               <tr><td width="30%" >Barang bukti </td>
-              <TD><input type="text" class="form-control" name="barbuk_nama" id="barbuk_nama" placeholder="Barang bukti" /> 
-              <input type="hidden" name="barbuk_id" value=""  id="barbuk_id"  />
-              </TD></tr></table>
-       
+              <TD>
+               <input type="text" class="form-control" name="barbuk_nama" id="barbuk_nama" placeholder="Barang bukti" /> </TD>
+              </TD></tr>
+
+           
+
+
+             
+
+
+              <tr><td>Jumlah </td>
+              <TD>
+              <input type="text" class="form-control" name="barbuk_jumlah" id="barbuk_jumlah" placeholder="Jumlah" /> </TD>
+              </tr>
+
+              <tr><td>Satuan </td>
+              <TD>
+              <input type="text" class="form-control" name="barbuk_satuan" id="barbuk_satuan" placeholder="Satuan" /> </TD>
+              </tr>
+
+
+
+              </table>
+        <input type="hidden" name="barbuk_id" value=""  id="barbuk_id"  />
              </form>
       </div>
       <div class="modal-footer">
