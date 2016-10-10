@@ -347,6 +347,8 @@ function tersangka_add() {
 }
 
 function tersangka_edit(id) {
+
+	$("#tersangkaModal").html('EDIT DATA TERSANGKA');
 	 
 $('#tersangka_modal').modal('show');
 $("#form_tersangka").attr('action','<?php echo site_url("$controller/tmp_tersangka_update") ?>'); 
@@ -365,6 +367,12 @@ $.ajax({
        $("#tersangka_jk").val(jsonData.tersangka_jk).attr('selected','selected');
       $("#tersangka_id_suku").val(jsonData.tersangka_id_suku).attr('selected','selected');
      
+
+     $("#tersangka_residivis").val(jsonData.tersangka_residivis).attr('selected','selected');
+     
+     $("#tersangka_klasifikasi").val(jsonData.tersangka_klasifikasi).attr('selected','selected');
+
+
       $("#tersangka_id_agama").val(jsonData.tersangka_id_agama).attr('selected','selected');
       $("#tersangka_id_pekerjaan").val(jsonData.tersangka_id_pekerjaan).attr('selected','selected');
      
@@ -790,8 +798,14 @@ function saksi_edit(id){
 
 	$("#saksi_id_pekerjaan").val(jsonData.saksi_id_pekerjaan).attr('selected','selected');
 
-      
-      $("#saksi_id_provinsi").val(jsonData.saksi_prov_id).attr('selected','selected');
+	$("#saksi_residivis").val(jsonData.saksi_residivis).attr('selected','selected');
+	$("#saksi_klasifikasi").val(jsonData.saksi_klasifikasi).attr('selected','selected');
+
+
+
+  
+
+     $("#saksi_id_provinsi").val(jsonData.saksi_prov_id).attr('selected','selected');
 
     
     $.ajax({

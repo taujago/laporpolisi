@@ -142,7 +142,7 @@ function baru(){
 			$temp_lap_b_id = $this->session->userdata("temp_lap_b_id"); 
 		}
 
-		// echo $this->session->userdata("temp_lap_b_id");  exit;
+		echo $this->session->userdata("temp_lap_b_id");  exit;
 
 		//$this->session->unset_userdata("temp_lap_b_id");
 		$data['temp_lap_b_id']=$temp_lap_b_id;
@@ -339,13 +339,14 @@ function edit($id){
 		$data['json_url_saksi'] = site_url("$this->controller/get_lap_b_saksi/$id");
 		$data['json_url_korban'] = site_url("$this->controller/get_lap_b_korban/$id");
 		$data['json_url_barbuk'] = site_url("$this->controller/get_lap_b_barbuk/$id");
+		$data['json_url_pasal'] = site_url("$this->controller/get_lap_b_pasal/$id");
 
 
 		$data['tersangka_add_url'] = site_url("$this->controller/tersangka_simpan/$id"); 
 		$data['saksi_add_url'] = site_url("$this->controller/saksi_simpan/$id"); 
 		$data['korban_add_url'] = site_url("$this->controller/korban_simpan/$id"); 
 		$data['barbuk_add_url'] = site_url("$this->controller/barbuk_simpan/$id"); 
-
+		$data['pasal_add_url'] = site_url("$this->controller/pasal_simpan/$id"); 
 
 		$content = $this->load->view($this->controller."_view_form",$data,true);
 		
@@ -552,6 +553,8 @@ function get_lap_b_terlapor($lap_b_id) {
 function get_lap_b_tersangka_detail($id){
 	$data = $this->dm->get_lap_b_tersangka_detail($id);
 	$data['tersangka_tgl_lahir'] = flipdate($data['tersangka_tgl_lahir']);
+	$data['tersangka_id']  = $data['id'] ;
+	unset($data['id']); 
 	echo json_encode($data);
 }
 
