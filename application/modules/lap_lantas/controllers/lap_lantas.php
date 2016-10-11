@@ -148,7 +148,7 @@ function baru(){
 			$temp_lap_laka_lantas_id = $this->session->userdata("temp_lap_laka_lantas_id"); 
 		}
 
-		// echo $this->session->userdata("temp_lap_a_id");  exit;
+		// echo $this->session->userdata("$temp_lap_laka_lantas_id");  exit;
 
 		//$this->session->unset_userdata("temp_lap_a_id");
 		$data['temp_lap_laka_lantas_id']=$temp_lap_laka_lantas_id;
@@ -188,14 +188,14 @@ function baru(){
 		$data['json_url_saksi'] = site_url("$this->controller/temp_get_lap_lantas_saksi");
 		$data['json_url_korban'] = site_url("$this->controller/temp_get_lap_lantas_korban");
 		$data['json_url_kendaraan'] = site_url("$this->controller/temp_get_lap_lantas_kendaraan");
-
+		$data['json_url_pasal'] = site_url("$this->controller/temp_get_lap_lantas_pasal");
 
 		$data['pengemudi_add_url'] = site_url("$this->controller/tmp_pengemudi_simpan"); 
 		$data['saksi_add_url'] = site_url("$this->controller/tmp_saksi_simpan"); 
 		$data['korban_add_url'] = site_url("$this->controller/tmp_korban_simpan"); 
 		$data['kendaraan_add_url'] = site_url("$this->controller/tmp_kendaraan_simpan"); 
 
-
+		$data['pasal_add_url'] = site_url("$this->controller/tmp_pasal_simpan"); 
 
 		
 
@@ -323,13 +323,13 @@ function edit($id){
 	$data['json_url_saksi'] = site_url("$this->controller/get_lap_lantas_saksi/$id");
 	$data['json_url_korban'] = site_url("$this->controller/get_lap_lantas_korban/$id");
 	$data['json_url_kendaraan'] = site_url("$this->controller/get_lap_lantas_kendaraan/$id");
-
+	$data['json_url_pasal'] = site_url("$this->controller/get_lap_lantas_pasal/$id");
 
 	$data['pengemudi_add_url'] = site_url("$this->controller/pengemudi_simpan/$id"); 
 	$data['saksi_add_url'] = site_url("$this->controller/saksi_simpan/$id"); 
 	$data['korban_add_url'] = site_url("$this->controller/korban_simpan/$id"); 
 	$data['kendaraan_add_url'] = site_url("$this->controller/kendaraan_simpan/$id");
-
+	$data['pasal_add_url'] = site_url("$this->controller/pasal_simpan/$id"); 
 
 
 		$content = $this->load->view($this->controller."_view_form",$data,true);
@@ -989,89 +989,6 @@ function pengemudi_hapus(){
 
 
 
-/// korban section 
-
-
-
-function get_lap_a_korban($lap_a_id) {
-		$controller = get_class($this);
-	 	$userdata = $this->session->userdata("userdata");
-      	$draw = $_REQUEST['draw']; // get the requested page 
-    	$start = $_REQUEST['start'];
-        $limit = $_REQUEST['length']; // get how many rows we want to have into the grid 
-        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"id"; // get index row - i.e. user click to sort 
-        $sord = isset($_REQUEST['order'][0]['dir'])?$_REQUEST['order'][0]['dir']:"desc"; // get the direction if(!$sidx) $sidx =1;  
-        
-        // $no_rangka = $_REQUEST['columns'][5]['search']['value'];
-        // $tanggal_awal = $_REQUEST['columns'][4]['search']['value'];
-        // $tanggal_akhir = $_REQUEST['columns'][6]['search']['value'];
-        // $status = $_REQUEST['columns'][7]['search']['value'];
-
-
-      //  order[0][column]
-        $req_param = array (
-        		"lap_a_id" => $lap_a_id,
-				"sort_by" => $sidx,
-				"sort_direction" => $sord,
-				"limit" => null 
-				 
-		);     
-           
-        $row = $this->dm->get_lap_a_korban($req_param)->result_array();
-		
-        $count = count($row); 
-       
-        
-        $req_param['limit'] = array(
-                    'start' => $start,
-                    'end' => $limit
-        );
-          
-        
-        $result = $this->dm->get_lap_a_korban($req_param)->result_array();
-        
-
-       
-        $arr_data = array();
-        foreach($result as $row) : 
-		//$daft_id = $row['daft_id'];
-        	 
-		$id = $row['id'];
-         
-        	$arr_data[] = array(
-   		 
-		$row['korban_nama'],
-		flipdate($row['korban_tgl_lahir']),
-		$row['korban_tmp_lahir'],
-		$row['agama'],
-		$row['suku'],
-		$row['pekerjaan'],
-		$row['korban_alamat']." - ". $row['desa']." - ".$row['kecamatan']." - ".$row['kota']." -  ".$row['provinsi'],
-        		  			 
-        		  			  
-        		  				"<div class=\"btn-group\"> 
-     <a class=\"btn dropdown-toggle btn-primary\" data-toggle=\"dropdown\" href=\"#\">Proses<span class=\"caret\"></span></a>
-     
-     <ul class=\"dropdown-menu\">
-		<li><a  href=\"javascript:korban_edit('".$id."')\"><span class=\"glyphicon glyphicon-edit\"></span> Edit </a></li> 
-
-		<li><a  href=\"javascript:korban_hapus('".$id."')\"><span class=\"glyphicon glyphicon-remove\"></span> Hapus</a></li>
- 	 </ul>
-
-
-	</div> ");
-        endforeach;
-
-         $responce = array('draw' => $draw, // ($start==0)?1:$start,
-        				  'recordsTotal' => $count, 
-        				  'recordsFiltered' => $count,
-        				  'data'=>$arr_data
-        	);
-         
-        echo json_encode($responce); 
-}
-
-
 
 ///// korban handler  
 
@@ -1427,12 +1344,6 @@ function kendaraan_edit($lap_a_id){
 
 
 
-function get_lap_a_kendaraan_detail($id){
-	$data = $this->dm->get_lap_a_kendaraan_detail($id);
-	// $data['kendaraan_tgl_lahir'] = flipdate($data['kendaraan_tgl_lahir']);
-	echo json_encode($data);
-}
-
 function kendaraan_update($lap_a_id){
 		$data=$this->input->post();
 
@@ -1480,13 +1391,13 @@ function kendaraan_update($lap_a_id){
 function kendaraan_hapus(){
 	$data = $this->input->post();
 	$this->db->where("id",$data['id']);
-	$res = $this->db->delete("lap_lantas_kendaraan");
+	$res = $this->db->delete("lap_laka_kendaraan");
 	if($res){
-		$ret = array("error"=>false,"message"=>"Dat Barang Bukti Berhasi dihapus");
+		$ret = array("error"=>false,"message"=>"Dat Kendaraan Berhasi dihapus");
 
 	}
 	else {
-		$ret = array("error"=>true,"message"=>"Data Barang Buktigagal dihapus");
+		$ret = array("error"=>true,"message"=>"Data  gagal dihapus");
 	}
 	echo json_encode($ret);
 }
@@ -2306,7 +2217,7 @@ function tmp_kendaraan_simpan(){
 			 $res = $this->db->insert("lap_laka_kendaraan",$data);
 			 // echo $this->db->last_query();
 			 if($res) {
-			 	$ret = array("error"=>false,"message"=>"Data barang bukti berhasil disimpan",
+			 	$ret = array("error"=>false,"message"=>"Data kendaraan berhasil disimpan",
 			 		"mode"=>"I"
 			 		);
 			 }
@@ -2364,6 +2275,79 @@ function tmp_kendaraan_update(){
 	}
 
 // #PRINT SECTION 
+
+
+
+
+
+function temp_get_lap_lantas_pasal() {
+
+
+		$controller = get_class($this);
+	 	$userdata = $this->session->userdata("userdata");
+      	$draw = $_REQUEST['draw']; // get the requested page 
+    	$start = $_REQUEST['start'];
+        $limit = $_REQUEST['length']; // get how many rows we want to have into the grid 
+        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"id"; // get index row - i.e. user click to sort 
+        $sord = isset($_REQUEST['order'][0]['dir'])?$_REQUEST['order'][0]['dir']:"desc"; // get the direction if(!$sidx) $sidx =1;  
+        
+        // $no_rangka = $_REQUEST['columns'][5]['search']['value'];
+        // $tanggal_awal = $_REQUEST['columns'][4]['search']['value'];
+        // $tanggal_akhir = $_REQUEST['columns'][6]['search']['value'];
+        // $status = $_REQUEST['columns'][7]['search']['value'];
+
+
+      //  order[0][column]
+        $req_param = array (
+        		"temp_lap_laka_lantas_id" => $this->session->userdata("temp_lap_laka_lantas_id"),
+				"sort_by" => $sidx,
+				"sort_direction" => $sord,
+				"limit" => null 
+				 
+		);     
+           
+        $row = $this->dm->temp_get_lap_lantas_pasal($req_param)->result_array();
+		
+        $count = count($row); 
+       
+        
+        $req_param['limit'] = array(
+                    'start' => $start,
+                    'end' => $limit
+        );
+          
+        
+        $result = $this->dm->temp_get_lap_lantas_pasal($req_param)->result_array();
+        
+
+       
+        $arr_data = array();
+        foreach($result as $row) : 
+		//$daft_id = $row['daft_id'];
+        	 
+		$id = $row['id'];
+         
+        	$arr_data[] = array(
+   		 
+		$row['pasal'],
+		
+ 
+        		  			 
+        		  			  
+		"<a class='btn btn-danger' href=\"javascript:pasal_hapus('".$id."')\"><span class=\"glyphicon glyphicon-remove\"></span> Hapus</a>");
+        endforeach;
+
+         $responce = array('draw' => $draw, // ($start==0)?1:$start,
+        				  'recordsTotal' => $count, 
+        				  'recordsFiltered' => $count,
+        				  'data'=>$arr_data
+        	);
+         
+        echo json_encode($responce); 
+}
+
+
+
 
 function cetak_laporan($id) {
 		

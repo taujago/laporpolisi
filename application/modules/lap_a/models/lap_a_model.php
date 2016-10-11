@@ -421,6 +421,36 @@ function get_lap_a_barbuk($param){
 }
 
 
+
+
+function get_lap_a_pasal($param){
+	$arr_column = array(
+		"pasal"
+		 
+	);
+
+	$sort_by = $arr_column[$param['sort_by']];
+ 
+	$this->db->select(
+		't.*,pasal.pasal')->from("lap_a_pasal t")
+	->join("m_pasal pasal","t.id_pasal = pasal.id","left")
+	->where("lap_a_id",$param['lap_a_id']);
+
+	($param['limit'] != null ? $this->db->limit($param['limit']['end'], $param['limit']['start']) : '');
+		//$this->db->limit($param['limit']['end'], $param['limit']['start']) ;
+       
+    ($param['sort_by'] != null) ? $this->db->order_by($sort_by, $param['sort_direction']) :'';
+        
+	$res = $this->db->get();
+		// echo $this->db->last_query();
+ 	return $res;
+
+
+	$res = $this->db->get();
+}
+
+
+
 function temp_get_lap_a_terlapor($param){
 	$arr_column = array(
 		"tersangka_nama",
@@ -695,6 +725,36 @@ function get_data_terlapor($lap_a_id) {
 	$data = $this->db->get("v_lap_a")->row();
 	return $data->terlapor;
 }
+
+
+
+function temp_get_lap_a_pasal($param){
+	$arr_column = array(
+		"pasal" 
+		 
+		 
+	);
+
+	$sort_by = $arr_column[$param['sort_by']];
+ 
+	$this->db->select(
+		't.*,p.pasal')->from("lap_a_pasal t")
+	->join("m_pasal p","p.id = t.id_pasal")
+	->where("temp_lap_a_id",$param['temp_lap_a_id']);
+
+	($param['limit'] != null ? $this->db->limit($param['limit']['end'], $param['limit']['start']) : '');
+		//$this->db->limit($param['limit']['end'], $param['limit']['start']) ;
+       
+    ($param['sort_by'] != null) ? $this->db->order_by($sort_by, $param['sort_direction']) :'';
+        
+	$res = $this->db->get();
+		// echo $this->db->last_query();
+ 	return $res;
+
+
+	$res = $this->db->get();
+}
+
 	
 }
 ?>

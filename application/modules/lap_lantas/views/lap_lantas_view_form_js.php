@@ -65,7 +65,34 @@ $(".tanggal").datepicker()
 
 
 		 	
+		var dt_pasal = $("#pasallap").DataTable(
+		 	{
+		 		// "order": [[ 0, "desc" ]],
+		 		// "iDisplayLength": 50,
+				"columnDefs": [ { "targets": 1, "orderable": true } ],
+				"processing": true,
+		        "serverSide": true,
+		        "bLengthChange": false,
+		        "bInfo": false,
+		        "ajax": '<?php echo $json_url_pasal; ?>'
+		 	});
 
+
+
+$("#txt_id_fungsi").change(function(){
+
+		$.ajax({
+
+			url : '<?php echo site_url("general/get_pasal") ?>',
+			data : {id_fungsi : $(this).val()},
+			type : 'post',
+			success : function(htmldata) {
+				$("#id_pasal").html(htmldata);
+			}
+
+		});
+
+	});
 
 
 
@@ -312,14 +339,19 @@ $.ajax({
     success : function(jsonData) {
     $('#pengemudi_modal').modal('show');
        $("#modal_pengemudi_judul").html('EDIT DATA PENGEMUDI');
-       $(".tombol").prop('value','UPDATE DATA PENGEMUDI');       
-      $("#pengemudi_nama").val(jsonData.pengemudi_nama);
+       $(".tombol").prop('value','UPDATE DATA PENGEMUDI');    
+
+       $("#form_pengemudi").loadJSON(jsonData);
+
+		// $("#lap_laka_lantas_pengemudi_id").val(jsonData.lap_laka_lantas_pengemudi_id);
+
+
+  	   $("#pengemudi_cidera").val(jsonData.pengemudi_cidera).attr('selected','selected');
+  	   $("#pengemudi_pelaku").val(jsonData.pengemudi_pelaku).attr('selected','selected');
       $("#pengemudi_jk").val(jsonData.pengemudi_jk).attr('selected','selected');
       $("#pengemudi_id_agama").val(jsonData.pengemudi_id_agama).attr('selected','selected');
       $("#pengemudi_id_pekerjaan").val(jsonData.pengemudi_id_pekerjaan).attr('selected','selected');
-      $("#pengemudi_alamat").val(jsonData.pengemudi_alamat);
- 		$("#pengemudi_tgl_lahir").val(jsonData.pengemudi_tgl_lahir);
- 		$("#lap_laka_lantas_pengemudi_id").val(jsonData.lap_laka_lantas_pengemudi_id);
+ 
 
 
     
@@ -373,18 +405,20 @@ $.ajax({
     $('#korban_edit').modal('show');
        $("#modal_korban_judul").html('EDIT DATA KORBAN');
        $(".tombol").prop('value','UPDATE DATA KORBAN');       
-      $("#korban_nama").val(jsonData.korban_nama);
+      
+
+       $("#form_korban").loadJSON(jsonData);
+
+
+
+
       $("#korban_jk").val(jsonData.korban_jk).attr('selected','selected');
+      $("#korban_cidera").val(jsonData.korban_cidera).attr('selected','selected');
       $("#korban_id_agama").val(jsonData.korban_id_agama).attr('selected','selected');
       $("#korban_id_pekerjaan").val(jsonData.korban_id_pekerjaan).attr('selected','selected');
-      $("#korban_alamat").val(jsonData.korban_alamat);
- 		$("#korban_tgl_lahir").val(jsonData.korban_tgl_lahir);
- 		$("#korban_cidera").val(jsonData.korban_cidera);
- 		$("#korban_tmp_dirawat").val(jsonData.korban_tmp_dirawat);
- 		$("#korban_id").val(jsonData.korban_id);
+      
 
-
- 		$.ajax({
+ 	$.ajax({
       url:'<?php echo site_url("general/get_dropdown_kota_by_prop"); ?>/',
       data : {id_prop : jsonData.korban_prov_id, id_kota : jsonData.korban_kota_id },
       type : 'post',
@@ -775,13 +809,15 @@ function saksi_edit(id){
     $("#modal_saksi").modal('show');
        $("#modal_saksi_judul").html('EDIT DATA saksi');
        $(".tombol").prop('value','UPDATE DATA saksi');
-      $("#saksi_nama").val(jsonData.saksi_nama);
+      // $("#saksi_nama").val(jsonData.saksi_nama);
+      $("#form_saksi").loadJSON(jsonData);
+
       $("#saksi_jk").val(jsonData.saksi_jk).attr('selected','selected');
       $("#saksi_id_agama").val(jsonData.saksi_id_agama).attr('selected','selected');
-      $("#saksi_tgl_lahir").val(jsonData.saksi_tgl_lahir).attr('selected','selected');
       $("#saksi_id_pekerjaan").val(jsonData.saksi_id_pekerjaan).attr('selected','selected');
-      $("#saksi_alamat").val(jsonData.saksi_alamat);
-      $("#saksi_id").val(jsonData.saksi_id);
+
+      
+      // $("#saksi_id").val(jsonData.saksi_id);
 
     
     $.ajax({
@@ -1011,21 +1047,43 @@ function kendaraan_edit(id){
     $("#modal_kendaraan").modal('show');
      $("#korbanModal").html('EDIT DATA KENDARAAN');
        $(".tombol").prop('value','UPDATE DATA KENDARAAN');
-      $("#id").val(jsonData.id);
-      $("#no_polisi").val(jsonData.no_polisi);
-      $("#no_stnk").val(jsonData.no_stnk);      
-      $("#jenis").val(jsonData.jenis);
-      $("#model").val(jsonData.model);
-      $("#merk").val(jsonData.merk);
-      $("#tipe").val(jsonData.tipe);
-      $("#tahun_buat").val(jsonData.tahun_buat);
-      $("#vol_silinder").val(jsonData.vol_silinder);
-      $("#no_rangka").val(jsonData.no_rangka);
-      $("#no_mesin").val(jsonData.no_mesin);
-      $("#warna_tnkb").val(jsonData.warna_tnkb);
-      $("#warna_tnkb").val(jsonData.warna_tnkb);
-      $("#kondisi_ban").val(jsonData.kondisi_ban);
+      
+       $("#form_kendaraan").loadJSON(jsonData);
+
+
+     $("#pemilik_id_provinsi").val(jsonData.pemilik_prov_id).attr('selected','selected');
  
+
+      $.ajax({
+      url:'<?php echo site_url("general/get_dropdown_kota_by_prop"); ?>/',
+      data : {id_prop : jsonData.pemilik_prov_id, id_kota : jsonData.pemilik_kota_id },
+      type : 'post',
+      success: function(data){
+        $("#pemilik_id_kota").html('').append(data);
+      }
+    });
+
+
+    $.ajax({
+      url:'<?php echo site_url("general/get_dropdown_kec_by_kota"); ?>/',
+      data : { id_kota : jsonData.pemilik_kota_id, id_kec : jsonData.pemilik_kec_id },
+      type : 'post',
+      success: function(data){
+        $("#pemilik_id_kecamatan").html('').append(data);
+      }
+    });
+
+
+    $.ajax({
+      url:'<?php echo site_url("general/get_dropdown_desa_by_kec"); ?>/',
+      data : { id_kec : jsonData.pemilik_kec_id, id_desa : jsonData.pemilik_id_desa  },
+      type : 'post',
+      success: function(data){
+        $("#pemilik_id_desa").html('').append(data);
+      }
+    });
+
+
 
 
 
@@ -1097,5 +1155,74 @@ BootstrapDialog.show({
           });
 }
 
+
+function pasal_add() {
+	 
+
+	$('#pasalmodal').modal('show'); 
+	$("#form_pasal").attr('action','<?php echo $pasal_add_url ?>');
+	$("#exampleModalLabel").html('TAMBAH PASAL');
+
+
+
+}
+
+
+
+function pasal_simpan() {
+	 
+	// $("#frmModalPasal").submit(function(){
+		$.ajax({
+			url : $("#frmModalPasal").attr('action'),
+			data : $("#frmModalPasal").serialize(),
+			dataType : 'json',
+			type : 'post',
+			success : function(obj) {
+				$('#myPleaseWait').modal('hide');
+				 console.log(obj);
+				if(obj.error==false){
+					 	 
+					 	 BootstrapDialog.alert({
+			                type: BootstrapDialog.TYPE_PRIMARY,
+			                title: 'Informasi',
+			                message: obj.message,
+			                 
+			            });   
+						 
+						$("#pasalmodal").modal('hide'); // tutup modal 
+						$('#frmModalPasal')[0].reset();
+
+						$("#id_fungsi").val($("#txt_id_fungsi").val()).attr('selected','selected');
+
+						// refresh list 
+						$.ajax({
+
+							url : '<?php echo site_url("general/get_pasal") ?>',
+							data : {id_fungsi : $("#txt_id_fungsi").val()},
+							type : 'post',
+							success : function(htmldata) {
+								$("#id_pasal").html(htmldata);
+							}
+
+						});
+
+						 
+						
+						 
+					}
+					else {
+						 BootstrapDialog.alert({
+			                type: BootstrapDialog.TYPE_DANGER,
+			                title: 'Error',
+			                message: obj.message ,
+			                 
+			            }); 
+					}
+			}
+		});
+	// });
+	return false;
+} 
+ 
 
 </script>

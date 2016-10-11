@@ -6,6 +6,14 @@ class lap_lantas_model extends CI_Model {
 
  
 
+
+var $arr_cidera = array("MD"=>"MENINGGAL DUNIA",
+						"LB"=>"LUKA BERAT",
+						"LR"=>"LUKA RINGAN",
+						"MATERI"=>"MATERI");
+
+
+ 
 function data($param){
 
 	// show_array($param);
@@ -713,12 +721,57 @@ function get_lap_lantas_kendaraan($param){
 function get_lap_lantas_kendaraan_detail($id){
 
 	$this->db->select(
-		't.*')
-	->from('lap_laka_kendaraan t');
+		't.*,
+
+				desa.desa,
+				kec.id as pemilik_kec_id, 
+				kec.kecamatan, 
+				kota.id as pemilik_kota_id, 
+				kota.kota, 
+				prov.id as pemilik_prov_id, 
+				prov.provinsi
+
+
+		')
+	->from('lap_laka_kendaraan t')
+
+	->join('tiger_desa desa','desa.id = t.pemilik_id_desa ','left')
+
+	->join('tiger_kecamatan kec','kec.id = desa.id_kecamatan ','left')
+	->join('tiger_kota kota','kota.id = kec.id_kota ','left')
+	->join('tiger_provinsi prov','prov.id = kota.id_provinsi','left');
 	
 	$this->db->where("t.id",$id);
 	$res = $this->db->get();
 	return $res->row_array();
+}
+
+
+function temp_get_lap_lantas_pasal($param){
+	$arr_column = array(
+		"pasal" 
+		 
+		 
+	);
+
+	$sort_by = $arr_column[$param['sort_by']];
+ 
+	$this->db->select(
+		't.*,p.pasal')->from("lap_laka_pasal t")
+	->join("m_pasal p","p.id = t.id_pasal")
+	->where("temp_lap_laka_lantas_id",$param['temp_lap_laka_lantas_id']);
+
+	($param['limit'] != null ? $this->db->limit($param['limit']['end'], $param['limit']['start']) : '');
+		//$this->db->limit($param['limit']['end'], $param['limit']['start']) ;
+       
+    ($param['sort_by'] != null) ? $this->db->order_by($sort_by, $param['sort_direction']) :'';
+        
+	$res = $this->db->get();
+		// echo $this->db->last_query();
+ 	return $res;
+
+
+	$res = $this->db->get();
 }
 
 	

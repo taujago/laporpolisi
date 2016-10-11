@@ -142,7 +142,7 @@ function baru(){
 			$temp_lap_b_id = $this->session->userdata("temp_lap_b_id"); 
 		}
 
-		echo $this->session->userdata("temp_lap_b_id");  exit;
+		// echo $this->session->userdata("temp_lap_b_id");  exit;
 
 		//$this->session->unset_userdata("temp_lap_b_id");
 		$data['temp_lap_b_id']=$temp_lap_b_id;
@@ -360,7 +360,7 @@ function update(){
 		
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('tanggal','Tanggal','required'); 
-		$this->form_validation->set_rules('id_pasal','Pasal','required');
+		// $this->form_validation->set_rules('id_pasal','Pasal','required');
  		
 		 
 		$this->form_validation->set_message('required', ' %s Harus diisi ');
@@ -1306,6 +1306,72 @@ function get_lap_b_barbuk($lap_b_id) {
 
 
 
+
+function get_lap_b_pasal($lap_b_id) {
+		$controller = get_class($this);
+	 	$userdata = $this->session->userdata("userdata");
+      	$draw = $_REQUEST['draw']; // get the requested page 
+    	$start = $_REQUEST['start'];
+        $limit = $_REQUEST['length']; // get how many rows we want to have into the grid 
+        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"id"; // get index row - i.e. user click to sort 
+        $sord = isset($_REQUEST['order'][0]['dir'])?$_REQUEST['order'][0]['dir']:"desc"; // get the direction if(!$sidx) $sidx =1;  
+        
+        // $no_rangka = $_REQUEST['columns'][5]['search']['value'];
+        // $tanggal_awal = $_REQUEST['columns'][4]['search']['value'];
+        // $tanggal_akhir = $_REQUEST['columns'][6]['search']['value'];
+        // $status = $_REQUEST['columns'][7]['search']['value'];
+
+
+      //  order[0][column]
+        $req_param = array (
+        		"lap_b_id" => $lap_b_id,
+				"sort_by" => $sidx,
+				"sort_direction" => $sord,
+				"limit" => null 
+				 
+		);     
+           
+        $row = $this->dm->get_lap_b_pasal($req_param)->result_array();
+		
+        $count = count($row); 
+       
+        
+        $req_param['limit'] = array(
+                    'start' => $start,
+                    'end' => $limit
+        );
+          
+        
+        $result = $this->dm->get_lap_b_pasal($req_param)->result_array();
+        
+
+       
+        $arr_data = array();
+        foreach($result as $row) : 
+		//$daft_id = $row['daft_id'];
+        	 
+		$id = $row['id'];
+         
+        	$arr_data[] = array(
+   		 
+		$row['pasal'],
+		 
+        		  			 
+        		  			  
+        		  				"<a class='btn btn-danger' href=\"javascript:pasal_hapus('".$id."')\"><span class=\"glyphicon glyphicon-remove\"></span> Hapus</a>");
+        endforeach;
+
+         $responce = array('draw' => $draw, // ($start==0)?1:$start,
+        				  'recordsTotal' => $count, 
+        				  'recordsFiltered' => $count,
+        				  'data'=>$arr_data
+        	);
+         
+        echo json_encode($responce); 
+}
+
+
+
 //// 
 ///// korban handler  
 
@@ -1473,39 +1539,36 @@ function barbuk_hapus(){
 
 
 
-function pasal_simpan(){
+function pasal_simpan($lap_b_id){
 		$data=$this->input->post();
 
  
 
 		
 		$this->load->library('form_validation');
-
-
 		
-		$this->form_validation->set_rules('txt_id_fungsi','Fungsi Terkait','required'); 
-		$this->form_validation->set_rules('txt_pasal','Pasal','required');
+		$this->form_validation->set_rules('id_pasal','Nama','required'); 
  		 
 		$this->form_validation->set_message('required', ' %s Harus diisi ');
 		
  		$this->form_validation->set_error_delimiters('', '<br>');
 		if($this->form_validation->run() == TRUE ) { 
-			
+			unset($data['id']);
 			 
 
-			$arr_pasal['id_fungsi'] = $data['txt_id_fungsi'];
-			$arr_pasal['pasal'] = $data['txt_pasal'];
 
- 			
+ 			$data['lap_b_id'] = $lap_b_id;
+
+ 			 
 			 
 
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
 
-			 $res = $this->db->insert("m_pasal",$arr_pasal);
+			 $res = $this->db->insert("lap_b_pasal",$data);
 			 if($res) {
-			 	$ret = array("error"=>false,"message"=>"data pasal berhasil disimpan",
+			 	$ret = array("error"=>false,"message"=>"data berhasil disimpan",
 			 		"mode"=>"I");
 			 }
 			 else {
