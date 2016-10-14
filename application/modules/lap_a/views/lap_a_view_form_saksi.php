@@ -111,7 +111,7 @@
               <?php 
                   $arr_rsdv = array("ya"=>"Ya","tidak"=>"Tidak");
 
-                  echo form_dropdown("saksi_residivis",$arr_rsdv,'','id="tersangka_residivis" class="form-control"');                ?>
+                  echo form_dropdown("saksi_residivis",$arr_rsdv,'','id="saksi_residivis" class="form-control"');                ?>
                 
               </TD></tr>
 

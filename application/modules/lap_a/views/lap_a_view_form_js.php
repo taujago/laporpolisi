@@ -288,12 +288,14 @@ function tambah_pasal() {
 
 }
 
-function pasal_simpan() {
-	 
-	// $("#frmModalPasal").submit(function(){
+
+
+function pasal_simpan(){
+	$('#myPleaseWait').modal('show');
+		
 		$.ajax({
-			url : $("#frmModalPasal").attr('action'),
-			data : $("#frmModalPasal").serialize(),
+			url : $("#form_pasal").attr('action'),
+			data : $("#form_pasal").serialize(),
 			dataType : 'json',
 			type : 'post',
 			success : function(obj) {
@@ -308,25 +310,10 @@ function pasal_simpan() {
 			                 
 			            });   
 						 
-						$("#pasalmodal").modal('hide'); // tutup modal 
-						$('#frmModalPasal')[0].reset();
-
-						$("#id_fungsi").val($("#txt_id_fungsi").val()).attr('selected','selected');
-
-						// refresh list 
-						$.ajax({
-
-							url : '<?php echo site_url("general/get_pasal") ?>',
-							data : {id_fungsi : $("#txt_id_fungsi").val()},
-							type : 'post',
-							success : function(htmldata) {
-								$("#id_pasal").html(htmldata);
-							}
-
-						});
-
-						 
-						
+						$("#pasalmodal").modal('hide'); 
+						$('#pasallap').DataTable().ajax.reload();						 
+						$('#form_pasal')[0].reset();
+						 		
 						 
 					}
 					else {
@@ -339,10 +326,11 @@ function pasal_simpan() {
 					}
 			}
 		});
-	// });
-	return false;
-} 
- 
+		return false;
+}
+
+
+
  
 function tersangka_add() {
 	 
@@ -366,16 +354,20 @@ $.ajax({
     success : function(jsonData) {
     $('#tersangka_modal').modal('show');
        $("#modal_tersangka_judul").html('EDIT DATA TERSANGKA');
-       $(".tombol").prop('value','UPDATE DATA TERSANGKA');       
-      $("#tersangka_nama").val(jsonData.tersangka_nama);
+       $(".tombol").prop('value','UPDATE DATA TERSANGKA');     
+
+       $("#form_tersangka").loadJSON(jsonData);
+
+
+      
       $("#tersangka_jk").val(jsonData.tersangka_jk).attr('selected','selected');
       $("#tersangka_id_suku").val(jsonData.tersangka_id_suku).attr('selected','selected');
-      $("#tersangka_tmp_lahir").val(jsonData.tersangka_tmp_lahir);
-      $("#tersangka_tgl_lahir").val(jsonData.tersangka_tgl_lahir);
+    
       $("#tersangka_id_agama").val(jsonData.tersangka_id_agama).attr('selected','selected');
       $("#tersangka_id_pekerjaan").val(jsonData.tersangka_id_pekerjaan).attr('selected','selected');
-      $("#tersangka_alamat").val(jsonData.tersangka_alamat);
-      $("#tersangka_id").val(jsonData.id);
+      $("#tersangka_residivis").val(jsonData.tersangka_residivis).attr('selected','selected');
+      $("#tersangka_klasifikasi").val(jsonData.tersangka_klasifikasi).attr('selected','selected');
+       $("#tersangka_id").val(jsonData.id);
       $("#tersangka_id_provinsi").val(jsonData.tersangka_prov_id).attr('selected','selected');
 
     
@@ -582,16 +574,20 @@ function korban_edit(id){
     $("#modal_korban").modal('show');
        $("#modal_korban_judul").html('EDIT DATA KORBAN');
        $(".tombol").prop('value','UPDATE DATA KORBAN');
-      $("#korban_nama").val(jsonData.korban_nama);
-      $("#korban_jk").val(jsonData.korban_jk).attr('selected','selected');
+       $("#form_korban").loadJSON(jsonData);
+       $("#korban_jk").val(jsonData.korban_jk).attr('selected','selected');
       $("#korban_id_suku").val(jsonData.korban_id_suku).attr('selected','selected');
-      $("#korban_tmp_lahir").val(jsonData.korban_tmp_lahir);
-      $("#korban_tgl_lahir").val(jsonData.korban_tgl_lahir);
+     
       $("#korban_id_agama").val(jsonData.korban_id_agama).attr('selected','selected');
       $("#korban_id_pekerjaan").val(jsonData.korban_id_pekerjaan).attr('selected','selected');
-      $("#korban_alamat").val(jsonData.korban_alamat);
+    
       $("#korban_id").val(jsonData.id);
       $("#korban_id_provinsi").val(jsonData.korban_prov_id).attr('selected','selected');
+		$("#korban_residivis").val(jsonData.korban_residivis).attr('selected','selected');
+		$("#korban_klasifikasi").val(jsonData.korban_klasifikasi).attr('selected','selected');
+
+      
+
 
     
     $.ajax({
@@ -763,16 +759,21 @@ function saksi_edit(id){
     $("#modal_saksi").modal('show');
        $("#modal_saksi_judul").html('EDIT DATA saksi');
        $(".tombol").prop('value','UPDATE DATA saksi');
-      $("#saksi_nama").val(jsonData.saksi_nama);
+    
+      $("#form_saksi").loadJSON(jsonData);
       $("#saksi_jk").val(jsonData.saksi_jk).attr('selected','selected');
       $("#saksi_id_suku").val(jsonData.saksi_id_suku).attr('selected','selected');
-      $("#saksi_tmp_lahir").val(jsonData.saksi_tmp_lahir);
-      $("#saksi_tgl_lahir").val(jsonData.saksi_tgl_lahir);
+    
       $("#saksi_id_agama").val(jsonData.saksi_id_agama).attr('selected','selected');
       $("#saksi_id_pekerjaan").val(jsonData.saksi_id_pekerjaan).attr('selected','selected');
-      $("#saksi_alamat").val(jsonData.saksi_alamat);
+      
       $("#saksi_id").val(jsonData.id);
       $("#saksi_id_provinsi").val(jsonData.saksi_prov_id).attr('selected','selected');
+      $("#saksi_residivis").val(jsonData.saksi_residivis).attr('selected','selected');
+      $("#saksi_klasifikasi").val(jsonData.saksi_klasifikasi).attr('selected','selected');
+
+      
+
 
     
     $.ajax({
@@ -1081,45 +1082,6 @@ function satuan_baru_batal(){
 
 
 
-
-function pasal_simpan(){
-	$('#myPleaseWait').modal('show');
-		
-		$.ajax({
-			url : $("#form_pasal").attr('action'),
-			data : $("#form_pasal").serialize(),
-			dataType : 'json',
-			type : 'post',
-			success : function(obj) {
-				$('#myPleaseWait').modal('hide');
-				 console.log(obj);
-				if(obj.error==false){
-					 	 
-					 	 BootstrapDialog.alert({
-			                type: BootstrapDialog.TYPE_PRIMARY,
-			                title: 'Informasi',
-			                message: obj.message,
-			                 
-			            });   
-						 
-						$("#pasalmodal").modal('hide'); 
-						$('#pasallap').DataTable().ajax.reload();						 
-						$('#form_pasal')[0].reset();
-						 		
-						 
-					}
-					else {
-						 BootstrapDialog.alert({
-			                type: BootstrapDialog.TYPE_DANGER,
-			                title: 'Error',
-			                message: obj.message ,
-			                 
-			            }); 
-					}
-			}
-		});
-		return false;
-}
 
 
 function pasal_hapus(id){

@@ -1169,12 +1169,12 @@ function pasal_add() {
 
 
 
-function pasal_simpan() {
-	 
-	// $("#frmModalPasal").submit(function(){
+function pasal_simpan(){
+	$('#myPleaseWait').modal('show');
+		
 		$.ajax({
-			url : $("#frmModalPasal").attr('action'),
-			data : $("#frmModalPasal").serialize(),
+			url : $("#form_pasal").attr('action'),
+			data : $("#form_pasal").serialize(),
 			dataType : 'json',
 			type : 'post',
 			success : function(obj) {
@@ -1189,25 +1189,10 @@ function pasal_simpan() {
 			                 
 			            });   
 						 
-						$("#pasalmodal").modal('hide'); // tutup modal 
-						$('#frmModalPasal')[0].reset();
-
-						$("#id_fungsi").val($("#txt_id_fungsi").val()).attr('selected','selected');
-
-						// refresh list 
-						$.ajax({
-
-							url : '<?php echo site_url("general/get_pasal") ?>',
-							data : {id_fungsi : $("#txt_id_fungsi").val()},
-							type : 'post',
-							success : function(htmldata) {
-								$("#id_pasal").html(htmldata);
-							}
-
-						});
-
-						 
-						
+						$("#pasalmodal").modal('hide'); 
+						$('#pasallap').DataTable().ajax.reload();						 
+						$('#form_pasal')[0].reset();
+						 		
 						 
 					}
 					else {
@@ -1220,9 +1205,74 @@ function pasal_simpan() {
 					}
 			}
 		});
-	// });
-	return false;
-} 
- 
+		return false;
+}
+
+
+
+
+function pasal_hapus(id){
+
+BootstrapDialog.show({
+            message : 'ANDA AKAN MENGHAPUS DATA PASAL. ANDA YAKIN  ?  ',
+            title: 'KONFIRMASI HAPUS DATA ',
+            draggable: true,
+            buttons : [
+              {
+                label : 'IYA',
+                cssClass : 'btn-primary',
+                hotkey: 13,
+                action : function(dialogItself){
+
+
+                  dialogItself.close();
+                  $('#myPleaseWait').modal('show'); 
+                  $.ajax({
+                  	url : '<?php echo site_url("$controller/pasal_hapus") ?>',
+                  	type : 'post',
+                  	data : {id : id},
+                  	dataType : 'json',
+                  	success : function(obj) {
+                  		$('#myPleaseWait').modal('hide'); 
+                  		if(obj.error==false) {
+                  				BootstrapDialog.alert({
+				                      type: BootstrapDialog.TYPE_PRIMARY,
+				                      title: 'Informasi',
+				                      message: obj.message,
+				                       
+				                  });   
+
+                  		 
+
+						$('#pasallap').DataTable().ajax.reload();						 
+						 
+
+
+
+                  		}
+                  		else {
+                  			BootstrapDialog.alert({
+			                      type: BootstrapDialog.TYPE_DANGER,
+			                      title: 'Error',
+			                      message: obj.message,
+			                       
+			                  }); 
+                  		}
+                  	}
+                  });
+
+                }
+              },
+              {
+                label : 'TIDAK',
+                cssClass : 'btn-danger',
+                action: function(dialogItself){
+                    dialogItself.close();
+                }
+              }
+            ]
+          });
+}
+
 
 </script>

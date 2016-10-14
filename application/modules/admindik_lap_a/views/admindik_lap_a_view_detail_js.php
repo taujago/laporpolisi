@@ -1,87 +1,53 @@
 <script type="text/javascript">
-
 $(document).ready(function(){
 
-  $(".tanggal").datepicker()
-		.on('changeDate', function(ev){                 
-		    $(this).datepicker('hide');
-		});
+   
 
-
-
-		 var dt_terlapor = $("#terlapor").DataTable(
+		 var dt = $("#grid_penyidik").DataTable(
 		 	{
 		 		// "order": [[ 0, "desc" ]],
 		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
+				"columnDefs": [ { "targets": 0, "orderable": true } ],
 				"processing": true,
 		        "serverSide": true,
-		        "bLengthChange": false,
-		        "bInfo": false,
-		        "ajax": '<?php echo site_url("$controller/get_lap_a_terlapor/$lap_a_id") ?>'
+		        "ajax": '<?php echo site_url("$controller/get_data_penyidik/$lap_a_id") ?>'
 		 	});
 
+		 
+		// $("#grid_penyidik").css("display","none");  
+		 
+		 
+
+				
 
 
-		 /// saksi section 
-			var dt_saksi = $("#saksi").DataTable(
-		 	{
-		 		// "order": [[ 0, "desc" ]],
-		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
-				"processing": true,
-		        "serverSide": true,
-		        "bLengthChange": false,
-		        "bInfo": false,
-		        "ajax": '<?php echo site_url("$controller/get_lap_a_saksi/$lap_a_id") ?>'
-		 	});
-
-		 	
-		 	var dt_korban = $("#korban").DataTable(
-		 	{
-		 		// "order": [[ 0, "desc" ]],
-		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
-				"processing": true,
-		        "serverSide": true,
-		        "bLengthChange": false,
-		        "bInfo": false,
-		        "ajax": '<?php echo site_url("$controller/get_lap_a_korban/$lap_a_id") ?>'
-		 	});
-
-		 	var dt_korban = $("#barbuk").DataTable(
-		 	{
-		 		// "order": [[ 0, "desc" ]],
-		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
-				"processing": true,
-		        "serverSide": true,
-		        "bLengthChange": false,
-		        "bInfo": false,
-		        "ajax": '<?php echo site_url("$controller/get_lap_a_barbuk/$lap_a_id") ?>'
-		 	});
-
-
-
+				 
  
 
 
-
-
-
+	
 });
 
 
 
- 
 
-function simpan_penyidik(){
-   $.ajax({
-      url : $("#form_penyidik").attr('action'),
-      data : $("#form_penyidik").serialize(),
-      type : 'post',
-      dataType : 'json',
-      success : function(obj) {
+function penyidik_baru() {
+   
+  $("#peyidik_modal").modal("show");
+  $("#formulir_penyidik").attr('action','<?php echo site_url("$controller/penyidik_simpan/$lap_a_id") ?>');
+  $("#titleModal").html('TAMBAH DATA PENYIDIK');
+}
+
+
+function penyidik_simpan(){
+  $('#myPleaseWait').modal('show');
+  $.ajax({
+    url : $("#formulir_penyidik").prop('action'),
+    data : $("#formulir_penyidik").serialize(), 
+    method : 'post',
+    dataType : 'json',
+    success : function(obj) {
+      $('#myPleaseWait').modal('hide');
 
       if(obj.error==false){
              
@@ -92,6 +58,8 @@ function simpan_penyidik(){
                    
               });   
          
+        $("#peyidik_modal").modal('hide'); 
+        $('#grid_penyidik').DataTable().ajax.reload(); 
        
          
       }
@@ -104,11 +72,68 @@ function simpan_penyidik(){
               }); 
       }
 
-
-
-      }
-   });
+    }
+  });
 }
 
+
+function penyidik_hapus(id){
+
+BootstrapDialog.show({
+            message : 'ANDA AKAN MENGHAPUS DATA PENYIDIK. ANDA YAKIN  ?  ',
+            title: 'KONFIRMASI HAPUS DATA PENYIDIK',
+            draggable: true,
+            buttons : [
+              {
+                label : 'IYA',
+                cssClass : 'btn-primary',
+                hotkey: 13,
+                action : function(dialogItself){
+
+
+                  dialogItself.close();
+                  $('#myPleaseWait').modal('show'); 
+                  $.ajax({
+                  	url : '<?php echo site_url("$controller/penyidik_hapus") ?>',
+                  	type : 'post',
+                  	data : {id : id},
+                  	dataType : 'json',
+                  	success : function(obj) {
+                  		$('#myPleaseWait').modal('hide'); 
+                  		if(obj.error==false) {
+                  				BootstrapDialog.alert({
+				                      type: BootstrapDialog.TYPE_PRIMARY,
+				                      title: 'Informasi',
+				                      message: obj.message,
+				                       
+				                  });   
+
+                  		$('#leasing').DataTable().ajax.reload();		
+                  		}
+                  		else {
+                  			BootstrapDialog.alert({
+			                      type: BootstrapDialog.TYPE_DANGER,
+			                      title: 'Error',
+			                      message: obj.message,
+			                       
+			                  }); 
+                  		}
+                  	}
+                  });
+
+                }
+              },
+              {
+                label : 'TIDAK',
+                cssClass : 'btn-danger',
+                action: function(dialogItself){
+                    dialogItself.close();
+                }
+              }
+            ]
+          });
+}
+ 		 
+	   
 
 </script>

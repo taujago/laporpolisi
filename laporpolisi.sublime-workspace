@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"arr",
+				"arr_fungsi"
+			],
+			[
+				"tersangka",
+				"tersangka_id"
+			],
+			[
+				"korban",
+				"korban_id"
+			],
+			[
+				"json",
+				"jsonData"
+			],
+			[
+				"barang",
+				"barang_bukti"
+			],
+			[
 				"id",
 				"id_kelompok"
 			],
@@ -72,16 +92,8 @@
 				"sub_filter"
 			],
 			[
-				"json",
-				"json_data"
-			],
-			[
 				"temp",
 				"temp_lap_a_id"
-			],
-			[
-				"arr",
-				"arr_jk"
 			],
 			[
 				"fungsi",
@@ -98,10 +110,6 @@
 			[
 				"tangga",
 				"tanggal_awal"
-			],
-			[
-				"tersangka",
-				"tersangka_nama"
 			],
 			[
 				"barbuk",
@@ -139,6 +147,15 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "UPDATE SISTEM LAPORAN POLISI.txt",
+			"settings":
+			{
+				"buffer_size": 3431,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -172,16 +189,71 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/firman/htdocs/laporpolisi"
+		"/Users/firman/htdocs/laporpolisi",
+		"/Users/firman/htdocs/laporpolisi/application",
+		"/Users/firman/htdocs/laporpolisi/application/modules",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_a",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_a/controllers",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_a/models",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_a/views",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_b",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_b/controllers",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_b/models",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_b/views",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_lantas",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_lantas/controllers",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_lantas/models",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_lantas/views",
+		"/Users/firman/htdocs/laporpolisi/application/modules/pasal/controllers",
+		"/Users/firman/htdocs/laporpolisi/application/modules/pasal/models"
 	],
 	"file_history":
 	[
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_lantas/views/lap_lantas_view_form_pasal.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_lantas/views/lap_lantas_view_form.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_a/views/lap_a_view_form_js.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_lantas/views/lap_lantas_view_form_js.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_a/controllers/lap_a.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_b/models/lap_b_model.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_lantas/models/lap_lantas_model.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_lantas/controllers/lap_lantas.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_a/views/lap_a_view_form_pasal.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_b/views/lap_b_view_form_js.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_a/views/lap_a_view_form.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_a/models/lap_a_model.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_lantas/views/lap_lantas_view_form_pengemudi.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_lantas/views/lap_lantas_view_form_korban.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_lantas/views/lap_lantas_view_form_kendaraan.php",
+		"/Users/firman/htdocs/laporpolisi/contoh.sql",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_a/views/lap_a_view_form_tersangka.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_lantas/views/lap_lantas_view_form_saksi.php",
+		"/Users/firman/htdocs/laporpolisi/contoh.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_lantas/views/lap_lantas_view_js.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_b/controllers/lap_b.php",
+		"/Users/firman/htdocs/laporpolisi/UPDATE SISTEM LAPORAN POLISI.txt",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_b/views/lap_b_view_form.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_b/views/lap_b_view_form_pasal.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_a/views/lap_a_view_form_korban.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_a/views/lap_a_view_form_saksi.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_a/views/lap_a_view_form_barbuk.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_a/views/lap_a_view_detail_form_saksi.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/pasal/controllers/pasal.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_b/views/lap_b_view_form_tersangka.php",
+		"/Users/firman/Desktop/machine_spec.txt",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_b/views/lap_b_view_form_saksi.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/pasal/models/pasal_model.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_b/views/lap_b_view_form_barbuk.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/lap_b/views/lap_b_view_form_korban.php",
+		"/Users/firman/htdocs/laporpolisi/application/libraries/master_controller.php",
+		"/Users/firman/htdocs/laporpolisi/application/views/template_baru.php",
+		"/Users/firman/htdocs/laporpolisi/application/views/template.php",
+		"/Users/firman/htdocs/laporpolisi/application/modules/pasal/views/pasal_view.php",
+		"/Users/firman/htdocs/laporpolisi/application/views/contoh.php",
 		"/Users/firman/htdocs/pusiknas/application/views/template_admin.php",
 		"/Users/firman/htdocs/pusiknas/application/modules/lap_a/views/lap_a_view_form.php",
 		"/Users/firman/htdocs/pusiknas/application/helpers/tanggal_helper.php",
 		"/Users/firman/htdocs/pusiknas/application/modules/lap_a/controllers/lap_a.php",
 		"/Users/firman/htdocs/pusiknas/UPDATE SISTEM LAPORAN POLISI.txt",
-		"/Users/firman/Desktop/machine_spec.txt",
 		"/Users/firman/htdocs/pusiknas/application/modules/admin_tempat/models/admin_tempat_model.php",
 		"/Users/firman/htdocs/pusiknas/application/modules/admin_tempat/controllers/admin_tempat.php",
 		"/Users/firman/htdocs/pusiknas/application/modules/admin_tempat/views/admin_tempat_view.php",
@@ -264,46 +336,7 @@
 		"/Users/firman/htdocs/pusiknas/application/modules/penyidik_lap_a/views/penyidik_lap_a_view_detail.php",
 		"/Users/firman/htdocs/pusiknas/application/modules/penyidik_lap_a/controllers/penyidik_lap_a.php",
 		"/Users/firman/htdocs/pusiknas/application/modules/penyidik_lap_a/models/penyidik_lap_a_model.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/lap_a/views/lap_a_view_detail_js.php",
-		"/Users/firman/htdocs/pusiknas/application/controllers/index_penyidik.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/penyidik_lap_a/views/penyidik_lap_a_view.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admindik_lap_a/views/admindik_lap_a_view.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admindik_lap_b/views/admindik_lap_b_view.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admindik_lap_b/views/admindik_lap_b_view_detail.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admindik_lap_b/views/admindik_lap_b_view_detail_js.php",
-		"/Users/firman/htdocs/pusiknas/application/libraries/penyidik_controller.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admindik_lap_a/views/admindik_lap_a_view_detail_js.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admindik_lap_a/views/admindik_lap_a_view_detail.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admindik_lap_a/controllers/admindik_lap_a.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admindik_lap_b/controllers/admindik_lap_b.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admindik_lap_b/models/admindik_lap_b_model.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admin_pengguna/views/admin_pengguna_view_js.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admindik_penyidik/views/admindik_penyidik_view_js.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admindik_penyidik/models/penyidik_model.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admindik_penyidik/controllers/admindik_penyidik.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admindik_penyidik/views/admindik_penyidik_view_form.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admindik_penyidik/views/admindik_penyidik_view.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admin_pengguna/views/admin_pengguna_view_form.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admin_pengguna/models/a_pengguna_model.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admin_polsek/views/admin_polsek_view.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admin_polsek/models/polsek_model.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admin_polsek/controllers/admin_polsek.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admin_polsek/views/admin_polsek_view_form.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admin_polsek/views/admin_polsek_view_js.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admin_polres/models/polres_model.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admin_polres/controllers/admin_polres.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admin_polres/views/admin_polres_view.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admin_polres/views/admin_polres_view_form.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/admin_polres/views/admin_polres_view_js.php",
-		"/Users/firman/htdocs/pusiknas/application/views/template_polisi.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/lap_a/views/lap_a_view_detail_form_saksi.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/lap_a/views/lap_a_view_detail_backup.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/lap_a/views/lap_a_view_detail_form_barbuk.php",
-		"/Users/firman/htdocs/pusiknas/application/helpers/serviceurl_helper.php",
-		"/Users/firman/htdocs/pusiknas/application/third_party/MX/Loader.php",
-		"/Users/firman/htdocs/pusiknas/application/libraries/excel/system/libraries/Session.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/lap_a/views/lap_a_view_detail_form_korban.php",
-		"/Users/firman/htdocs/pusiknas/application/modules/login/views/login_view.php"
+		"/Users/firman/htdocs/pusiknas/application/modules/lap_a/views/lap_a_view_detail_js.php"
 	],
 	"find":
 	{
@@ -321,6 +354,108 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"lap_a",
+			"get_lap_laka_pasal",
+			"laka",
+			"lap_b",
+			"lap_a",
+			"temp_lap_a_id",
+			"lap_a",
+			"temp_lap_lantas_id",
+			"lap_a",
+			"pasal",
+			"cidera",
+			"pengemudi_cidera",
+			"jk",
+			"korban_",
+			"orban_",
+			"tersangka_",
+			"korban",
+			"alamat_pemilik",
+			"nama_pemilik",
+			"korban_",
+			"nama_pemilik",
+			"korban_jk",
+			"pengemudi_",
+			"engemudi_",
+			"korban",
+			"pengemudi",
+			"tersangka_",
+			"pelapor",
+			"pelapo",
+			"lap_b",
+			"b_",
+			"pasal",
+			"barbuk_",
+			"barbuk",
+			"tersangka_residivis",
+			"tesangka_residivis",
+			"residi",
+			"saksi_residivis",
+			"$(\"#korban",
+			"korbanmo",
+			"korban_no_kitas",
+			"korban_residivis",
+			"korban_id_pendidikan",
+			"korban_wn",
+			"korban_id",
+			"admin_",
+			"admin_pasal",
+			"polsek_",
+			"admin_polsek",
+			"barbuk",
+			"name=\"id\"",
+			"barbuk_baru",
+			"barbuk_",
+			"pasal",
+			"modal",
+			"temp_get_lap_b_pasal",
+			"barbuk",
+			"barang bukti",
+			"barbukmodal",
+			"barbuk_jumlah",
+			"barbuk_nama",
+			"barbuk_jumlah",
+			"nama",
+			"barbuk_jk",
+			"pelapor_",
+			"pelapor",
+			"kec",
+			"desa",
+			"kejadian_apa",
+			"kejadian_uraian",
+			"kejadian_apa",
+			"tindak_pidana",
+			"lap_a",
+			"lap_b",
+			"saksi",
+			"ersangka",
+			"korban_",
+			"tersangka_",
+			"tesangka",
+			"saksi",
+			"                \n",
+			"kp_tempat",
+			"kp_",
+			"arr_jenis_lokasi",
+			"kp_uraian_singkat",
+			"barang bukti",
+			"satuan_jumlah",
+			"satuan_baru",
+			"barbuk_",
+			"barbuk_baru",
+			"barbuk_nama",
+			"barang_bukti",
+			"barbuk",
+			"korban_",
+			"saksi_",
+			"tersangka_",
+			",",
+			"tersangka_nik",
+			"pelapor_tel",
+			"pelapor_subdit",
+			",",
+			"pelapor",
 			"enis_lokasi",
 			"jenis_lokasi",
 			"KATEGORI TEMPAT",
@@ -346,109 +481,7 @@
 			"akk_model",
 			"admin_kelompok_kejahatan",
 			"id_kelompok",
-			"arr_kelompok",
-			"id_kelompok",
-			"arr_kelompok",
-			"m_golongan_kejahatan",
-			"DATA POLSEK",
-			"GOLOGNAN KEJAHATAN",
-			"GOLOGNAN",
-			"id_kelompok",
-			"agk_model",
-			"admin_golongan_kejahatan",
-			"POLSEK",
-			"admin_polsek",
-			"polsek_model",
-			"nama_polres",
-			"id_polres",
-			"m_polres",
-			"polres_model",
-			"admin_polres",
-			"data",
-			"temp_",
-			"temp_get_lap_lantas_korban",
-			"get_lap_laka_lantas_pengemudi",
-			"get_lap_lantas_pengemudi",
-			"tmp_",
-			"temp_",
-			"barbuk",
-			"EDIT",
-			"barbuk",
-			"temp_get_lap_lantas_kendaraan",
-			"a_barbuk",
-			"barbuk",
-			"korban",
-			"barbuk_",
-			"form_barbuk",
-			"barbuk_",
-			"LAPORAN",
-			"TIPE D",
-			"TIPE C",
-			"pengemudi_",
-			"saksi_",
-			"saksi",
-			"tersangka",
-			"tidak pi",
-			"pelapor",
-			"arr_kelompok_kejahan",
-			"kesatuan",
-			"pelapor",
-			"Nrp",
-			"values",
-			"TIPE C",
-			"MODEL-B",
-			"TIPE A",
-			"TIPE B",
-			"$id",
-			"id_fungsi",
-			"tanggal",
-			"tagngal",
-			"orban",
-			"tanggal",
-			"lap_c_id",
-			"lab_d",
-			"lab_p_model",
-			"lab_d_model",
-			"lab_d",
-			"lap_a",
-			"catatan_",
-			"lap_a_catatan",
-			"saksi_",
-			"get_lap_a_catatan",
-			"get_lap_a_saksi",
-			"pasalmodal",
-			"pasal",
-			"barang buk",
-			"barang",
-			"admindik",
-			"index_admindik",
-			"admindik",
-			"lap_a_id",
-			"lap_b_model",
-			"lap_b",
-			")",
-			"(",
-			"render_baru",
-			"lap_a_model",
-			"lap_a",
-			"2",
-			"a_pengguna_model",
-			"admin_pengguna",
-			"admin_controller",
-			"jsonData",
-			" $(\"#jenis\").val()",
-			"level",
-			"$param['",
-			"polres",
-			"id_polres",
-			"_",
-			"id_polres",
-			"polres",
-			"POLRES",
-			"polres_model",
-			"admin_polres",
-			"id",
-			"a_pengguna_model"
+			"arr_kelompok"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -466,8 +499,39 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "UPDATE SISTEM LAPORAN POLISI.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3431,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2913,
+								2913
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1192.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -519,6 +583,18 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"template_baru.php",
+				"application/views/template_baru.php"
+			],
+			[
+				"template.php",
+				"application/views/template.php"
+			],
+			[
+				"master",
+				"application/libraries/master_controller.php"
+			],
 			[
 				"tan",
 				"application/helpers/tanggal_helper.php"
@@ -576,16 +652,8 @@
 				"application/views/template_baru.php"
 			],
 			[
-				"master",
-				"application/libraries/master_controller.php"
-			],
-			[
 				"baru",
 				"application/controllers/depan_baru.php"
-			],
-			[
-				"template_baru.php",
-				"application/views/template_baru.php"
 			],
 			[
 				"master_con",
