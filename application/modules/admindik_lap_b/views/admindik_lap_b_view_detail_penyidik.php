@@ -47,7 +47,7 @@
 
                </TD></tr></table>
             <input type="hidden" name="id" value=""  id="id"  />   
-            <input type="hidden" name="lap_a_id" value=""  id="lap_a_id" value="<?php echo $lap_a_id; ?>"  /> 
+            <input type="hidden" name="lap_b_id" value=""  id="lap_b_id" value="<?php echo $lap_b_id; ?>"  /> 
             
              </form>
 

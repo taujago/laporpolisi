@@ -55,41 +55,41 @@
     <div role="tabpanel" class="tab-pane" id="pasal">
     
     
-    <?php  // $this->load->view($this->controller."_view_detail_pasal"); ?>
+    <?php   $this->load->view($this->controller."_view_detail_pasal"); ?>
 
     </div>
     <div role="tabpanel" class="tab-pane" id="tersangka">
     
-    <?php // $this->load->view($this->controller."_view_detail_tersangka"); ?>
+    <?php  $this->load->view($this->controller."_view_detail_tersangka"); ?>
        
 
     </div>
 
     <div role="tabpanel" class="tab-pane" id="saksi">
 
-    <?php // $this->load->view($this->controller."_view_detail_saksi"); ?>
+    <?php  $this->load->view($this->controller."_view_detail_saksi"); ?>
          
 
     </div>
 
     <div role="tabpanel" class="tab-pane" id="korban">
-      <?php // $this->load->view($this->controller."_view_detail_korban"); ?>
+      <?php  $this->load->view($this->controller."_view_detail_korban"); ?>
 
     </div>
 
     <div role="tabpanel" class="tab-pane" id="barangbukti">
 
-    <?php // $this->load->view($this->controller."_view_detail_barbuk"); ?>
+    <?php   $this->load->view($this->controller."_view_detail_barbuk"); ?>
 
     </div>
     <div role="tabpanel" class="tab-pane" id="penyidik">
 
-    <?php // $this->load->view($this->controller."_view_detail_penyidik"); ?>  
+    <?php  $this->load->view($this->controller."_view_detail_penyidik"); ?>  
 
     </div>
     <div role="tabpanel" class="tab-pane" id="perkembagan">
 
-    <?php // $this->load->view($this->controller."_view_detail_perkembangan"); ?>  
+   <?php   $this->load->view($this->controller."_view_detail_perkembangan"); ?>  
 
     </div>
   </div>
