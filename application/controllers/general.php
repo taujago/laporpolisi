@@ -247,5 +247,16 @@ function get_dropdown_gol_kejahatan(){
 
 }
 
+function get_tahap($id) {
+	$this->db->where("id_lidik",$id);
+	$res = $this->db->get("m_tahap");
+	foreach($res->result() as $row ) :
+			 
+			$html .= "<option value=$row->id > $row->tahap </option>"; 
+	endforeach;
+	echo $html;
+
+}
+
 
 }

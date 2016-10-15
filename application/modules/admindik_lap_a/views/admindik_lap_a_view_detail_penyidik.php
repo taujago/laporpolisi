@@ -45,22 +45,9 @@
                 echo form_dropdown("id_penyidik",$arr_penyidik,'','id="id_penyidik" class="form-control"');
               ?>
 
-               </TD></tr>
-
-
-          
-
- 
-
-
-
-                 
-
-                
-              
-            </table>
-            <input type="hidden" name="id" value=""  id="id"  />
-       
+               </TD></tr></table>
+            <input type="hidden" name="id" value=""  id="id"  />   
+            <input type="hidden" name="lap_a_id" value=""  id="lap_a_id" value="<?php echo $lap_a_id; ?>"  /> 
             
              </form>
 

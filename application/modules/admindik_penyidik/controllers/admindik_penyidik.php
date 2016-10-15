@@ -275,19 +275,6 @@ function update(){
 		
 	}
 	
-function hapus(){
-	$data = $this->input->post();
-	$this->db->where("id",$data['id']);
-	$res = $this->db->delete("pengguna");
-	if($res){
-		$ret = array("error"=>false,"message"=>"Data Berhasi dihapus");
-
-	}
-	else {
-		$ret = array("error"=>true,"message"=>"Data gagal dihapus");
-	}
-	echo json_encode($ret);
-}
 
 function get_json_detail($id){
 	$data = $this->dm->detail($id)->row_array();

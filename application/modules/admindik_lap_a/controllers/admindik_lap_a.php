@@ -197,7 +197,7 @@ function get_data_penyidik($lap_a_id){
         foreach($result as $row) : 
         //$daft_id = $row['daft_id'];
              
-            $id = $row['id'];
+            $id = $row['idlp'];
             $polres_polsek = "";
 
             //echo "jenis =". $row['jenis'] . "<br />";
@@ -244,11 +244,13 @@ function get_data_penyidik($lap_a_id){
  
 
  
+// function cek_penyidik($id_penyidik)
+
 function penyidik_simpan($lap_a_id){
         $data=$this->input->post();
         
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('id_penyidik','Penyidik','required'); 
+        $this->form_validation->set_rules('id_penyidik','Penyidik','call_back_cek_penyidik'); 
          
                 
          
@@ -281,6 +283,23 @@ function penyidik_simpan($lap_a_id){
         echo json_encode($ret);
         
     }
+
+
+function penyidik_hapus(){
+    $data = $this->input->post();
+    $this->db->where("id",$data['id']);
+    $res = $this->db->delete("lap_a_penyidik");
+
+    // echo $this->db->last_query();
+    if($res){
+        $ret = array("error"=>false,"message"=>"Data Berhasi dihapus");
+
+    }
+    else {
+        $ret = array("error"=>true,"message"=>"Data gagal dihapus");
+    }
+    echo json_encode($ret);
+}
 
 }
 ?>

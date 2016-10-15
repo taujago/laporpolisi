@@ -108,7 +108,8 @@ BootstrapDialog.show({
 				                       
 				                  });   
 
-                  		$('#leasing').DataTable().ajax.reload();		
+                  		$('#grid_penyidik').DataTable().ajax.reload(); 
+                      
                   		}
                   		else {
                   			BootstrapDialog.alert({
