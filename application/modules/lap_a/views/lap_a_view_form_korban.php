@@ -146,7 +146,8 @@
       "id","provinsi",'provinsi');
 
                   echo form_dropdown("",$arr_provinsi,'','id="korban_id_provinsi" class="form-control" onchange="get_kota(this,\'#korban_id_kota\',1)"'); 
-                  ?><tr><td>Kabupaten / Kota </td>
+                  ?>
+                  <tr><td>Kabupaten / Kota </td>
               <TD>
           <?php
           echo form_dropdown("",array(),'','id="korban_id_kota" class="form-control" onchange="get_kecamatan(this,\'#korban_id_kecamatan\',1)"'); 
@@ -157,7 +158,7 @@
                 ?></TD></tr>
               <tr><td>Desa / Kelurahan </td>
               <TD>
-          <?php 
+              <?php 
                   
 
                   echo form_dropdown("korban_id_desa",array(),'','id="korban_id_desa" class="form-control" '); 
