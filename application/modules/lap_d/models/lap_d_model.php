@@ -92,9 +92,23 @@ function data($param){
  
 function detail($id){
  
-	 $this->db->select('lp.*, p.pangkat as pen_lapor_pangkat ')
+	 $this->db->select('lp.*, p.pangkat as pen_lapor_pangkat,
+	 			desa.desa, 
+				kec.id as kejadian_kec_id, 
+				kec.kecamatan, 
+				kota.id as kejadian_kota_id, 
+				kota.kota, 
+				prov.id as kejadian_prov_id, 
+				prov.provinsi, 
+	  ')
 	 ->from("lap_d lp")
-	 ->join("m_pangkat p","lp.pen_lapor_id_pangkat = p.id_pangkat","left");
+	 ->join("m_pangkat p","lp.pen_lapor_id_pangkat = p.id_pangkat","left")
+
+	 ->join('tiger_desa desa','desa.id = lp.kejadian_id_desa ','left')
+	->join('tiger_kecamatan kec','kec.id = desa.id_kecamatan ','left')
+	->join('tiger_kota kota','kota.id = kec.id_kota ','left')
+	->join('tiger_provinsi prov','prov.id = kota.id_provinsi','left')
+	 ;
 
 	 $this->db->where("lp.lap_d_id",$id);
 	 $data = $this->db->get()->row_array();
