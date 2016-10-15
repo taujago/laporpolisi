@@ -408,7 +408,7 @@ function detail($id){
 
 	$detail = $this->dm->detail($id);
 
-	show_array($detail);
+	// show_array($detail);
 	
 	$detail['tanggal'] = flipdate($detail['tanggal']);
 	$detail['kp_dilaporkan_pada'] = flipdate($detail['kp_dilaporkan_pada']);

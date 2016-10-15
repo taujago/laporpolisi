@@ -1,407 +1,53 @@
 <script type="text/javascript">
-
 $(document).ready(function(){
 
-  $(".tanggal").datepicker()
-		.on('changeDate', function(ev){                 
-		    $(this).datepicker('hide');
-		});
+   
 
-
-
-		 var dt_terlapor = $("#terlapor").DataTable(
+		 var dt = $("#grid_penyidik").DataTable(
 		 	{
 		 		// "order": [[ 0, "desc" ]],
 		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
+				"columnDefs": [ { "targets": 0, "orderable": true } ],
 				"processing": true,
 		        "serverSide": true,
-		        "bLengthChange": false,
-		        "bInfo": false,
-		        "ajax": '<?php echo site_url("$controller/get_lap_b_terlapor/$lap_b_id") ?>'
+		        "ajax": '<?php echo site_url("$controller/get_data_penyidik/$lap_a_id") ?>'
 		 	});
 
+		 
+		// $("#grid_penyidik").css("display","none");  
+		 
+		 
+
+				
 
 
+				 
+ 
 
 
-
-		 /// saksi section 
-			var dt_saksi = $("#saksi").DataTable(
-		 	{
-		 		// "order": [[ 0, "desc" ]],
-		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
-				"processing": true,
-		        "serverSide": true,
-		        "bLengthChange": false,
-		        "bInfo": false,
-		        "ajax": '<?php echo site_url("$controller/get_lap_b_saksi/$lap_b_id") ?>'
-		 	});
-
-		 	
-		 	var dt_korban = $("#korban").DataTable(
-		 	{
-		 		// "order": [[ 0, "desc" ]],
-		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
-				"processing": true,
-		        "serverSide": true,
-		        "bLengthChange": false,
-		        "bInfo": false,
-		        "ajax": '<?php echo site_url("$controller/get_lap_b_korban/$lap_b_id") ?>'
-		 	});
-
-		 	var dt_korban = $("#barbuk").DataTable(
-		 	{
-		 		// "order": [[ 0, "desc" ]],
-		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
-				"processing": true,
-		        "serverSide": true,
-		        "bLengthChange": false,
-		        "bInfo": false,
-		        "ajax": '<?php echo site_url("$controller/get_lap_b_barbuk/$lap_b_id") ?>'
-		 	});
-
-
-
-
-		//  $("#add_tersangka").click(function(){  // tambah baru 
-		//  	// alert('hello');
-
-		//    $("#modal_tersangka").modal('show');
-		//    $("#modal_tersangka_judul").html('TAMBAH DATA TERSANGKA');
-		//    $(".tombol").prop('value','SIMPAN DATA TERSANGKA');
-		//    $("#form_tersangka").prop('action','<?php echo site_url("$controller/tersangka_simpan/$lap_b_id") ?>')
-		//  });
-
-		
-		// $("#add_saksi").click(function(){  // tambah baru 
-
-
-		//    $("#modal_saksi").modal('show');
-		//    // $("#modal_saksi_judul").html('TAMBAH DATA SAKSI');
-		//    // $(".tombol").prop('value','SIMPAN DATA SAKSI');
-		//    // $("#form_saksi").prop('action','<?php echo site_url("$controller/saksi_simpan/$lap_b_id") ?>');
-		//  });
-
-
-		// $("#form_tersangka").submit
-
-	$("#form_tersangka").submit(function(){  // formulir tersangka handler 
-
-
-
-
-		$('#myPleaseWait').modal('show');
-		
-		$.ajax({
-			url : $("#form_tersangka").attr('action'),
-			data : $(this).serialize(),
-			dataType : 'json',
-			type : 'post',
-			success : function(obj) {
-				$('#myPleaseWait').modal('hide');
-				 console.log(obj);
-				if(obj.error==false){
-					 	 
-					 	 BootstrapDialog.alert({
-			                type: BootstrapDialog.TYPE_PRIMARY,
-			                title: 'Informasi',
-			                message: obj.message,
-			                 
-			            });   
-						 
-						$("#modal_tersangka").modal('hide'); 
-						$('#terlapor').DataTable().ajax.reload();			
-						 
-					}
-					else {
-						 BootstrapDialog.alert({
-			                type: BootstrapDialog.TYPE_DANGER,
-			                title: 'Error',
-			                message: obj.message ,
-			                 
-			            }); 
-					}
-			}
-		});
-		return false;
-	 
-	});
-
-
-
-
-
-
+	
 });
 
 
 
 
-
-function tersangka_hapus(id){
-
-BootstrapDialog.show({
-            message : 'ANDA AKAN MENGHAPUS DATA TERSANGKA. ANDA YAKIN  ?  ',
-            title: 'KONFIRMASI HAPUS DATA ',
-            draggable: true,
-            buttons : [
-              {
-                label : 'IYA',
-                cssClass : 'btn-primary',
-                hotkey: 13,
-                action : function(dialogItself){
-
-
-                  dialogItself.close();
-                  $('#myPleaseWait').modal('show'); 
-                  $.ajax({
-                  	url : '<?php echo site_url("$controller/tersangka_hapus") ?>',
-                  	type : 'post',
-                  	data : {id : id},
-                  	dataType : 'json',
-                  	success : function(obj) {
-                  		$('#myPleaseWait').modal('hide'); 
-                  		if(obj.error==false) {
-                  				BootstrapDialog.alert({
-				                      type: BootstrapDialog.TYPE_PRIMARY,
-				                      title: 'Informasi',
-				                      message: obj.message,
-				                       
-				                  });   
-
-                  		$('#terlapor').DataTable().ajax.reload();	
-
-
-
-                  		}
-                  		else {
-                  			BootstrapDialog.alert({
-			                      type: BootstrapDialog.TYPE_DANGER,
-			                      title: 'Error',
-			                      message: obj.message,
-			                       
-			                  }); 
-                  		}
-                  	}
-                  });
-
-                }
-              },
-              {
-                label : 'TIDAK',
-                cssClass : 'btn-danger',
-                action: function(dialogItself){
-                    dialogItself.close();
-                }
-              }
-            ]
-          });
-}
- 		
-
-
-
-
-
-
-function saksi_hapus(id){
-
-BootstrapDialog.show({
-            message : 'ANDA AKAN MENGHAPUS DATA SAKSI. ANDA YAKIN  ?  ',
-            title: 'KONFIRMASI HAPUS DATA ',
-            draggable: true,
-            buttons : [
-              {
-                label : 'IYA',
-                cssClass : 'btn-primary',
-                hotkey: 13,
-                action : function(dialogItself){
-
-
-                  dialogItself.close();
-                  $('#myPleaseWait').modal('show'); 
-                  $.ajax({
-                  	url : '<?php echo site_url("$controller/saksi_hapus") ?>',
-                  	type : 'post',
-                  	data : {id : id},
-                  	dataType : 'json',
-                  	success : function(obj) {
-                  		$('#myPleaseWait').modal('hide'); 
-                  		if(obj.error==false) {
-                  				BootstrapDialog.alert({
-				                      type: BootstrapDialog.TYPE_PRIMARY,
-				                      title: 'Informasi',
-				                      message: obj.message,
-				                       
-				                  });   
-
-                  		$('#saksi').DataTable().ajax.reload();	
-
-
-
-                  		}
-                  		else {
-                  			BootstrapDialog.alert({
-			                      type: BootstrapDialog.TYPE_DANGER,
-			                      title: 'Error',
-			                      message: obj.message,
-			                       
-			                  }); 
-                  		}
-                  	}
-                  });
-
-                }
-              },
-              {
-                label : 'TIDAK',
-                cssClass : 'btn-danger',
-                action: function(dialogItself){
-                    dialogItself.close();
-                }
-              }
-            ]
-          });
-}
- 	
-
-
-function korban_hapus(id){
-
-BootstrapDialog.show({
-            message : 'ANDA AKAN MENGHAPUS DATA KORBAN. ANDA YAKIN  ?  ',
-            title: 'KONFIRMASI HAPUS DATA ',
-            draggable: true,
-            buttons : [
-              {
-                label : 'IYA',
-                cssClass : 'btn-primary',
-                hotkey: 13,
-                action : function(dialogItself){
-
-
-                  dialogItself.close();
-                  $('#myPleaseWait').modal('show'); 
-                  $.ajax({
-                  	url : '<?php echo site_url("$controller/korban_hapus") ?>',
-                  	type : 'post',
-                  	data : {id : id},
-                  	dataType : 'json',
-                  	success : function(obj) {
-                  		$('#myPleaseWait').modal('hide'); 
-                  		if(obj.error==false) {
-                  				BootstrapDialog.alert({
-				                      type: BootstrapDialog.TYPE_PRIMARY,
-				                      title: 'Informasi',
-				                      message: obj.message,
-				                       
-				                  });   
-
-                  		$('#korban').DataTable().ajax.reload();	
-
-
-
-                  		}
-                  		else {
-                  			BootstrapDialog.alert({
-			                      type: BootstrapDialog.TYPE_DANGER,
-			                      title: 'Error',
-			                      message: obj.message,
-			                       
-			                  }); 
-                  		}
-                  	}
-                  });
-
-                }
-              },
-              {
-                label : 'TIDAK',
-                cssClass : 'btn-danger',
-                action: function(dialogItself){
-                    dialogItself.close();
-                }
-              }
-            ]
-          });
+function penyidik_baru() {
+   
+  $("#peyidik_modal").modal("show");
+  $("#formulir_penyidik").attr('action','<?php echo site_url("$controller/penyidik_simpan/$lap_a_id") ?>');
+  $("#titleModal").html('TAMBAH DATA PENYIDIK');
 }
 
 
-
-
-
-function barbuk_hapus(id){
-
-BootstrapDialog.show({
-            message : 'ANDA AKAN MENGHAPUS DATA BARANG BUKTI. ANDA YAKIN  ?  ',
-            title: 'KONFIRMASI HAPUS DATA ',
-            draggable: true,
-            buttons : [
-              {
-                label : 'IYA',
-                cssClass : 'btn-primary',
-                hotkey: 13,
-                action : function(dialogItself){
-
-
-                  dialogItself.close();
-                  $('#myPleaseWait').modal('show'); 
-                  $.ajax({
-                  	url : '<?php echo site_url("$controller/barbuk_hapus") ?>',
-                  	type : 'post',
-                  	data : {id : id},
-                  	dataType : 'json',
-                  	success : function(obj) {
-                  		$('#myPleaseWait').modal('hide'); 
-                  		if(obj.error==false) {
-                  				BootstrapDialog.alert({
-				                      type: BootstrapDialog.TYPE_PRIMARY,
-				                      title: 'Informasi',
-				                      message: obj.message,
-				                       
-				                  });   
-
-                  		$('#barbuk').DataTable().ajax.reload();	
-
-
-
-                  		}
-                  		else {
-                  			BootstrapDialog.alert({
-			                      type: BootstrapDialog.TYPE_DANGER,
-			                      title: 'Error',
-			                      message: obj.message,
-			                       
-			                  }); 
-                  		}
-                  	}
-                  });
-
-                }
-              },
-              {
-                label : 'TIDAK',
-                cssClass : 'btn-danger',
-                action: function(dialogItself){
-                    dialogItself.close();
-                }
-              }
-            ]
-          });
-}
-
-
-function simpan_penyidik(){
-   $.ajax({
-      url : $("#form_penyidik").attr('action'),
-      data : $("#form_penyidik").serialize(),
-      type : 'post',
-      dataType : 'json',
-      success : function(obj) {
+function penyidik_simpan(){
+  $('#myPleaseWait').modal('show');
+  $.ajax({
+    url : $("#formulir_penyidik").prop('action'),
+    data : $("#formulir_penyidik").serialize(), 
+    method : 'post',
+    dataType : 'json',
+    success : function(obj) {
+      $('#myPleaseWait').modal('hide');
 
       if(obj.error==false){
              
@@ -412,6 +58,8 @@ function simpan_penyidik(){
                    
               });   
          
+        $("#peyidik_modal").modal('hide'); 
+        $('#grid_penyidik').DataTable().ajax.reload(); 
        
          
       }
@@ -424,10 +72,69 @@ function simpan_penyidik(){
               }); 
       }
 
-
-
-      }
-   });
+    }
+  });
 }
+
+
+function penyidik_hapus(id){
+
+BootstrapDialog.show({
+            message : 'ANDA AKAN MENGHAPUS DATA PENYIDIK. ANDA YAKIN  ?  ',
+            title: 'KONFIRMASI HAPUS DATA PENYIDIK',
+            draggable: true,
+            buttons : [
+              {
+                label : 'IYA',
+                cssClass : 'btn-primary',
+                hotkey: 13,
+                action : function(dialogItself){
+
+
+                  dialogItself.close();
+                  $('#myPleaseWait').modal('show'); 
+                  $.ajax({
+                  	url : '<?php echo site_url("$controller/penyidik_hapus") ?>',
+                  	type : 'post',
+                  	data : {id : id},
+                  	dataType : 'json',
+                  	success : function(obj) {
+                  		$('#myPleaseWait').modal('hide'); 
+                  		if(obj.error==false) {
+                  				BootstrapDialog.alert({
+				                      type: BootstrapDialog.TYPE_PRIMARY,
+				                      title: 'Informasi',
+				                      message: obj.message,
+				                       
+				                  });   
+
+                  		$('#grid_penyidik').DataTable().ajax.reload(); 
+                      
+                  		}
+                  		else {
+                  			BootstrapDialog.alert({
+			                      type: BootstrapDialog.TYPE_DANGER,
+			                      title: 'Error',
+			                      message: obj.message,
+			                       
+			                  }); 
+                  		}
+                  	}
+                  });
+
+                }
+              },
+              {
+                label : 'TIDAK',
+                cssClass : 'btn-danger',
+                action: function(dialogItself){
+                    dialogItself.close();
+                }
+              }
+            ]
+          });
+}
+ 		 
+	   
 
 </script>

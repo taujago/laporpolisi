@@ -141,7 +141,7 @@
         <th width="15%">TERLAPOR</th>
         <th width="76%">TINDAK PIDANA</th>
         <th width="10%">PENYIDIK</th>
-      <th width="16%">PROSES</th>
+      <th width="16%">DETAIL</th>
     </tr>
 	
 </thead>
