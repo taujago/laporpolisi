@@ -37,8 +37,8 @@ class admindik_lap_a extends admindik_controller {
 		$data_array['status'] = isset($_GET['status'])?$_GET['status']:'0';
 		$content = $this->load->view($controller."_view",$data_array,true);
 
-		$this->set_subtitle("LAPORAN POLISI TIPE A");
-		$this->set_title("LAPORAN  POLISI TIPE A");
+		$this->set_subtitle("LAPORAN POLISI MODEL-A");
+		$this->set_title("LAPORAN  POLISI MODEL-A");
 		$this->set_content($content);
 		$this->render_admin();
 	}
@@ -118,6 +118,7 @@ $id = $row['lap_a_id'];
 function detail($id){
 
 	$detail = $this->dm->detail($id);
+    // show_array($detail); exit;
 	$detail['tanggal'] = flipdate($detail['tanggal']);
 	$detail['kp_dilaporkan_pada'] = flipdate($detail['kp_dilaporkan_pada']);
 	$detail['kp_tanggal'] = flipdate($detail['kp_tanggal']);
@@ -139,8 +140,8 @@ function detail($id){
 
 	//show_array($detail);
 	$content = $this->load->view($this->controller."_view_detail",$detail,true);
-	$this->set_subtitle("DETAIL LAPORAN POLISI TIPE A NOMOR : ".$detail['nomor']);
-	$this->set_title("DETAIL  LAPORAN  POLISI TIPE A NOMOR : ".$detail['nomor']);
+	$this->set_subtitle("DETAIL LAPORAN POLISI MODEL-A NOMOR : ".$detail['nomor']);
+	$this->set_title("DETAIL  LAPORAN  POLISI MODEL-A NOMOR : ".$detail['nomor']);
 	$this->set_content($content);
 	$this->render_admin();
 

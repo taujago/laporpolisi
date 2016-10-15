@@ -94,6 +94,7 @@ function get_data(){
         		 
 								$row['nomor'],
 								flipdate($row['tanggal']),
+								$row['kejadian_uraian'],
 								$row['pelapor_nama'],
 								$row['operator'],
         		  			 

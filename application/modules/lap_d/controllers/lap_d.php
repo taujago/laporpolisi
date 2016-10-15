@@ -314,12 +314,11 @@ function detail($id){
 
 	$data = $this->dm->detail($id);
 	$data['tanggal'] = flipdate($data['tanggal']);
-	$data['pelapor_tgl_lahir'] = flipdate($data['pelapor_tgl_lahir']);
+	 
 	$data['kejadian_tanggal'] = flipdate($data['kejadian_tanggal']);
 
 	$data['tanggal'] = flipdate($data['tanggal']);
-	$data['pelapor_tgl_lahir'] = flipdate($data['pelapor_tgl_lahir']);
-	$data['kejadian_tanggal'] = flipdate($data['kejadian_tanggal']);
+ 	$data['kejadian_tanggal'] = flipdate($data['kejadian_tanggal']);
 	
 	$data['controller'] = $this->controller;
 

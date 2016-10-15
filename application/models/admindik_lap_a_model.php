@@ -52,14 +52,12 @@ function data($param){
 
 function detail($id){
 	 $this->db->select('a.*,gk.golongan_kejahatan, 	 	 
-lok.jenis_lokasi, 
-f.fungsi, 
-pel_pangkat.pangkat as pelapor_pangkat,
-motif.motif, 
-pen_pangkat.pangkat as penerima_pangkat, 
-meng_pangkat.pangkat as mengetahui_pangkat,
-
-
+				lok.jenis_lokasi, 
+				f.fungsi, 
+				pel_pangkat.pangkat as pelapor_pangkat,
+				motif.motif, 
+				pen_pangkat.pangkat as penerima_pangkat, 
+				meng_pangkat.pangkat as mengetahui_pangkat,
 				desa.desa, 
 				kec.id as kp_tempat_kec_id, 
 				kec.kecamatan, 
@@ -82,14 +80,12 @@ u.nama as pengguna ')
 ->join("m_pangkat pen_pangkat","pen_pangkat.id_pangkat = a.pen_lapor_id_pangkat ",'left')
 ->join("m_pangkat meng_pangkat","meng_pangkat.id_pangkat = a.mengetahui_id_pangkat",'left')
 ->join("pengguna u","u.id = a.user_id",'left')
-
-
 ->join('tiger_desa desa','desa.id = a.kp_tempat_id_desa ','left')
 ->join('tiger_kecamatan kec','kec.id = desa.id_kecamatan ','left')
 ->join('tiger_kota kota','kota.id = kec.id_kota ','left')
 ->join('tiger_provinsi prov','prov.id = kota.id_provinsi','left')
-->join('m_satuan pel_sat','pel_sat.id_satuan = a.pelapor_id_kesatuan')
-->join('m_satuan pen_sat','pen_sat.id_satuan = a.pen_lapor_id_kesatuan')
+->join('m_satuan pel_sat','pel_sat.id_satuan = a.pelapor_id_kesatuan','left')
+->join('m_satuan pen_sat','pen_sat.id_satuan = a.pen_lapor_id_kesatuan','left')
 
 ->where("a.lap_a_id",$id);
 

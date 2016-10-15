@@ -1,19 +1,19 @@
 <?php
-class lap_c extends master_controller {
-// kesehatan,kekuatan, keturunan, masuk surga
-	var $controller ;
+class admindik_lap_c extends admindik_controller {
+ 	var $controller ;
 
-	function lap_c(){
+	function admindik_lap_c(){
 		parent::__construct();
-		// $this->load->model("core_model","cm");
+		 
 		$this->load->model("coremodel","cm");
 		$this->load->helper("tanggal");
-		$this->load->model("lap_c_model","dm");
+		$this->load->model("admindik_lap_c_model","dm");
 		$this->controller = get_class($this);
-
 		$this->userdata = $_SESSION['userdata'];
 
 	}
+
+ 
 
 	function index(){
 		// echo "fuckkk.."; exit;
@@ -40,7 +40,7 @@ class lap_c extends master_controller {
 		$this->set_subtitle("LAPORAN POLISI MODEL-C");
 		$this->set_title("LAPORAN  POLISI MODEL-C");
 		$this->set_content($content);
-		$this->render_baru();
+		$this->render_admin();
 	}
 
 
@@ -50,22 +50,23 @@ function get_data(){
       	$draw = $_REQUEST['draw']; // get the requested page 
     	$start = $_REQUEST['start'];
         $limit = $_REQUEST['length']; // get how many rows we want to have into the grid 
-        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"tanggal"; // get index row - i.e. user click to sort 
+        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"level"; // get index row - i.e. user click to sort 
         $sord = isset($_REQUEST['order'][0]['dir'])?$_REQUEST['order'][0]['dir']:"desc"; // get the direction if(!$sidx) $sidx =1;  
         
         // $no_rangka = $_REQUEST['columns'][5]['search']['value'];
         $tanggal_awal = $_REQUEST['columns'][1]['search']['value'];
         $tanggal_akhir = $_REQUEST['columns'][2]['search']['value'];
-        // $id_fungsi = $_REQUEST['columns'][3]['search']['value'];
+        $id_fungsi = $_REQUEST['columns'][3]['search']['value'];
 
 
       //  order[0][column]
         $req_param = array (
 				"sort_by" => $sidx,
 				"sort_direction" => $sord,
-				"limit" => null,
+				"limit" => null ,
 				"tanggal_awal" => $tanggal_awal, 
-				"tanggal_akhir" => $tanggal_akhir 
+				"tanggal_akhir" => $tanggal_akhir, 
+				"id_fungsi" => $id_fungsi 
 				 
 		);     
            
@@ -88,29 +89,18 @@ function get_data(){
         foreach($result as $row) : 
 		//$daft_id = $row['daft_id'];
         	 
-		$id = $row['lap_c_id'];
+$id = $row['lap_c_id'];
          
         	$arr_data[] = array(
         		 
 								$row['nomor'],
-								flipdate($row['tanggal']),
-								$row['pelapor_nama'],
-								$row['operator'],
-        		  			 
+                                flipdate($row['tanggal']),
+                                $row['kejadian_uraian'],
+                                $row['pelapor_nama'],
+                                ($row['nama_penyidik']=="")?"<span style='color:red;'>BELUM ADA</span>":$row['nama_penyidik'], 
         		  			  
-        		  				"<div class=\"btn-group\"> 
-     <a class=\"btn dropdown-toggle btn-primary\" data-toggle=\"dropdown\" href=\"#\">Proses<span class=\"caret\"></span></a>
-     
-     <ul class=\"dropdown-menu\">
-		<li><a  href=\" " . site_url("$controller/edit/".$id) ."\" ><span class=\"glyphicon glyphicon-edit\"></span> Edit </a></li>
-		<li><a  href=\" " . site_url("$controller/detail/".$id) ."\" ><span class=\"glyphicon glyphicons-article\"></span> Detail </a></li>
-
-		<li><a  href='#' onclick=\"hapus('". $id ."')\" ><span class=\"glyphicon glyphicon-remove\"></span> Hapus</a></li>
- 	 </ul>
-
-
-	</div> "
-        		  				);
+        		  				" 
+     <a class=\"btn btn-primary\" href=\" " . site_url("$controller/detail/".$id) ."\" >Detail </a>");
         endforeach;
 
          $responce = array('draw' => $draw, // ($start==0)?1:$start,
@@ -123,336 +113,193 @@ function get_data(){
     }
 
 
-
-function baru(){
-
-		$data['action']="simpan";
-		$data['lap_c_id']="";
-		$data['mode']="I";
-		$data['controller'] = $this->controller;
-
-
-		$data['arr_gol_kejahatan'] = $this->cm->get_arr_dropdown("m_golongan_kejahatan", 
-			"id","golongan_kejahatan",'golongan_kejahatan');
-
-		$data['arr_jenis_lokasi'] = $this->cm->get_arr_dropdown("m_jenis_lokasi", 
-			"id_jenis_lokasi","jenis_lokasi",'jenis_lokasi');
-
-		$data['arr_fungsi'] = $this->cm->get_arr_dropdown("m_fungsi", 
-			"id_fungsi","fungsi",'id_fungsi');
-
-
-		$data['arr_pangkat'] = $this->cm->get_arr_dropdown("m_pangkat", 
-			"id_pangkat","pangkat",'pangkat');
-
-		$data['arr_motif'] = $this->cm->get_arr_dropdown("m_motif", 
-			"id_motif","motif",'motif');
-
-		$data['arr_pekerjaan'] = $this->cm->get_arr_dropdown("m_pekerjaan", 
-			"id_pekerjaan","pekerjaan",'pekerjaan');
-
-		$data['arr_agama'] = $this->cm->get_arr_dropdown("m_agama", 
-			"id_agama","agama",'agama');
-		$data['arr_pendidikan'] = $this->cm->get_arr_dropdown("m_pendidikan", 
-			"id_pendidikan","pendidikan",'pendidikan');
-
-		$data['arr_warga_negara'] = $this->cm->get_arr_dropdown("m_warga_negara", 
-			"id_warga_negara","warga_negara",'warga_negara');
-		
-		$data['arr_jk'] = array("L"=>"Laki-laki","P"=>"Perempuan");
-
-
-
-
-
-
-
-
-
-
-
-
-
-		$content = $this->load->view($this->controller."_view_form",$data,true);
-		$this->set_subtitle("INPUT LAPORAN POLISI MODEL-C");
-		$this->set_title("INPUT LAPORAN POLISI MODEL-C");
-		$this->set_content($content);
-		$this->render_baru();
-	 
-} 
-
-
-function simpan(){
-		$data=$this->input->post();
-
  
-
-		
-		$this->load->library('form_validation');
-		
-		$this->form_validation->set_rules('tanggal','Tanggal','required'); 
-		$this->form_validation->set_rules('kejadian_tanggal','Tanggal kejadian','required'); 
-		// $this->form_validation->set_rules('id_pasal','Pasal','required');
-		 
-		$this->form_validation->set_message('required', ' %s Harus diisi ');
-		
- 		$this->form_validation->set_error_delimiters('', '<br>');
-		if($this->form_validation->run() == TRUE ) { 
-			unset($data['mode']);
-			unset($data['lap_c_id']);
-
-
-			$data['tanggal'] = flipdate($data['tanggal']);
-			$data['pelapor_tgl_lahir'] = flipdate($data['pelapor_tgl_lahir']);
-			$data['kejadian_tanggal'] = flipdate($data['kejadian_tanggal']);
-			// $data['kejadian_tanggal_lapor'] = flipdate($data['kejadian_tanggal_lapor']);
-			 
-			$userdata = $this->userdata;
-			$data['user_id'] = $userdata['id'];
-			// $data['tanggal'] = flipdate($data['tanggal']);
-
-			unset($data['nomor']);
-
-			$data['nomor'] = $this->cm->get_lap_number($this->controller,$data);
-
-			// echo "bangkeehh..";
-			// echo $data['nomor']; 
-			// exit;
-			// exit;
-
-
-
-			 $res = $this->db->insert("lap_c",$data);
-			 if($res) {
-			 	$ret = array("error"=>false,"message"=>"data berhasil disimpan");
-			 }
-			 else {
-			 	$ret = array("error"=>true,"message"=>$this->db->_error_message());
-			 }
-			 
-		}
-		else {
-			$ret = array("error"=>true,"message"=>validation_errors());
-		}
-		
-		echo json_encode($ret);
-		
-	}
-
-
-
-
-
-function edit($id){
-		 
-		$data = $this->dm->detail($id); 
-
-		// show_array($data);
-
-
-		// $data['tanggal'] = flipdate($data['tanggal']);
-		// $data['kp_dilaporkan_pada'] = flipdate($data['kp_dilaporkan_pada']);
-		// $data['kp_tanggal'] = flipdate($data['kp_tanggal']);
-
-		// show_array($data); exit;
-		//$data = $arr['message'];
-		$data['action']="update";
-		$data['mode']="U";
-		$data['controller'] = $this->controller;
-
-
-		$data['arr_gol_kejahatan'] = $this->cm->get_arr_dropdown("m_golongan_kejahatan", 
-			"id","golongan_kejahatan",'golongan_kejahatan');
-
-		$data['arr_jenis_lokasi'] = $this->cm->get_arr_dropdown("m_jenis_lokasi", 
-			"id_jenis_lokasi","jenis_lokasi",'jenis_lokasi');
-
-		$data['arr_fungsi'] = $this->cm->get_arr_dropdown("m_fungsi", 
-			"id_fungsi","fungsi",'id_fungsi');
-
-
-		$data['arr_pangkat'] = $this->cm->get_arr_dropdown("m_pangkat", 
-			"id_pangkat","pangkat",'pangkat');
-
-		$data['arr_motif'] = $this->cm->get_arr_dropdown("m_motif", 
-			"id_motif","motif",'motif');
-
-		$data['arr_pekerjaan'] = $this->cm->get_arr_dropdown("m_pekerjaan", 
-			"id_pekerjaan","pekerjaan",'pekerjaan');
-
-		$data['arr_agama'] = $this->cm->get_arr_dropdown("m_agama", 
-			"id_agama","agama",'agama');
-		$data['arr_pendidikan'] = $this->cm->get_arr_dropdown("m_pendidikan", 
-			"id_pendidikan","pendidikan",'pendidikan');
-
-		$data['arr_warga_negara'] = $this->cm->get_arr_dropdown("m_warga_negara", 
-			"id_warga_negara","warga_negara",'warga_negara');
-		
-		$data['arr_jk'] = array("L"=>"Laki-laki","P"=>"Perempuan");
-
-
-		$content = $this->load->view($this->controller."_view_form",$data,true);
-		
-		$this->set_subtitle("EDIT DATA LAPORAN TIPE B");
-		$this->set_title("EDIT DATA LAPORAN TIPE B");
-		$this->set_content($content);
-		$this->render_baru();
-	}
-function update(){
-		$data=$this->input->post();
-		
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('tanggal','Tanggal','required'); 
-		// $this->form_validation->set_rules('id_pasal','Pasal','required');
- 		
-		 
-		$this->form_validation->set_message('required', ' %s Harus diisi ');
-		
- 		$this->form_validation->set_error_delimiters('', '<br>');
-		if($this->form_validation->run() == TRUE ) { 
-			
-			unset($data['mode']);		
-
-			$data['tanggal'] = flipdate($data['tanggal']);
-			$data['pelapor_tgl_lahir'] = flipdate($data['pelapor_tgl_lahir']);
-			$data['kejadian_tanggal'] = flipdate($data['kejadian_tanggal']);
-
-
-
-			$this->db->where("lap_c_id",$data['lap_c_id']);
-			 $res = $this->db->update("lap_c",$data);
-			 if($res) {
-			 	$ret = array("error"=>false,"message"=>"Data berhasil diupdate");
-			 }
-			 else {
-			 	$ret = array("error"=>true,"message"=>$this->db->_error_message());
-			 }
-			 
-		}
-		else {
-			$ret = array("error"=>true,"message"=>validation_errors());
-		}
-		
-		echo json_encode($ret);
-		
-		
-		 
-	}
-	
-function hapus(){
-	$data = $this->input->post();
-	$this->db->where("lap_c_id",$data['id']);
-	$res = $this->db->delete("lap_c");
-	if($res){
-		$ret = array("error"=>false,"message"=>"Data Berhasi dihapus");
-
-	}
-	else {
-		$ret = array("error"=>true,"message"=>"Data gagal dihapus");
-	}
-	echo json_encode($ret);
-}
-
 function detail($id){
 
-	$data = $this->dm->detail($id);
-	$data['tanggal'] = flipdate($data['tanggal']);
-	$data['pelapor_tgl_lahir'] = flipdate($data['pelapor_tgl_lahir']);
-	$data['kejadian_tanggal'] = flipdate($data['kejadian_tanggal']);
+	$detail = $this->dm->detail($id);
+	// $detail['tanggal'] = flipdate($detail['tanggal']);
+	// $detail['kp_dilaporkan_pada'] = flipdate($detail['kp_dilaporkan_pada']);
+	// $detail['kp_tanggal'] = flipdate($detail['kp_tanggal']);
 
-	$data['tanggal'] = flipdate($data['tanggal']);
-	$data['pelapor_tgl_lahir'] = flipdate($data['pelapor_tgl_lahir']);
-	$data['kejadian_tanggal'] = flipdate($data['kejadian_tanggal']);
+    $detail['lap_c_id'] = $id;
+
 	
-	$data['controller'] = $this->controller;
+	$detail['controller'] = $this->controller;
 
+	// $detail['rec_pasal'] = $this->dm->get_pasal($id);
+	// $detail['rec_tersangka'] = $this->dm->get_tersangka($id);
+ //    $detail['rec_saksi'] = $this->dm->get_saksi($id);
+ //    $detail['rec_korban'] = $this->dm->get_korban($id);
+ //    $detail['rec_barbuk'] = $this->dm->get_barbuk($id);
+    $detail['rec_perkembangan'] = $this->dm->get_perkembangan($id);
+
+
+	
 
 	//show_array($detail);
-	$content = $this->load->view("lap_c_view_detail",$data,true);
-	$this->set_subtitle("DETAIL LAPORAN POLISI MODEL-C NOMOR : ".$data['nomor']);
-	$this->set_title("DETAIL  LAPORAN  POLISI MODEL-C NOMOR : ".$data['nomor']);
+	$content = $this->load->view($this->controller."_view_detail",$detail,true);
+	$this->set_subtitle("DETAIL LAPORAN POLISI MODEL-C NOMOR : ".$detail['nomor']);
+	$this->set_title("DETAIL  LAPORAN  POLISI MODEL-C NOMOR : ".$detail['nomor']);
 	$this->set_content($content);
-	$this->render_baru();
+	$this->render_admin();
 
 
 }
+ 
+   
 
-function get_detail_json($id) {
-	$data = $this->dm->detail($id);
-
-	$data['tanggal'] = flipdate($data['tanggal']);
-	$data['pelapor_tgl_lahir'] = flipdate($data['pelapor_tgl_lahir']);
-	$data['kejadian_tanggal'] = flipdate($data['kejadian_tanggal']);
-	// show_array($detail); exit;
-	echo json_encode($data);
-}
-
-function get_pasa_edit_dropdown(){
-	$post = $this->input->post();
-	extract($post);
-	$this->db->where("id_fungsi",$id_fungsi);
-	$res = $this->db->get("m_pasal");
-
-	$html = "";
-	foreach($res->result() as $row) : 
-		$sel = ($row->id == $id_pasal)?"selected":"";
-		$html .= "<option value=$row->id $sel >$row->pasal </option>";
-	endforeach;
-	echo $html;
-}
+/// korban section 
 
 
+function get_data_penyidik($lap_c_id){
+        $controller = get_class($this);
+        $userdata = $this->session->userdata("userdata");
+        $draw = $_REQUEST['draw']; // get the requested page 
+        $start = $_REQUEST['start'];
+        $limit = $_REQUEST['length']; // get how many rows we want to have into the grid 
+        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"nama"; // get index row - i.e. user click to sort 
+        $sord = isset($_REQUEST['order'][0]['dir'])?$_REQUEST['order'][0]['dir']:"asc"; // get the direction if(!$sidx) $sidx =1;  
+        
+        // $nama = (isset($_REQUEST['columns'][1]['search']['value']))?$_REQUEST['columns'][1]['search']['value']:"";
+        // $level = (isset($_REQUEST['columns'][1]['search']['value']))?$_REQUEST['columns'][2]['search']['value']:"x";
+        // $tanggal_awal = $_REQUEST['columns'][4]['search']['value'];
+        $nama = $_REQUEST['columns'][1]['search']['value'];
+        $level = $_REQUEST['columns'][2]['search']['value'];
 
 
+      //  order[0][column]
+        $req_param = array (
+                "sort_by" => $sidx,
+                "sort_direction" => $sord,
+                "limit" => null,
+                "lap_c_id" => $lap_c_id
+                
+                 
+        );     
+           
+        $row = $this->dm->get_data_penyidik($req_param)->result_array();
+        
+        $count = count($row); 
+       
+        
+        $req_param['limit'] = array(
+                    'start' => $start,
+                    'end' => $limit
+        );
+          
+        
+        $result = $this->dm->get_data_penyidik($req_param)->result_array();
+        
 
+       
+        $arr_data = array();
+        
+        foreach($result as $row) : 
+        //$daft_id = $row['daft_id'];
+             
+            $id = $row['idlp'];
+            $polres_polsek = "";
 
-function pasal_simpan(){
-		$data=$this->input->post();
+            //echo "jenis =". $row['jenis'] . "<br />";
+            if($row['jenis']=='polsek') {
 
+                //echo "WATTTDEFAAAAKKK"; 
+                $polres_polsek = "POLSEK - ". $row['nama_polsek'];
+            }
+            else if($row['jenis']=='polres') {
+                $polres_polsek = "POLRES - ". $row['nama_polres'];
+            }
+            else {
+            $polres_polsek   = "POLDA ";
+            }
+         
+            $arr_data[] = array(
+                 
+                                
+                                 
+                                $row['user_id'], 
+                                $row['nama'], 
+                                $row['pangkat'],
+
+                                $polres_polsek,
+
+                                $row['nomor_hp'], 
+                                $row['email'], 
+                                 
+                                 
+                              
+                                " 
+         <a class='btn btn-danger'   href=\"javascript:penyidik_hapus('". $id ."')\" ><span class=\"glyphicon glyphicon-remove\"></span> Hapus</a> "
+                                );
+        endforeach;
+
+         $responce = array('draw' => $draw, // ($start==0)?1:$start,
+                          'recordsTotal' => $count, 
+                          'recordsFiltered' => $count,
+                          'data'=>$arr_data
+            );
+         
+        echo json_encode($responce); 
+    }
  
 
-		
-		$this->load->library('form_validation');
+ 
+// function cek_penyidik($id_penyidik)
+
+function penyidik_simpan($lap_c_id){
+        $data=$this->input->post();
+        
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('id_penyidik','Penyidik','call_back_cek_penyidik'); 
+         
+                
+         
+        $this->form_validation->set_message('required', ' %s Harus diisi ');
+        
+        $this->form_validation->set_error_delimiters('', '<br>');
+        if($this->form_validation->run() == TRUE ) { 
+
+             
+            unset($data['id']);
+
+            $data['lap_c_id'] = $lap_c_id;
+         
+
+         
+
+             $res = $this->db->insert("lap_c_penyidik",$data);
+             if($res) {
+                $ret = array("error"=>false,"message"=>"data penyidik berhasil disimpan","mode"=>"I");
+             }
+             else {
+                $ret = array("error"=>true,"message"=>$this->db->_error_message());
+             }
+             
+        }
+        else {
+            $ret = array("error"=>true,"message"=>validation_errors());
+        }
+        
+        echo json_encode($ret);
+        
+    }
 
 
-		
-		$this->form_validation->set_rules('txt_id_fungsi','Fungsi Terkait','required'); 
-		$this->form_validation->set_rules('txt_pasal','Pasal','required');
- 		 
-		$this->form_validation->set_message('required', ' %s Harus diisi ');
-		
- 		$this->form_validation->set_error_delimiters('', '<br>');
-		if($this->form_validation->run() == TRUE ) { 
-			
-			 
+function penyidik_hapus(){
+    $data = $this->input->post();
+    $this->db->where("id",$data['id']);
+    $res = $this->db->delete("lap_c_penyidik");
 
-			$arr_pasal['id_fungsi'] = $data['txt_id_fungsi'];
-			$arr_pasal['pasal'] = $data['txt_pasal'];
+    // echo $this->db->last_query();
+    if($res){
+        $ret = array("error"=>false,"message"=>"Data Berhasi dihapus");
 
- 			
-			 
-
-			 
-			// $data['tanggal'] = flipdate($data['tanggal']);
-
-
-			 $res = $this->db->insert("m_pasal",$arr_pasal);
-			 if($res) {
-			 	$ret = array("error"=>false,"message"=>"data pasal berhasil disimpan",
-			 		"mode"=>"I");
-			 }
-			 else {
-			 	$ret = array("error"=>true,"message"=>$this->db->_error_message());
-			 }
-			 
-		}
-		else {
-			$ret = array("error"=>true,"message"=>validation_errors());
-		}
-		
-		echo json_encode($ret);
-		
-	}
+    }
+    else {
+        $ret = array("error"=>true,"message"=>"Data gagal dihapus");
+    }
+    echo json_encode($ret);
+}
 
 }
 ?>

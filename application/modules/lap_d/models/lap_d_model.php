@@ -91,8 +91,13 @@ function data($param){
 
  
 function detail($id){
-	 $this->db->where("lap_d_id",$id);
-	 $data = $this->db->get("lap_d")->row_array();
+ 
+	 $this->db->select('lp.*, p.pangkat as pen_lapor_pangkat ')
+	 ->from("lap_d lp")
+	 ->join("m_pangkat p","lp.pen_lapor_id_pangkat = p.id_pangkat","left");
+
+	 $this->db->where("lp.lap_d_id",$id);
+	 $data = $this->db->get()->row_array();
 	 return $data;
  
 }

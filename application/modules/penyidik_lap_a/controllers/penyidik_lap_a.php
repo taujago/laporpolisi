@@ -143,8 +143,8 @@ function detail($id){
 
 	//show_array($detail);
 	$content = $this->load->view($this->controller."_view_detail",$detail,true);
-	$this->set_subtitle("DETAIL LAPORAN POLISI TIPE A NOMOR : ".$detail['nomor']);
-	$this->set_title("DETAIL  LAPORAN  POLISI TIPE A NOMOR : ".$detail['nomor']);
+	$this->set_subtitle("DETAIL LAPORAN POLISI MODEL-B NOMOR : ".$detail['nomor']);
+	$this->set_title("DETAIL  LAPORAN  POLISI MODEL-B NOMOR : ".$detail['nomor']);
 	$this->set_content($content);
 	$this->render_admin();
 

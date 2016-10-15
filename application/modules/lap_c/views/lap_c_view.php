@@ -135,11 +135,12 @@
 <thead>
 	<tr style="background-color:#CCC">
 
-        <th width="16%">NOMOR</th>
+        <th width="5%">NOMOR</th>
         <th width="10%">TANGGAL</th>
-        <th width="20%">PELAPOR</th>         
+        <th width="10%">PELAPOR</th>  
+        <th width="50%">URAIAN KEJADIAN</th>        
         <th width="10%">OPERATOR ENTRY</th>
-      <th width="10%">PROSES</th>
+      <th width="5%">#</th>
     </tr>
 	
 </thead>

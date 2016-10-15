@@ -7,16 +7,14 @@ class penyidik_lap_b extends penyidik_controller {
 		 
 		$this->load->model("coremodel","cm");
 		$this->load->helper("tanggal");
-		$this->load->model("penyidik_lap_b_model","dm");
+		$this->load->model("admindik_lap_b_model","dm");
+        $this->load->model("penyidik_lap_b_model","am");
 		$this->controller = get_class($this);
 		$this->userdata = $_SESSION['userdata'];
 
 	}
 
-	function hapus_session(){
-		
-		$this->session->unset_userdata("temp_lap_b_id");
-	}
+ 
 
 	function index(){
 		// echo "fuckkk.."; exit;
@@ -40,8 +38,8 @@ class penyidik_lap_b extends penyidik_controller {
 		$data_array['status'] = isset($_GET['status'])?$_GET['status']:'0';
 		$content = $this->load->view($controller."_view",$data_array,true);
 
-		$this->set_subtitle("LAPORAN POLISI TIPE A");
-		$this->set_title("LAPORAN  POLISI TIPE A");
+		$this->set_subtitle("LAPORAN POLISI MODEL-B");
+		$this->set_title("LAPORAN  POLISI MODEL-B");
 		$this->set_content($content);
 		$this->render_admin();
 	}
@@ -49,7 +47,8 @@ class penyidik_lap_b extends penyidik_controller {
 
 function get_data(){
 		$controller = get_class($this);
-	 	$userdata = $_SESSION['userdata'];
+	 	$userdata = $this->userdata;
+        //show_array($userdata); exit;
       	$draw = $_REQUEST['draw']; // get the requested page 
     	$start = $_REQUEST['start'];
         $limit = $_REQUEST['length']; // get how many rows we want to have into the grid 
@@ -70,11 +69,11 @@ function get_data(){
 				"tanggal_awal" => $tanggal_awal, 
 				"tanggal_akhir" => $tanggal_akhir, 
 				"id_fungsi" => $id_fungsi,
-				"id_penyidik" => $userdata['id']
+                "id_penyidik" => $userdata['id']
 				 
 		);     
            
-        $row = $this->dm->data($req_param)->result_array();
+        $row = $this->am->data($req_param)->result_array();
 		
         $count = count($row); 
        
@@ -85,7 +84,7 @@ function get_data(){
         );
           
         
-        $result = $this->dm->data($req_param)->result_array();
+        $result = $this->am->data($req_param)->result_array();
         
 
        
@@ -118,522 +117,72 @@ $id = $row['lap_b_id'];
     }
 
 
-
+ 
 function detail($id){
 
-    $detail = $this->dm->detail($id);
-    $detail['tanggal'] = flipdate($detail['tanggal']);
-    $detail['pelapor_tgl_lahir'] = flipdate($detail['pelapor_tgl_lahir']);
-    $detail['kejadian_tanggal'] = flipdate($detail['kejadian_tanggal']);
-    $detail['kejadian_tanggal_lapor'] = flipdate($detail['kejadian_tanggal_lapor']);
-
-    
-    $detail['controller'] = $this->controller;
-
-    $data['json_url_terlapor'] = site_url("$this->controller/get_lap_b_terlapor/$id");
-    $data['json_url_saksi'] = site_url("$this->controller/get_lap_b_saksi/$id");
-    $data['json_url_korban'] = site_url("$this->controller/get_lap_b_korban/$id");
-    $data['json_url_barbuk'] = site_url("$this->controller/get_lap_b_barbuk/$id");
-
-
-    $data['tersangka_add_url'] = site_url("$this->controller/tersangka_simpan/$id"); 
-    $data['saksi_add_url'] = site_url("$this->controller/saksi_simpan/$id"); 
-    $data['korban_add_url'] = site_url("$this->controller/korban_simpan/$id"); 
-    $data['barbuk_add_url'] = site_url("$this->controller/barbuk_simpan/$id"); 
-
-
-    //show_array($detail);
-    $content = $this->load->view($this->controller."_view_detail",$detail,true);
-    $this->set_subtitle("DETAIL LAPORAN POLISI TIPE B NOMOR : ".$detail['nomor']);
-    $this->set_title("DETAIL  LAPORAN  POLISI TIPE B NOMOR : ".$detail['nomor']);
-    $this->set_content($content);
-    $this->render_admin();
-
-
-}
-
-function get_detail_json($id) {
 	$detail = $this->dm->detail($id);
 	$detail['tanggal'] = flipdate($detail['tanggal']);
-	$detail['kp_dilaporkan_pada'] = flipdate($detail['kp_dilaporkan_pada']);
-	$detail['kp_tanggal'] = flipdate($detail['kp_tanggal']);
-	// show_array($detail); exit;
-	echo json_encode($detail);
-}
+	// $detail['kp_dilaporkan_pada'] = flipdate($detail['kp_dilaporkan_pada']);
+	// $detail['kp_tanggal'] = flipdate($detail['kp_tanggal']);
 
- 
+    $detail['lap_b_id'] = $id;
 
+    // show_array($detail); exit;
 
-function get_lap_b_terlapor($lap_b_id) {
-	$controller = get_class($this);
-	 	$userdata = $this->session->userdata("userdata");
-      	$draw = $_REQUEST['draw']; // get the requested page 
-    	$start = $_REQUEST['start'];
-        $limit = $_REQUEST['length']; // get how many rows we want to have into the grid 
-        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"tanggal"; // get index row - i.e. user click to sort 
-        $sord = isset($_REQUEST['order'][0]['dir'])?$_REQUEST['order'][0]['dir']:"desc"; // get the direction if(!$sidx) $sidx =1;  
-        
-        // $no_rangka = $_REQUEST['columns'][5]['search']['value'];
-        // $tanggal_awal = $_REQUEST['columns'][4]['search']['value'];
-        // $tanggal_akhir = $_REQUEST['columns'][6]['search']['value'];
-        // $status = $_REQUEST['columns'][7]['search']['value'];
+	
+	$detail['controller'] = $this->controller;
+
+	$detail['rec_pasal'] = $this->dm->get_pasal($id);
+	$detail['rec_tersangka'] = $this->dm->get_tersangka($id);
+    $detail['rec_saksi'] = $this->dm->get_saksi($id);
+    $detail['rec_korban'] = $this->dm->get_korban($id);
+    $detail['rec_barbuk'] = $this->dm->get_barbuk($id);
 
 
-      //  order[0][column]
-        $req_param = array (
-        		"lap_b_id" => $lap_b_id,
-				"sort_by" => $sidx,
-				"sort_direction" => $sord,
-				"limit" => null 
-				 
-		);     
-           
-        $row = $this->dm->get_lap_b_terlapor($req_param)->result_array();
-		
-        $count = count($row); 
-       
-        
-        $req_param['limit'] = array(
-                    'start' => $start,
-                    'end' => $limit
-        );
-          
-        
-        $result = $this->dm->get_lap_b_terlapor($req_param)->result_array();
-        
+	
 
-       
-        $arr_data = array();
-        foreach($result as $row) : 
-		//$daft_id = $row['daft_id'];
-        	 
-		$id = $row['id'];
-         
-        	$arr_data[] = array(
-   		 
-		$row['tersangka_nama'],
-		flipdate($row['tersangka_tgl_lahir']),
-		$row['tersangka_tmp_lahir'],
-		$row['agama'],
-		$row['suku'],
-		$row['pekerjaan'],
-		$row['tersangka_alamat']." - ". $row['desa']." - ".$row['kecamatan']." - ".$row['kota']." -  ".$row['provinsi'],
-        		  			 
-        		  			  
-        		  				"<div class=\"btn-group\"> 
-     <a class=\"btn dropdown-toggle btn-primary\" data-toggle=\"dropdown\" href=\"#\">Proses<span class=\"caret\"></span></a>
-     
-     <ul class=\"dropdown-menu\">
-		<li><a  href=\"javascript:tersangka_edit('".$id."')\"><span class=\"glyphicon glyphicon-edit\"></span> Edit </a></li> 
-
-		<li><a  href=\"javascript:tersangka_hapus('".$id."')\"><span class=\"glyphicon glyphicon-remove\"></span> Hapus</a></li>
- 	 </ul>
+	//show_array($detail);
+	$content = $this->load->view($this->controller."_view_detail",$detail,true);
+	$this->set_subtitle("DETAIL LAPORAN POLISI MODEL-B NOMOR : ".$detail['nomor']);
+	$this->set_title("DETAIL  LAPORAN  POLISI MODEL-B NOMOR : ".$detail['nomor']);
+	$this->set_content($content);
+	$this->render_admin();
 
 
-	</div> ");
-        endforeach;
-
-         $responce = array('draw' => $draw, // ($start==0)?1:$start,
-        				  'recordsTotal' => $count, 
-        				  'recordsFiltered' => $count,
-        				  'data'=>$arr_data
-        	);
-         
-        echo json_encode($responce); 
-}
-
-
-
-
-function get_lap_b_tersangka_detail($id){
-	$data = $this->dm->get_lap_b_tersangka_detail($id);
-	$data['tersangka_tgl_lahir'] = flipdate($data['tersangka_tgl_lahir']);
-	echo json_encode($data);
-}
-
-
-
-
-
-
-
-function get_lap_b_saksi($lap_b_id) {
-		$controller = get_class($this);
-	 	$userdata = $this->session->userdata("userdata");
-      	$draw = $_REQUEST['draw']; // get the requested page 
-    	$start = $_REQUEST['start'];
-        $limit = $_REQUEST['length']; // get how many rows we want to have into the grid 
-        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"id"; // get index row - i.e. user click to sort 
-        $sord = isset($_REQUEST['order'][0]['dir'])?$_REQUEST['order'][0]['dir']:"desc"; // get the direction if(!$sidx) $sidx =1;  
-        
-        // $no_rangka = $_REQUEST['columns'][5]['search']['value'];
-        // $tanggal_awal = $_REQUEST['columns'][4]['search']['value'];
-        // $tanggal_akhir = $_REQUEST['columns'][6]['search']['value'];
-        // $status = $_REQUEST['columns'][7]['search']['value'];
-
-
-      //  order[0][column]
-        $req_param = array (
-        		"lap_b_id" => $lap_b_id,
-				"sort_by" => $sidx,
-				"sort_direction" => $sord,
-				"limit" => null 
-				 
-		);     
-           
-        $row = $this->dm->get_lap_b_saksi($req_param)->result_array();
-		
-        $count = count($row); 
-       
-        
-        $req_param['limit'] = array(
-                    'start' => $start,
-                    'end' => $limit
-        );
-          
-        
-        $result = $this->dm->get_lap_b_saksi($req_param)->result_array();
-        
-
-       
-        $arr_data = array();
-        foreach($result as $row) : 
-		//$daft_id = $row['daft_id'];
-        	 
-		$id = $row['id'];
-         
-        	$arr_data[] = array(
-   		 
-		$row['saksi_nama'],
-		flipdate($row['saksi_tgl_lahir']),
-		$row['saksi_tmp_lahir'],
-		$row['agama'],
-		$row['suku'],
-		$row['pekerjaan'],
-		$row['saksi_alamat']." - ". $row['desa']." - ".$row['kecamatan']." - ".$row['kota']." -  ".$row['provinsi'],
-        		  			 
-        		  			  
-        		  				"<div class=\"btn-group\"> 
-     <a class=\"btn dropdown-toggle btn-primary\" data-toggle=\"dropdown\" href=\"#\">Proses<span class=\"caret\"></span></a>
-     
-     <ul class=\"dropdown-menu\">
-		<li><a  href=\"javascript:saksi_edit('".$id."')\"><span class=\"glyphicon glyphicon-edit\"></span> Edit </a></li> 
-
-		<li><a  href=\"javascript:saksi_hapus('".$id."')\"><span class=\"glyphicon glyphicon-remove\"></span> Hapus</a></li>
- 	 </ul>
-
-
-	</div> ");
-        endforeach;
-
-         $responce = array('draw' => $draw, // ($start==0)?1:$start,
-        				  'recordsTotal' => $count, 
-        				  'recordsFiltered' => $count,
-        				  'data'=>$arr_data
-        	);
-         
-        echo json_encode($responce); 
 }
  
-
-
-function get_lap_b_saksi_detail($id){
-	$data = $this->dm->get_lap_b_saksi_detail($id);
-	$data['saksi_tgl_lahir'] = flipdate($data['saksi_tgl_lahir']);
-	echo json_encode($data);
-}
- 
-
+   
 
 /// korban section 
 
 
-
-function get_lap_b_korban($lap_b_id) {
-		$controller = get_class($this);
-	 	$userdata = $this->session->userdata("userdata");
-      	$draw = $_REQUEST['draw']; // get the requested page 
-    	$start = $_REQUEST['start'];
-        $limit = $_REQUEST['length']; // get how many rows we want to have into the grid 
-        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"id"; // get index row - i.e. user click to sort 
-        $sord = isset($_REQUEST['order'][0]['dir'])?$_REQUEST['order'][0]['dir']:"desc"; // get the direction if(!$sidx) $sidx =1;  
-        
-        // $no_rangka = $_REQUEST['columns'][5]['search']['value'];
-        // $tanggal_awal = $_REQUEST['columns'][4]['search']['value'];
-        // $tanggal_akhir = $_REQUEST['columns'][6]['search']['value'];
-        // $status = $_REQUEST['columns'][7]['search']['value'];
-
-
-      //  order[0][column]
-        $req_param = array (
-        		"lap_b_id" => $lap_b_id,
-				"sort_by" => $sidx,
-				"sort_direction" => $sord,
-				"limit" => null 
-				 
-		);     
-           
-        $row = $this->dm->get_lap_b_korban($req_param)->result_array();
-		
-        $count = count($row); 
-       
-        
-        $req_param['limit'] = array(
-                    'start' => $start,
-                    'end' => $limit
-        );
-          
-        
-        $result = $this->dm->get_lap_b_korban($req_param)->result_array();
-        
-
-       
-        $arr_data = array();
-        foreach($result as $row) : 
-		//$daft_id = $row['daft_id'];
-        	 
-		$id = $row['id'];
-         
-        	$arr_data[] = array(
-   		 
-		$row['korban_nama'],
-		flipdate($row['korban_tgl_lahir']),
-		$row['korban_tmp_lahir'],
-		$row['agama'],
-		$row['suku'],
-		$row['pekerjaan'],
-		$row['korban_alamat']." - ". $row['desa']." - ".$row['kecamatan']." - ".$row['kota']." -  ".$row['provinsi'],
-        		  			 
-        		  			  
-        		  				"<div class=\"btn-group\"> 
-     <a class=\"btn dropdown-toggle btn-primary\" data-toggle=\"dropdown\" href=\"#\">Proses<span class=\"caret\"></span></a>
-     
-     <ul class=\"dropdown-menu\">
-		<li><a  href=\"javascript:korban_edit('".$id."')\"><span class=\"glyphicon glyphicon-edit\"></span> Edit </a></li> 
-
-		<li><a  href=\"javascript:korban_hapus('".$id."')\"><span class=\"glyphicon glyphicon-remove\"></span> Hapus</a></li>
- 	 </ul>
-
-
-	</div> ");
-        endforeach;
-
-         $responce = array('draw' => $draw, // ($start==0)?1:$start,
-        				  'recordsTotal' => $count, 
-        				  'recordsFiltered' => $count,
-        				  'data'=>$arr_data
-        	);
-         
-        echo json_encode($responce); 
-}
-
- 
-
-
-
-function get_lap_b_korban_detail($id){
-	$data = $this->dm->get_lap_b_korban_detail($id);
-	$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
-	echo json_encode($data);
-}
- 
-
-
-
-
-
-function get_lap_b_barbuk($lap_b_id) {
-		$controller = get_class($this);
-	 	$userdata = $this->session->userdata("userdata");
-      	$draw = $_REQUEST['draw']; // get the requested page 
-    	$start = $_REQUEST['start'];
-        $limit = $_REQUEST['length']; // get how many rows we want to have into the grid 
-        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"id"; // get index row - i.e. user click to sort 
-        $sord = isset($_REQUEST['order'][0]['dir'])?$_REQUEST['order'][0]['dir']:"desc"; // get the direction if(!$sidx) $sidx =1;  
-        
-        // $no_rangka = $_REQUEST['columns'][5]['search']['value'];
-        // $tanggal_awal = $_REQUEST['columns'][4]['search']['value'];
-        // $tanggal_akhir = $_REQUEST['columns'][6]['search']['value'];
-        // $status = $_REQUEST['columns'][7]['search']['value'];
-
-
-      //  order[0][column]
-        $req_param = array (
-        		"lap_b_id" => $lap_b_id,
-				"sort_by" => $sidx,
-				"sort_direction" => $sord,
-				"limit" => null 
-				 
-		);     
-           
-        $row = $this->dm->get_lap_b_barbuk($req_param)->result_array();
-		
-        $count = count($row); 
-       
-        
-        $req_param['limit'] = array(
-                    'start' => $start,
-                    'end' => $limit
-        );
-          
-        
-        $result = $this->dm->get_lap_b_barbuk($req_param)->result_array();
-        
-
-       
-        $arr_data = array();
-        foreach($result as $row) : 
-		//$daft_id = $row['daft_id'];
-        	 
-		$id = $row['id'];
-         
-        	$arr_data[] = array(
-   		 
-		$row['barbuk_nama'],
- 
-        		  			 
-        		  			  
-        		  				"<div class=\"btn-group\"> 
-     <a class=\"btn dropdown-toggle btn-primary\" data-toggle=\"dropdown\" href=\"#\">Proses<span class=\"caret\"></span></a>
-     
-     <ul class=\"dropdown-menu\">
-		<li><a  href=\"javascript:barbuk_edit('".$id."')\"><span class=\"glyphicon glyphicon-edit\"></span> Edit </a></li> 
-
-		<li><a  href=\"javascript:barbuk_hapus('".$id."')\"><span class=\"glyphicon glyphicon-remove\"></span> Hapus</a></li>
- 	 </ul>
-
-
-	</div> ");
-        endforeach;
-
-         $responce = array('draw' => $draw, // ($start==0)?1:$start,
-        				  'recordsTotal' => $count, 
-        				  'recordsFiltered' => $count,
-        				  'data'=>$arr_data
-        	);
-         
-        echo json_encode($responce); 
-}
-
-
- 
-
-function get_lap_b_barbuk_detail($id){
-	$data = $this->dm->get_lap_b_barbuk_detail($id);
-	// $data['barbuk_tgl_lahir'] = flipdate($data['barbuk_tgl_lahir']);
-	echo json_encode($data);
-}
-
-function barbuk_update($lap_b_id){
-		$data=$this->input->post();
-
- 
-
-		
-		$this->load->library('form_validation');
-		
-		$this->form_validation->set_rules('barbuk_nama','Nama','required'); 
- 		 
-		$this->form_validation->set_message('required', ' %s Harus diisi ');
-		
- 		$this->form_validation->set_error_delimiters('', '<br>');
-		if($this->form_validation->run() == TRUE ) { 
-
-			$data['id'] = $data['barbuk_id'];
-			unset($data['barbuk_id']);
-			$data['lap_b_id'] = $lap_b_id;
-			 
-
-			 
-			// $data['tanggal'] = flipdate($data['tanggal']);
-			 $this->db->where("id",$data['id']);
-
-			 $res = $this->db->update("lap_b_barbuk",$data);
-			 // echo $this->db->last_query();
-			 if($res) {
-			 	$ret = array("error"=>false,"message"=>"data berhasil disimpan",
-			 		"mode"=>"U");
-			 }
-			 else {
-			 	$ret = array("error"=>true,"message"=>$this->db->_error_message());
-			 }
-			 
-		}
-		else {
-			$ret = array("error"=>true,"message"=>validation_errors());
-		}
-		
-		echo json_encode($ret);
-		
-	}
-
-function cek_penyidik($id_penyidik) {
-	if($id_penyidik == "x") {
-		$this->form_validation->set_message('cek_penyidik', ' %s Harus diisi ');
-		return false;
-	}
-}
- 
-function simpan_penyidik(){
-		$data=$this->input->post();
-		
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('id_penyidik','Nama Penyidik','callback_cek_penyidik');	
- 		 		
-		 
-		$this->form_validation->set_message('required', ' %s Harus diisi ');
-		
- 		$this->form_validation->set_error_delimiters('', '<br>');
-		if($this->form_validation->run() == TRUE ) { 
-
-			$userdata = $_SESSION['userdata'];
-		     $data['id_admindik'] = $userdata['id'];
-			 $data['waktu_penugasan'] = date("Y-m-d h:i:s");
-			 $this->db->where("lap_b_id",$data['lap_b_id']);
-			 $res = $this->db->update("lap_b",$data);
-			 if($res) {
-			 	$ret = array("error"=>false,"message"=>"data penyidik berhasil disimpan","mode"=>"I");
-			 }
-			 else {
-			 	$ret = array("error"=>true,"message"=>$this->db->_error_message());
-			 }
-			 
-		}
-		else {
-			$ret = array("error"=>true,"message"=>validation_errors());
-		}
-		
-		echo json_encode($ret);
-		
-	}
-
-
-
-function get_lap_b_catatan($lap_b_id) {
+function get_data_penyidik($lap_b_id){
         $controller = get_class($this);
         $userdata = $this->session->userdata("userdata");
         $draw = $_REQUEST['draw']; // get the requested page 
         $start = $_REQUEST['start'];
         $limit = $_REQUEST['length']; // get how many rows we want to have into the grid 
-        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"id"; // get index row - i.e. user click to sort 
-        $sord = isset($_REQUEST['order'][0]['dir'])?$_REQUEST['order'][0]['dir']:"desc"; // get the direction if(!$sidx) $sidx =1;  
+        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"nama"; // get index row - i.e. user click to sort 
+        $sord = isset($_REQUEST['order'][0]['dir'])?$_REQUEST['order'][0]['dir']:"asc"; // get the direction if(!$sidx) $sidx =1;  
         
-        // $no_rangka = $_REQUEST['columns'][5]['search']['value'];
+        // $nama = (isset($_REQUEST['columns'][1]['search']['value']))?$_REQUEST['columns'][1]['search']['value']:"";
+        // $level = (isset($_REQUEST['columns'][1]['search']['value']))?$_REQUEST['columns'][2]['search']['value']:"x";
         // $tanggal_awal = $_REQUEST['columns'][4]['search']['value'];
-        // $tanggal_akhir = $_REQUEST['columns'][6]['search']['value'];
-        // $status = $_REQUEST['columns'][7]['search']['value'];
+        $nama = $_REQUEST['columns'][1]['search']['value'];
+        $level = $_REQUEST['columns'][2]['search']['value'];
 
 
       //  order[0][column]
         $req_param = array (
-                "lap_b_id" => $lap_b_id,
                 "sort_by" => $sidx,
                 "sort_direction" => $sord,
-                "limit" => null 
+                "limit" => null,
+                "lap_b_id" => $lap_b_id
+                
                  
         );     
            
-        $row = $this->dm->get_lap_b_catatan($req_param)->result_array();
+        $row = $this->dm->get_data_penyidik($req_param)->result_array();
         
         $count = count($row); 
        
@@ -644,36 +193,49 @@ function get_lap_b_catatan($lap_b_id) {
         );
           
         
-        $result = $this->dm->get_lap_b_catatan($req_param)->result_array();
+        $result = $this->dm->get_data_penyidik($req_param)->result_array();
         
 
        
         $arr_data = array();
+        
         foreach($result as $row) : 
         //$daft_id = $row['daft_id'];
-            
+             
+            $id = $row['idlp'];
+            $polres_polsek = "";
 
-        $id = $row['id'];
+            //echo "jenis =". $row['jenis'] . "<br />";
+            if($row['jenis']=='polsek') {
+
+                //echo "WATTTDEFAAAAKKK"; 
+                $polres_polsek = "POLSEK - ". $row['nama_polsek'];
+            }
+            else if($row['jenis']=='polres') {
+                $polres_polsek = "POLRES - ". $row['nama_polres'];
+            }
+            else {
+            $polres_polsek   = "POLDA ";
+            }
          
-        $arr_data[] = array(
-         
-         
-        flipdate($row['tanggal']),
-        $row['catatan'],
-         
-                             
+            $arr_data[] = array(
+                 
+                                
+                                 
+                                $row['user_id'], 
+                                $row['nama'], 
+                                $row['pangkat'],
+
+                                $polres_polsek,
+
+                                $row['nomor_hp'], 
+                                $row['email'], 
+                                 
+                                 
                               
-                                "<div class=\"btn-group\"> 
-     <a class=\"btn dropdown-toggle btn-primary\" data-toggle=\"dropdown\" href=\"#\">Proses<span class=\"caret\"></span></a>
-     
-     <ul class=\"dropdown-menu\">
-        <li><a  href=\"javascript:catatan_edit('".$id."')\"><span class=\"glyphicon glyphicon-edit\"></span> Edit </a></li> 
-
-        <li><a  href=\"javascript:catatan_hapus('".$id."')\"><span class=\"glyphicon glyphicon-remove\"></span> Hapus</a></li>
-     </ul>
-
-
-    </div> ");
+                                " 
+         <a class='btn btn-danger'   href=\"javascript:penyidik_hapus('". $id ."')\" ><span class=\"glyphicon glyphicon-remove\"></span> Hapus</a> "
+                                );
         endforeach;
 
          $responce = array('draw' => $draw, // ($start==0)?1:$start,
@@ -683,11 +245,97 @@ function get_lap_b_catatan($lap_b_id) {
             );
          
         echo json_encode($responce); 
-}
+    }
+ 
 
 
 
-function simpan_catatan(){
+
+
+function get_data_perkembangan($lap_b_id){
+        $controller = get_class($this);
+        $userdata = $this->session->userdata("userdata");
+        $draw = $_REQUEST['draw']; // get the requested page 
+        $start = $_REQUEST['start'];
+        $limit = $_REQUEST['length']; // get how many rows we want to have into the grid 
+        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"nama"; // get index row - i.e. user click to sort 
+        $sord = isset($_REQUEST['order'][0]['dir'])?$_REQUEST['order'][0]['dir']:"asc"; // get the direction if(!$sidx) $sidx =1;  
+        
+        // $nama = (isset($_REQUEST['columns'][1]['search']['value']))?$_REQUEST['columns'][1]['search']['value']:"";
+        // $level = (isset($_REQUEST['columns'][1]['search']['value']))?$_REQUEST['columns'][2]['search']['value']:"x";
+        // $tanggal_awal = $_REQUEST['columns'][4]['search']['value'];
+        $nama = $_REQUEST['columns'][1]['search']['value'];
+        $level = $_REQUEST['columns'][2]['search']['value'];
+
+
+      //  order[0][column]
+        $req_param = array (
+                "sort_by" => $sidx,
+                "sort_direction" => $sord,
+                "limit" => null,
+                "lap_b_id" => $lap_b_id
+                
+                 
+        );     
+           
+        $row = $this->am->get_data_perkembangan($req_param)->result_array();
+        
+        $count = count($row); 
+       
+        
+        $req_param['limit'] = array(
+                    'start' => $start,
+                    'end' => $limit
+        );
+          
+        
+        $result = $this->am->get_data_perkembangan($req_param)->result_array();
+        
+
+       
+        $arr_data = array();
+        
+        foreach($result as $row) : 
+        
+             
+            $id = $row['id'];
+            $row['lidik']  = ($row['lidik']=="1")?"Penyidikan":"Penyelidikan";
+         
+            $arr_data[] = array(
+                $row['lidik'], 
+                $row['tahap'], 
+                $row['no_dokumen'],            
+                flipdate($row['tanggal']), 
+                $row['keterangan'], 
+                                 
+                                 
+                              
+                               "<div class=\"btn-group\"> 
+     <a class=\"btn dropdown-toggle btn-primary\" data-toggle=\"dropdown\" href=\"#\">Proses<span class=\"caret\"></span></a>
+     
+     <ul class=\"dropdown-menu\">
+        <li><a '#'  onclick=\"perkembangan_edit('". $id ."')\" ><span class=\"glyphicon glyphicon-edit\"></span> Edit </a></li>
+        <li><a  href='#' onclick=\"perkembangan_hapus('". $id ."')\" ><span class=\"glyphicon glyphicon-remove\"></span> Hapus</a></li>
+     </ul>
+
+
+    </div> "
+                                );
+        endforeach;
+
+         $responce = array('draw' => $draw, // ($start==0)?1:$start,
+                          'recordsTotal' => $count, 
+                          'recordsFiltered' => $count,
+                          'data'=>$arr_data
+            );
+         
+        echo json_encode($responce); 
+    }
+
+
+
+
+function perkembangan_simpan(){
         $data=$this->input->post();
 
  
@@ -696,28 +344,69 @@ function simpan_catatan(){
         $this->load->library('form_validation');
         
         $this->form_validation->set_rules('tanggal','Tanggal','required'); 
-        $this->form_validation->set_rules('catatan','Catatan','required'); 
+        // $this->form_validation->set_rules('id_pasal','Pasal','required');
          
         $this->form_validation->set_message('required', ' %s Harus diisi ');
         
         $this->form_validation->set_error_delimiters('', '<br>');
         if($this->form_validation->run() == TRUE ) { 
-             
+            
+
+
+
+            /// upload the file 
+            if(! empty($_FILES['file_dokumen']['name']) ) {
+                    $config['upload_path'] = './documents/';
+                    $config['allowed_types'] = 'txt|pdf|doc|docx|xls|xlsx';
+                    $config['max_size'] = '1000000';
+                    $config['max_width']  = '1024000';
+                    $config['max_height']  = '76800000';
+                    $this->load->library('upload',$config);
+                    if ( ! $this->upload->do_upload('file_dokumen'))
+                    {    
+                        $error = array('error' => $this->upload->display_errors()); 
+                         
+                        $ret = array("success"=>false,
+                                    "pesan"=>"Gambar terlalu besar atau file bukan file gambar. Silahkan pilih gambar yang lain",
+                                    "operation" =>"insert");
+                        echo json_encode($ret);
+                        exit;
+                    }
+                    else {
+                        $arr = $this->upload->data();
+                     
+                        
+                         
+                        $data['file_dokumen'] = $arr['file_name'];
+                         
+                    }
+            }
+
+            // end of upload file 
+
+
+
+
+
+
+
 
             unset($data['id']);
+
+
             $data['tanggal'] = flipdate($data['tanggal']);
-          //  $data['lap_b_id'] = $lap_b_id;
-             
+           
+            //$data['user_id'] = $userdata['id'];
 
-             
-            // $data['tanggal'] = flipdate($data['tanggal']);
+            
 
+             $res = $this->db->insert("lap_b_perkembangan",$data);
 
-             $res = $this->db->insert("lap_b_catatan",$data);
+             $lap_b_id = $this->db->insert_id();
+
              if($res) {
-                $ret = array("error"=>false,"message"=>"data berhasil disimpan",
-                    "mode"=>"I"
-                    );
+
+                 $ret = array("error"=>false,"message"=>"data perkembangan berhasil disimpan");
              }
              else {
                 $ret = array("error"=>true,"message"=>$this->db->_error_message());
@@ -732,16 +421,8 @@ function simpan_catatan(){
         
     }
 
-function get_json_detail_catatan($id){
-    $this->db->where("id",$id);
-    $data = $this->db->get("lap_b_catatan")->row_array();
-    $data['tanggal'] = flipdate($data['tanggal']);
-    echo json_encode($data);
 
-}
-
-// update_catatan
-function update_catatan(){
+function perkembangan_update(){
         $data=$this->input->post();
 
  
@@ -750,28 +431,74 @@ function update_catatan(){
         $this->load->library('form_validation');
         
         $this->form_validation->set_rules('tanggal','Tanggal','required'); 
-        $this->form_validation->set_rules('catatan','Catatan','required'); 
+        // $this->form_validation->set_rules('id_pasal','Pasal','required');
          
         $this->form_validation->set_message('required', ' %s Harus diisi ');
         
         $this->form_validation->set_error_delimiters('', '<br>');
         if($this->form_validation->run() == TRUE ) { 
-             
+            
 
-            // unset($data['id']);
+
+
+            /// upload the file 
+            if(! empty($_FILES['file_dokumen']['name']) ) {
+                    $config['upload_path'] = './documents/';
+                    $config['allowed_types'] = 'txt|pdf|doc|docx|xls|xlsx';
+                    $config['max_size'] = '1000000';
+                    $config['max_width']  = '1024000';
+                    $config['max_height']  = '76800000';
+                    $this->load->library('upload',$config);
+                    if ( ! $this->upload->do_upload('file_dokumen'))
+                    {    
+                        $error = array('error' => $this->upload->display_errors()); 
+                         
+                        $ret = array("success"=>false,
+                                    "pesan"=>"Gambar terlalu besar atau file bukan file gambar. Silahkan pilih gambar yang lain",
+                                    "operation" =>"insert");
+                        echo json_encode($ret);
+                        exit;
+                    }
+                    else {
+                        $arr = $this->upload->data();
+                     
+                        
+                         
+                        $data['file_dokumen'] = $arr['file_name'];
+                         
+                    }
+            }
+            else {
+                unset($data['file_dokumen']);
+            }
+
+            // end of upload file 
+
+
+
+
+
+
+
+
+          
+
+
             $data['tanggal'] = flipdate($data['tanggal']);
-          //  $data['lap_b_id'] = $lap_b_id;
-             
+           
+            //$data['user_id'] = $userdata['id'];
+
+            
+            $this->db->where("id",$data['id']);
+             $res = $this->db->update("lap_b_perkembangan",$data);
+
+             // echo $this->db->last_query(); exit;
 
              
-            // $data['tanggal'] = flipdate($data['tanggal']);
-             $this->db->where("id",$data['id']);
 
-             $res = $this->db->update("lap_b_catatan",$data);
              if($res) {
-                $ret = array("error"=>false,"message"=>"data berhasil disimpan",
-                    "mode"=>"I"
-                    );
+
+                 $ret = array("error"=>false,"message"=>"data perkembangan berhasil disimpan");
              }
              else {
                 $ret = array("error"=>true,"message"=>$this->db->_error_message());
@@ -786,11 +513,11 @@ function update_catatan(){
         
     }
 
-
-function catatan_hapus(){
+    
+function perkembangan_hapus(){
     $data = $this->input->post();
     $this->db->where("id",$data['id']);
-    $res = $this->db->delete("lap_b_catatan");
+    $res = $this->db->delete("lap_b_perkembangan");
     if($res){
         $ret = array("error"=>false,"message"=>"Data Berhasi dihapus");
 
@@ -799,6 +526,14 @@ function catatan_hapus(){
         $ret = array("error"=>true,"message"=>"Data gagal dihapus");
     }
     echo json_encode($ret);
+}
+
+
+function get_perkembangan_detail_json($id){
+    $detail = $this->am->get_perkembangan_detail_json($id);
+    // show_array($detail);
+    $detail['tanggal'] = flipdate($detail['tanggal']);
+    echo json_encode($detail);
 }
 
 

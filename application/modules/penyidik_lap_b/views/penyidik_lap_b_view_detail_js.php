@@ -1,220 +1,171 @@
+<script src="<?php echo base_url("assets") ?>/js/jquery.form.js"></script>
+<script src="<?php echo base_url("assets") ?>/js/jquery.loadJSON.js"></script> 
+</script>
 <script type="text/javascript">
-
 $(document).ready(function(){
 
-  $(".tanggal").datepicker()
-		.on('changeDate', function(ev){                 
-		    $(this).datepicker('hide');
-		});
+   
+
+$(".tanggal").datepicker()
+    .on('changeDate', function(ev){                 
+        $(this).datepicker('hide');
+    });
 
 
-
-		 var dt_terlapor = $("#terlapor").DataTable(
+		 var dt = $("#grid_penyidik").DataTable(
 		 	{
 		 		// "order": [[ 0, "desc" ]],
 		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
+				"columnDefs": [ { "targets": 0, "orderable": true } ],
 				"processing": true,
 		        "serverSide": true,
-		        "bLengthChange": false,
-		        "bInfo": false,
-		        "ajax": '<?php echo site_url("$controller/get_lap_b_terlapor/$lap_b_id") ?>'
+		        "ajax": '<?php echo site_url("$controller/get_data_penyidik/$lap_b_id") ?>'
 		 	});
 
+		 
+		// $("#grid_penyidik").css("display","none");  
+		 
+		var dt_kembang = $("#grid_perkembangan").DataTable(
+      {
+        // "order": [[ 0, "desc" ]],
+        // "iDisplayLength": 50,
+        "columnDefs": [ { "targets": 0, "orderable": true } ],
+        "processing": true,
+            "serverSide": true,
+            "ajax": '<?php echo site_url("$controller/get_data_perkembangan/$lap_b_id") ?>'
+      });
+				
 
 
-		 /// saksi section 
-			var dt_saksi = $("#saksi").DataTable(
-		 	{
-		 		// "order": [[ 0, "desc" ]],
-		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
-				"processing": true,
-		        "serverSide": true,
-		        "bLengthChange": false,
-		        "bInfo": false,
-		        "ajax": '<?php echo site_url("$controller/get_lap_b_saksi/$lap_b_id") ?>'
-		 	});
+$("#lidik").change(function(){
 
-		 	
-		 	var dt_korban = $("#korban").DataTable(
-		 	{
-		 		// "order": [[ 0, "desc" ]],
-		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
-				"processing": true,
-		        "serverSide": true,
-		        "bLengthChange": false,
-		        "bInfo": false,
-		        "ajax": '<?php echo site_url("$controller/get_lap_b_korban/$lap_b_id") ?>'
-		 	});
+    $.ajax({
+      url : '<?php echo site_url("general/get_tahap") ?>/'+$(this).val(),
+      success : function(htmlData) {
+          $("#id_tahap").html(htmlData);
+          }
 
-		 	var dt_korban = $("#barbuk").DataTable(
-		 	{
-		 		// "order": [[ 0, "desc" ]],
-		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
-				"processing": true,
-		        "serverSide": true,
-		        "bLengthChange": false,
-		        "bInfo": false,
-		        "ajax": '<?php echo site_url("$controller/get_lap_b_barbuk/$lap_b_id") ?>'
-		 	});
-
-
-
- 		var dt_catatan = $("#tbl_catatan").DataTable(
-		 	{
-		 		// "order": [[ 0, "desc" ]],
-		 		// "iDisplayLength": 50,
-				"columnDefs": [ { "targets": 0, "orderable": false } ],
-				"processing": true,
-		        "serverSide": true,
-		        "bLengthChange": false,
-		        "bInfo": false,
-		        "ajax": '<?php echo site_url("$controller/get_lap_b_catatan/$lap_b_id") ?>'
-		 	});
-
-
-
-
-
-
+    });
 
 
 });
 
 
+// submit formulir 
 
- 
-
-function simpan_penyidik(){
-   $.ajax({
-      url : $("#form_penyidik").attr('action'),
-      data : $("#form_penyidik").serialize(),
-      type : 'post',
-      dataType : 'json',
-      success : function(obj) {
-
-      if(obj.error==false){
-             
-         BootstrapDialog.alert({
-                  type: BootstrapDialog.TYPE_PRIMARY,
-                  title: 'Informasi',
-                  message: obj.message,
-                   
-              });   
-         
-       
-         
-      }
-      else {
-         BootstrapDialog.alert({
-                  type: BootstrapDialog.TYPE_DANGER,
-                  title: 'Error',
-                  message: obj.message ,
-                   
-              }); 
-      }
+// $("#formulir_perkembangan").submit(function(){
 
 
-
-      }
-   });
-}
-
+// });				 
  
 
 
-function tambah_catatan() {
-	 
-	$('#modal_catatan').modal('show');
-
-	$("#modal_catatan_judul").html('TAMBAH DATA CATATAN PROSES'); 
-
-	$("#form_catatan").attr('action','<?php echo site_url("$controller/simpan_catatan"); ?>');
 	
+});
 
+
+
+
+function perkembangan_baru() {
+   
+  $("#perkembangan_modal").modal("show");
+  $("#formulir_perkembangan").attr('action','<?php echo site_url("$controller/perkembangan_simpan/") ?>');
+  $("#titleModal").html('TAMBAH DATA PERKEMBANGAN KASUS');
 }
 
 
+function perkembangan_edit(id) {
+   
+  $("#perkembangan_modal").modal("show");
+  $("#formulir_perkembangan").attr('action','<?php echo site_url("$controller/perkembangan_update/") ?>/'+id);
+  $("#titleModal").html('EDIT DATA PERKEMBANGAN KASUS');
 
+  $.ajax({
+    url : '<?php echo site_url("$controller/get_perkembangan_detail_json") ?>/'+id,
+    dataType : 'json',
+    success : function(jsonData) {
+      
+      $("#proses_penyidikan").val(jsonData.proses_penyidikan).attr('selected','selected');
+      $("#lidik").val(jsonData.lidik).attr('selected','selected');
 
+      $("#no_dokumen").val(jsonData.no_dokumen);
+      $("#tanggal").val(jsonData.tanggal);
+      $("#keterangan").val(jsonData.keterangan);
+      $("#id").val(jsonData.id);
+      $("#lap_b_id").val(jsonData.lap_b_id);
+      //$("#nomor_dokumen").val(jsonData.nomor_dokumen);
 
+      $.ajax({
+        url:'<?php echo site_url("general/get_dropdown_tahap"); ?>/',
+        data : { lidik : jsonData.lidik, 
+                id_tahap : jsonData.id_tahap },
+        type : 'post',
+        success: function(data){
+          $("#id_tahap").html('').append(data);
+        }
+      });
+      
+    }
 
-function catatan_simpan(){
-	$('#myPleaseWait').modal('show');
-		
-		$.ajax({
-			url : $("#form_catatan").attr('action'),
-			data : $("#form_catatan").serialize(),
-			dataType : 'json',
-			type : 'post',
-			success : function(obj) {
-				$('#myPleaseWait').modal('hide');
-				 console.log(obj);
-				if(obj.error==false){
-					 	 
-					 	 BootstrapDialog.alert({
-			                type: BootstrapDialog.TYPE_PRIMARY,
-			                title: 'Informasi',
-			                message: obj.message,
-			                 
-			            });   
-						 
-						$("#modal_catatan").modal('hide'); 
-						$('#tbl_catatan').DataTable().ajax.reload();						 
-						$('#form_catatan')[0].reset();
-						 		
-						 
-					}
-					else {
-						 BootstrapDialog.alert({
-			                type: BootstrapDialog.TYPE_DANGER,
-			                title: 'Error',
-			                message: obj.message ,
-			                 
-			            }); 
-					}
-			}
-		});
-		return false;
-}
-
-
-function catatan_edit(id) {
-	 
-	$('#modal_catatan').modal('show');
-
-	$("#modal_catatan_judul").html('EDIT DATA CATATAN PROSES'); 
-
-	$("#form_catatan").attr('action','<?php echo site_url("$controller/update_catatan"); ?>');
-	
-	$.ajax({
-		url : '<?php echo site_url("$controller/get_json_detail_catatan"); ?>/'+id,
-		dataType : 'json',
-		success : function(obj) {
-				$("#id").val(obj.id);
-				$("#tanggal").val(obj.tanggal);
-				$("#catatan").val(obj.catatan);
-		}
-	});
-
-
-
-
+  });
 
 
 }
 
 
- 
+function perkembangan_simpan(){
 
-function catatan_hapus(id){
+// $("#formulir_perkembangan").submit();
+
+
+$('#myPleaseWait').modal('show');
+  $("#formulir_perkembangan").ajaxSubmit({
+     dataType : 'json',
+     success : function(obj){
+
+
+        $('#myPleaseWait').modal('hide');
+
+        if(obj.error==false){
+               
+           BootstrapDialog.alert({
+                    type: BootstrapDialog.TYPE_PRIMARY,
+                    title: 'Informasi',
+                    message: obj.message,
+                     
+                });   
+           
+          
+          $('#grid_perkembangan').DataTable().ajax.reload(); 
+          $("#perkembangan_modal").modal('hide'); 
+         
+           
+        }
+        else {
+           BootstrapDialog.alert({
+                    type: BootstrapDialog.TYPE_DANGER,
+                    title: 'Error',
+                    message: obj.message ,
+                     
+                }); 
+        }
+
+
+
+
+     }
+  }); 
+  return false;
+
+
+}
+
+
+function perkembangan_hapus(id){
 
 BootstrapDialog.show({
-            message : 'ANDA AKAN MENGHAPUS DATA CATATAN. ANDA YAKIN  ?  ',
-            title: 'KONFIRMASI HAPUS DATA ',
+            message : 'ANDA AKAN MENGHAPUS DATA PENYIDIK. ANDA YAKIN  ?  ',
+            title: 'KONFIRMASI HAPUS DATA PENYIDIK',
             draggable: true,
             buttons : [
               {
@@ -227,7 +178,7 @@ BootstrapDialog.show({
                   dialogItself.close();
                   $('#myPleaseWait').modal('show'); 
                   $.ajax({
-                  	url : '<?php echo site_url("$controller/catatan_hapus") ?>',
+                  	url : '<?php echo site_url("$controller/perkembangan_hapus") ?>',
                   	type : 'post',
                   	data : {id : id},
                   	dataType : 'json',
@@ -241,10 +192,8 @@ BootstrapDialog.show({
 				                       
 				                  });   
 
-                  		$('#tbl_catatan').DataTable().ajax.reload();	
-
-
-
+                  		$('#grid_perkembangan').DataTable().ajax.reload(); 
+                      
                   		}
                   		else {
                   			BootstrapDialog.alert({
@@ -269,7 +218,7 @@ BootstrapDialog.show({
             ]
           });
 }
-
-
+ 		 
+	   
 
 </script>
