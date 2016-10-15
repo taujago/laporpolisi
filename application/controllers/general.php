@@ -247,9 +247,33 @@ function get_dropdown_gol_kejahatan(){
 
 }
 
+
+
+
+
+function get_dropdown_tahap(){
+		$post = $this->input->post();
+
+		$this->db->where("id_lidik",$post['lidik']);
+		$this->db->order_by("tahap");
+
+		$res = $this->db->get("m_tahap");
+		// echo $this->db->last_query(); 
+		$html = "";
+		foreach($res->result() as $row ) :
+			$sel = ($row->id == $post['id_tahap'])?"selected":"";
+			$html .= "<option value=$row->id $sel> $row->tahap </option>"; 
+		endforeach;
+
+		echo $html;
+
+}
+
+
 function get_tahap($id) {
 	$this->db->where("id_lidik",$id);
 	$res = $this->db->get("m_tahap");
+	$html = "";
 	foreach($res->result() as $row ) :
 			 
 			$html .= "<option value=$row->id > $row->tahap </option>"; 

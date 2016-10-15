@@ -259,14 +259,7 @@ function get_data_penyidik($param){
 }
 
 function get_arr_data_penyidik(){
-	// $this->db->select("a.*, b.pangkat, l.level  as level2,
-	//    res.nama_polres, sek.nama_polsek
-	//  ")->from('pengguna a',false)
-	// ->join('m_pangkat b','a.id_pangkat=b.id_pangkat','left')
-	// ->join("m_polres res","res.id_polres = a.id_polres",'left')
-	// ->join("m_polsek sek","sek.id_polsek=a.id_polsek","left")
-	// ->join("m_level l",'l.id=a.level','left');
-	// $this->db->where("a.level","2");
+	 
 
 	$this->db->where("level","2");
 	$this->db->order_by("nama");
@@ -280,6 +273,25 @@ function get_arr_data_penyidik(){
 	return $arr;
 
 }
+
+
+
+function get_perkembangan($lap_a_id){
+	$this->db->select('a.*,b.tahap')->from('lap_a_perkembangan a'); 
+	$this->db->join("m_tahap b","a.id_tahap = b.id","left");
+
+				// "tanggal_awall" => $tanggal_awal, 
+				// "tanggal_akhir" => $tanggal_akhir,
+				// "id_fungsi" => $id_fungsi 
+
+    
+
+    
+    $this->db->where("a.lap_a_id",$lap_a_id);
+    $res = $this->db->get("lap_a_perkembangan");
+    return $res;
+}
+
 
 	
 }

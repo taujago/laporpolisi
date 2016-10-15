@@ -248,63 +248,7 @@ function get_data_penyidik($lap_a_id){
     }
  
 
- 
-// function cek_penyidik($id_penyidik)
 
-function penyidik_simpan($lap_a_id){
-        $data=$this->input->post();
-        
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('id_penyidik','Penyidik','call_back_cek_penyidik'); 
-         
-                
-         
-        $this->form_validation->set_message('required', ' %s Harus diisi ');
-        
-        $this->form_validation->set_error_delimiters('', '<br>');
-        if($this->form_validation->run() == TRUE ) { 
-
-             
-            unset($data['id']);
-
-            $data['lap_a_id'] = $lap_a_id;
-         
-
-         
-
-             $res = $this->db->insert("lap_a_penyidik",$data);
-             if($res) {
-                $ret = array("error"=>false,"message"=>"data penyidik berhasil disimpan","mode"=>"I");
-             }
-             else {
-                $ret = array("error"=>true,"message"=>$this->db->_error_message());
-             }
-             
-        }
-        else {
-            $ret = array("error"=>true,"message"=>validation_errors());
-        }
-        
-        echo json_encode($ret);
-        
-    }
-
-
-function penyidik_hapus(){
-    $data = $this->input->post();
-    $this->db->where("id",$data['id']);
-    $res = $this->db->delete("lap_a_penyidik");
-
-    // echo $this->db->last_query();
-    if($res){
-        $ret = array("error"=>false,"message"=>"Data Berhasi dihapus");
-
-    }
-    else {
-        $ret = array("error"=>true,"message"=>"Data gagal dihapus");
-    }
-    echo json_encode($ret);
-}
 
 
 
@@ -478,6 +422,119 @@ function perkembangan_simpan(){
     }
 
 
+function perkembangan_update(){
+        $data=$this->input->post();
+
+ 
+
+        
+        $this->load->library('form_validation');
+        
+        $this->form_validation->set_rules('tanggal','Tanggal','required'); 
+        // $this->form_validation->set_rules('id_pasal','Pasal','required');
+         
+        $this->form_validation->set_message('required', ' %s Harus diisi ');
+        
+        $this->form_validation->set_error_delimiters('', '<br>');
+        if($this->form_validation->run() == TRUE ) { 
+            
+
+
+
+            /// upload the file 
+            if(! empty($_FILES['file_dokumen']['name']) ) {
+                    $config['upload_path'] = './documents/';
+                    $config['allowed_types'] = 'txt|pdf|doc|docx|xls|xlsx';
+                    $config['max_size'] = '1000000';
+                    $config['max_width']  = '1024000';
+                    $config['max_height']  = '76800000';
+                    $this->load->library('upload',$config);
+                    if ( ! $this->upload->do_upload('file_dokumen'))
+                    {    
+                        $error = array('error' => $this->upload->display_errors()); 
+                         
+                        $ret = array("success"=>false,
+                                    "pesan"=>"Gambar terlalu besar atau file bukan file gambar. Silahkan pilih gambar yang lain",
+                                    "operation" =>"insert");
+                        echo json_encode($ret);
+                        exit;
+                    }
+                    else {
+                        $arr = $this->upload->data();
+                     
+                        
+                         
+                        $data['file_dokumen'] = $arr['file_name'];
+                         
+                    }
+            }
+            else {
+                unset($data['file_dokumen']);
+            }
+
+            // end of upload file 
+
+
+
+
+
+
+
+
+          
+
+
+            $data['tanggal'] = flipdate($data['tanggal']);
+           
+            //$data['user_id'] = $userdata['id'];
+
+            
+            $this->db->where("id",$data['id']);
+             $res = $this->db->update("lap_a_perkembangan",$data);
+
+             // echo $this->db->last_query(); exit;
+
+             
+
+             if($res) {
+
+                 $ret = array("error"=>false,"message"=>"data perkembangan berhasil disimpan");
+             }
+             else {
+                $ret = array("error"=>true,"message"=>$this->db->_error_message());
+             }
+             
+        }
+        else {
+            $ret = array("error"=>true,"message"=>validation_errors());
+        }
+        
+        echo json_encode($ret);
+        
+    }
+
+    
+function perkembangan_hapus(){
+    $data = $this->input->post();
+    $this->db->where("id",$data['id']);
+    $res = $this->db->delete("lap_a_perkembangan");
+    if($res){
+        $ret = array("error"=>false,"message"=>"Data Berhasi dihapus");
+
+    }
+    else {
+        $ret = array("error"=>true,"message"=>"Data gagal dihapus");
+    }
+    echo json_encode($ret);
+}
+
+
+function get_perkembangan_detail_json($id){
+    $detail = $this->am->get_perkembangan_detail_json($id);
+    // show_array($detail);
+    $detail['tanggal'] = flipdate($detail['tanggal']);
+    echo json_encode($detail);
+}
 
 
 }

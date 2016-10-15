@@ -87,7 +87,11 @@
     <?php $this->load->view($this->controller."_view_detail_penyidik"); ?>  
 
     </div>
-    <div role="tabpanel" class="tab-pane" id="perkembagan">...Perkembangan kasus</div>
+    <div role="tabpanel" class="tab-pane" id="perkembagan">
+
+    <?php $this->load->view($this->controller."_view_detail_perkembangan"); ?>  
+
+    </div>
   </div>
 
 </div>

@@ -128,5 +128,14 @@ function add_arr_head($arr,$index,$str) {
 }
 
 
+// function flipdate($date){
+// 	$r=explode("-",$date);
+// 	if(count($r) < 3){
+// 		return "";
+// 	}
+// 	else {
+// 		return $r[2]."-".$r[1]."-".$r[0];
+// 	}
+// }
 
 ?>

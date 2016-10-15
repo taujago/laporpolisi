@@ -132,6 +132,7 @@ function detail($id){
     $detail['rec_saksi'] = $this->dm->get_saksi($id);
     $detail['rec_korban'] = $this->dm->get_korban($id);
     $detail['rec_barbuk'] = $this->dm->get_barbuk($id);
+    $detail['rec_perkembangan'] = $this->dm->get_perkembangan($id);
 
 
 	

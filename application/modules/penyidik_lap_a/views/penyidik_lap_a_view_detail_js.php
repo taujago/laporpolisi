@@ -1,5 +1,5 @@
 <script src="<?php echo base_url("assets") ?>/js/jquery.form.js"></script>
- 
+<script src="<?php echo base_url("assets") ?>/js/jquery.loadJSON.js"></script> 
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -71,6 +71,45 @@ function perkembangan_baru() {
   $("#perkembangan_modal").modal("show");
   $("#formulir_perkembangan").attr('action','<?php echo site_url("$controller/perkembangan_simpan/") ?>');
   $("#titleModal").html('TAMBAH DATA PERKEMBANGAN KASUS');
+}
+
+
+function perkembangan_edit(id) {
+   
+  $("#perkembangan_modal").modal("show");
+  $("#formulir_perkembangan").attr('action','<?php echo site_url("$controller/perkembangan_update/") ?>/'+id);
+  $("#titleModal").html('EDIT DATA PERKEMBANGAN KASUS');
+
+  $.ajax({
+    url : '<?php echo site_url("$controller/get_perkembangan_detail_json") ?>/'+id,
+    dataType : 'json',
+    success : function(jsonData) {
+      
+      $("#proses_penyidikan").val(jsonData.proses_penyidikan).attr('selected','selected');
+      $("#lidik").val(jsonData.lidik).attr('selected','selected');
+
+      $("#no_dokumen").val(jsonData.no_dokumen);
+      $("#tanggal").val(jsonData.tanggal);
+      $("#keterangan").val(jsonData.keterangan);
+      $("#id").val(jsonData.id);
+      $("#lap_a_id").val(jsonData.lap_a_id);
+      //$("#nomor_dokumen").val(jsonData.nomor_dokumen);
+
+      $.ajax({
+        url:'<?php echo site_url("general/get_dropdown_tahap"); ?>/',
+        data : { lidik : jsonData.lidik, 
+                id_tahap : jsonData.id_tahap },
+        type : 'post',
+        success: function(data){
+          $("#id_tahap").html('').append(data);
+        }
+      });
+      
+    }
+
+  });
+
+
 }
 
 
@@ -153,7 +192,7 @@ BootstrapDialog.show({
 				                       
 				                  });   
 
-                  		$('#grid_penyidik').DataTable().ajax.reload(); 
+                  		$('#grid_perkembangan').DataTable().ajax.reload(); 
                       
                   		}
                   		else {

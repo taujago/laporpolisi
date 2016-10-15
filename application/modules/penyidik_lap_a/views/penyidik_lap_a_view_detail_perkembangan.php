@@ -15,7 +15,7 @@
         <th width="19%">TANGGAL</th>
         
         <th width="22%">KETERANGAN</th>
-        <th width="10%">#</th>
+        <th width="5%">#</th>
          
        
     </tr>
