@@ -1,0 +1,1 @@
+ALTER TABLE `lap_laka_saksi` ADD `saksi_id_pendidikan` INT NULL AFTER `saksi_id_desa`, ADD `saksi_wn` VARCHAR(20) NULL AFTER `saksi_id_pendidikan`, ADD `saksi_nik` VARCHAR(50) NULL AFTER `saksi_wn`, ADD `saksi_no_passport` VARCHAR(50) NULL AFTER `saksi_nik`, ADD `saksi_no_kitas` VARCHAR(40) NULL AFTER `saksi_no_passport`;
