@@ -360,7 +360,13 @@ pel_pangkat.pangkat as pelapor_pangkat,
 
 meng_pangkat.pangkat as meng_pangkat,
 
-
+desa.desa, 
+				kec.id as kp_kec_id, 
+				kec.kecamatan, 
+				kota.id as kp_kota_id, 
+				kota.kota, 
+				prov.id as kp_prov_id, 
+				prov.provinsi, 
 				
 
 
@@ -373,6 +379,11 @@ u.nama as pengguna ')
 ->join("m_pangkat meng_pangkat","meng_pangkat.id_pangkat = a.pengetahui_id_pangkat",'left')
 ->join("pengguna u","u.id = a.user_id",'left')
 
+
+->join('tiger_desa desa','desa.id = a.kp_id_desa ','left')
+->join('tiger_kecamatan kec','kec.id = desa.id_kecamatan ','left')
+->join('tiger_kota kota','kota.id = kec.id_kota ','left')
+->join('tiger_provinsi prov','prov.id = kota.id_provinsi','left')
 
 
 ->where("a.lap_laka_lantas_id",$id);

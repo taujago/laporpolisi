@@ -1,6 +1,5 @@
 <link href="<?php echo base_url("assets") ?>/css/jquery.dataTables.css" rel="stylesheet">
 <link href="<?php echo base_url("assets") ?>/css/datepicker.css" rel="stylesheet">
-
 <script src="<?php echo base_url("assets") ?>/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url("assets") ?>/js/bootstrap-datepicker.js"></script>
 <script src="<?php echo base_url("assets") ?>/js/jquery.loadJSON.js"></script>
@@ -70,7 +69,7 @@
     </tr>
     <tr>
       <td width="161">Tempat Kejadian</td>
-      <td width="516"><?php echo $kp_tempat_kejadian; ?></td></td>
+      <td width="516"><?php echo $kp_tempat_kejadian ." - ". $desa." - ". $kecamatan." - ". $kota." - ". $provinsi; ?></td></td>
     </tr>
     <tr>
       <td width="161">Apa Yang Terjadi</td>
@@ -125,12 +124,12 @@
           <thead>
             <tr >
               <th width="15%">NAMA</th>
-              <th width="15%">JENIS KELAMIN</th>
+              <th width="5%">JK</th>
               <th width="10%">TGL. LAHIR</th>
               <th width="15%">PEKERJAAN</th>
               <th width="10%">AGAMA</th>
               <th width="25%">ALAMAT</th>
-              <th width="10%">#</th>
+               
               </tr>   
           </thead>
         </table>      </td>
@@ -144,12 +143,12 @@
           <thead>
             <tr >
               <th width="15%">NAMA</th>
-              <th width="15%">JENIS KELAMIN</th>
+              <th width="5%">JK</th>
               <th width="10%">TGL. LAHIR</th>
               <th width="15%">PEKERJAAN</th>
               <th width="10%">AGAMA</th>
               <th width="25%">ALAMAT</th>
-              <th width="10%">#</th>
+               
               </tr>   
           </thead>
         </table>      </td>
@@ -163,14 +162,14 @@
           <thead>
             <tr >
               <th width="15%">NAMA</th>
-              <th width="10%">JENIS KELAMIN</th>
+              <th width="5%">JK</th>
               <th width="10%">TGL. LAHIR</th>
               <th width="15%">PEKERJAAN</th>
               <th width="10%">AGAMA</th>
               <th width="25%">ALAMAT</th>
               <th width="25%">Cedera</th>
               <th width="25%">Tempat Dirawat</th>
-              <th width="10%">#</th>
+               
               </tr>   
           </thead>
         </table>      </td>
@@ -192,7 +191,7 @@
               <th width="13%">MODEL</th>
               <th width="20%">TAHUN BUAT</th>
               <th width="18%">KONDISI BAN</th>
-              <th width="14%">#</th>
+               
             </tr>   
           </thead>
         </table>      </td>

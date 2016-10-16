@@ -122,6 +122,39 @@
       <td width="161">Tempat Kejadian</td>
       <td width="516"><textarea class="form-control" name="kp_tempat_kejadian" id="kp_tempat_kejadian" placeholder="Tempat Kejadian . . ." ></textarea></td></td>
     </tr>
+
+
+
+    <tr><td>Provinsi </td>
+              <TD>
+          <?php 
+                  $arr_provinsi = $this->cm->get_arr_dropdown("tiger_provinsi", 
+      "id","provinsi",'provinsi');
+
+                  echo form_dropdown("",$arr_provinsi,'','id="kp_id_provinsi" class="form-control" onchange="get_kota(this,\'#kp_id_kota\',1)"'); 
+                  ?>
+                  <tr><td>Kabupaten / Kota </td>
+              <TD>
+          <?php
+          echo form_dropdown("",array(),'','id="kp_id_kota" class="form-control" onchange="get_kecamatan(this,\'#kp_id_kecamatan\',1)"'); 
+                ?></TD></tr>
+
+               <tr><td>Kecamatan </td>
+              <TD><?php echo form_dropdown("",array(),'','id="kp_id_kecamatan" class="form-control" onchange="get_desa(this,\'#kp_id_desa\',1)"'); 
+                ?></TD></tr>
+              <tr><td>Desa / Kelurahan </td>
+              <TD>
+              <?php 
+                  
+
+                  echo form_dropdown("kp_id_desa",array(),'','id="kp_id_desa" class="form-control" '); 
+                ?>
+                </TD>
+                </tr>
+
+
+
+
     <tr>
       <td width="161">Apa Yang Terjadi</td>
       <td width="516"><textarea class="form-control" name="kp_apa_yang_terjadi" id="kp_apa_yang_terjadi" placeholder="Apa Yang Terjadi . . . " ></textarea></td></td>
@@ -209,7 +242,7 @@
           <thead>
             <tr >
               <th width="15%">NAMA</th>
-              <th width="15%">JENIS KELAMIN</th>
+              <th width="5%">JK</th>
               <th width="10%">TGL. LAHIR</th>
               <th width="15%">PEKERJAAN</th>
               <th width="10%">AGAMA</th>
@@ -230,7 +263,7 @@
           <thead>
             <tr >
               <th width="15%">NAMA</th>
-              <th width="15%">JENIS KELAMIN</th>
+              <th width="5%">JK</th>
               <th width="10%">TGL. LAHIR</th>
               <th width="15%">PEKERJAAN</th>
               <th width="10%">AGAMA</th>
@@ -251,7 +284,7 @@
           <thead>
             <tr >
               <th width="15%">NAMA</th>
-              <th width="10%">JENIS KELAMIN</th>
+              <th width="5%">JK</th>
               <th width="10%">TGL. LAHIR</th>
               <th width="15%">PEKERJAAN</th>
               <th width="10%">AGAMA</th>

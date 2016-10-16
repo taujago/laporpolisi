@@ -40,8 +40,8 @@ class lap_lantas extends master_controller {
 		$data_array['status'] = isset($_GET['status'])?$_GET['status']:'0';
 		$content = $this->load->view($controller."_view",$data_array,true);
 
-		$this->set_subtitle("LAPORAN POLISI TIPE LANTAS");
-		$this->set_title("LAPORAN  POLISI TIPE LANTAS");
+		$this->set_subtitle("LAPORAN POLISI LAKA LANTAS");
+		$this->set_title("LAPORAN  POLISI LAKA LANTAS");
 		$this->set_content($content);
 		$this->render_baru();
 	}
@@ -341,13 +341,9 @@ function edit($id){
 
 
 		$content = $this->load->view($this->controller."_view_form",$data,true);
-
 		
-
-
-		
-		$this->set_subtitle("EDIT DATA LAPORAN TIPE A");
-		$this->set_title("EDIT DATA LAPORAN TIPE A");
+		$this->set_subtitle("EDIT DATA LAPORAN LAKA LANTAS");
+		$this->set_title("EDIT DATA LAPORAN LAKA LANTAS");
 		$this->set_content($content);
 		$this->render_baru();
 	}
@@ -431,12 +427,13 @@ function detail($id){
 	$detail['json_url_saksi'] = site_url("$this->controller/get_lap_lantas_saksi/$id");
 	$detail['json_url_korban'] = site_url("$this->controller/get_lap_lantas_korban/$id");
 	$detail['json_url_kendaraan'] = site_url("$this->controller/get_lap_lantas_kendaraan/$id");
-
+	$detail['json_url_pasal'] = site_url("$this->controller/get_lap_lantas_pasal/$id");
 
 	$detail['pengemudi_add_url'] = site_url("$this->controller/pengemudi_simpan/$id"); 
 	$detail['saksi_add_url'] = site_url("$this->controller/saksi_simpan/$id"); 
 	$detail['korban_add_url'] = site_url("$this->controller/korban_simpan/$id"); 
 	$detail['kendaraan_add_url'] = site_url("$this->controller/kendaraan_simpan/$id");
+	$detail['pasal_add_url'] = site_url("$this->controller/pasal_simpan/$id"); 
 
 
 	
@@ -841,7 +838,7 @@ function saksi_add($lap_a_id){
 
 
 
-function saksi_simpan($lap_a_id){
+function saksi_simpan($lap_laka_lantas_id){
 		$data=$this->input->post();
 
  
@@ -861,14 +858,14 @@ function saksi_simpan($lap_a_id){
 
 
 			$data['saksi_tgl_lahir'] = flipdate($data['saksi_tgl_lahir']);
-			$data['lap_a_id'] = $lap_a_id;
+			$data['lap_laka_lantas_id'] = $lap_laka_lantas_id;
 			 
 
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
 
-			 $res = $this->db->insert("lap_a_saksi",$data);
+			 $res = $this->db->insert("lap_laka_saksi",$data);
 			 if($res) {
 			 	$ret = array("error"=>false,"message"=>"data berhasil disimpan",
 			 		"mode"=>"I");
@@ -1024,7 +1021,7 @@ function korban_add($lap_a_id){
 
 
 
-function korban_simpan($lap_a_id){
+function korban_simpan($lap_laka_lantas_id){
 		$data=$this->input->post();
 
  
@@ -1044,14 +1041,14 @@ function korban_simpan($lap_a_id){
 
 
 			$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
-			$data['lap_a_id'] = $lap_a_id;
+			$data['lap_laka_lantas_id'] = $lap_laka_lantas_id;
 			 
 
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
 
-			 $res = $this->db->insert("lap_a_korban",$data);
+			 $res = $this->db->insert("lap_laka_korban",$data);
 			 if($res) {
 			 	$ret = array("error"=>false,"message"=>"data berhasil disimpan",
 			 		"mode"=>"I");
@@ -1594,6 +1591,10 @@ function tmp_pengemudi_simpan(){
 		echo json_encode($ret);
 		
 	}
+
+
+
+
 
 
 
@@ -2500,6 +2501,58 @@ function get_lap_lantas_pasal($lap_laka_lantas_id) {
          
         echo json_encode($responce); 
 }
+
+
+
+function pengemudi_simpan($lap_laka_lantas_id){
+		$data=$this->input->post();
+
+
+		// $lap_laka_lantas_id = $this->session->userdata("temp_lap_laka_lantas_id"); 
+		
+		$this->load->library('form_validation');
+		
+		$this->form_validation->set_rules('pengemudi_nama','Nama','required'); 
+		 
+		$this->form_validation->set_message('required', ' %s Harus diisi ');
+		
+ 		$this->form_validation->set_error_delimiters('', '<br>');
+		if($this->form_validation->run() == TRUE ) { 
+			unset($data['lap_laka_lantas_pengemudi_id']);
+			 
+
+
+			
+			$data['pengemudi_tgl_lahir'] = flipdate($data['pengemudi_tgl_lahir']);
+			// $data['temp_laka_lantas_id'] = $lap_laka_lantas_id;
+			 
+			$data['lap_laka_lantas_id'] = $lap_laka_lantas_id;
+
+			 
+			// $data['tanggal'] = flipdate($data['tanggal']);
+
+
+			 $res = $this->db->insert("lap_laka_pengemudi",$data);
+			 // echo $this->db->last_query();
+			 // exit();
+			 if($res) {
+			 	$ret = array("error"=>false,"message"=>"Data tersangka berhasil disimpan",
+			 		"mode"=>"I"
+			 		);
+			 }
+			 else {
+			 	$ret = array("error"=>true,"message"=>mysql_error()."gagal database" );
+			 }
+			 
+		}
+		else {
+			$ret = array("error"=>true,"message"=>validation_errors().'validation error');
+		}
+		
+		echo json_encode($ret);
+		
+	}
+
 
 
 function cetak_laporan($id) {
