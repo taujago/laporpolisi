@@ -431,12 +431,13 @@ function detail($id){
 	$detail['json_url_saksi'] = site_url("$this->controller/get_lap_lantas_saksi/$id");
 	$detail['json_url_korban'] = site_url("$this->controller/get_lap_lantas_korban/$id");
 	$detail['json_url_kendaraan'] = site_url("$this->controller/get_lap_lantas_kendaraan/$id");
-
+	$detail['json_url_pasal'] = site_url("$this->controller/get_lap_lantas_pasal/$id");
 
 	$detail['pengemudi_add_url'] = site_url("$this->controller/pengemudi_simpan/$id"); 
 	$detail['saksi_add_url'] = site_url("$this->controller/saksi_simpan/$id"); 
 	$detail['korban_add_url'] = site_url("$this->controller/korban_simpan/$id"); 
 	$detail['kendaraan_add_url'] = site_url("$this->controller/kendaraan_simpan/$id");
+	$detail['pasal_add_url'] = site_url("$this->controller/pasal_simpan/$id"); 
 
 
 	
@@ -2757,3 +2758,4 @@ function get_grafik() {
 
 }
 ?>
+

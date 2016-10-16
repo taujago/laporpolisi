@@ -172,38 +172,38 @@ $.ajax({
 			// }
  		// });
 
+ 		$("#kp_id_provinsi").val(jsonData.kp_prov_id).attr('selected','selected');
 
 
-
- 		// $.ajax({
-	  //     url:'<?php echo site_url("general/get_dropdown_kota_by_prop"); ?>/',
-	  //     data : {id_prop : jsonData.kp_tempat_prov_id, 
-	  //     		id_kota : jsonData.kp_tempat_kota_id },
-	  //     type : 'post',
-	  //     success: function(data){
-	  //       $("#kp_tempat_id_kota").html('').append(data);
-	  //     }
-	  //   });
-
-
-	  //   $.ajax({
-	  //     url:'<?php echo site_url("general/get_dropdown_kec_by_kota"); ?>/',
-	  //     data : { id_kota : jsonData.kp_tempat_kota_id, id_kec : jsonData.kp_tempat_kec_id },
-	  //     type : 'post',
-	  //     success: function(data){
-	  //       $("#kp_tempat_id_kecamatan").html('').append(data);
-	  //     }
-	  //   });
+ 		$.ajax({
+	      url:'<?php echo site_url("general/get_dropdown_kota_by_prop"); ?>/',
+	      data : {id_prop : jsonData.kp_prov_id, 
+	      		id_kota : jsonData.kp_kota_id },
+	      type : 'post',
+	      success: function(data){
+	        $("#kp_id_kota").html('').append(data);
+	      }
+	    });
 
 
-	  //   $.ajax({
-	  //     url:'<?php echo site_url("general/get_dropdown_desa_by_kec"); ?>/',
-	  //     data : { id_kec : jsonData.kp_tempat_kec_id, id_desa : jsonData.kp_tempat_id_desa  },
-	  //     type : 'post',
-	  //     success: function(data){
-	  //       $("#kp_tempat_id_desa").html('').append(data);
-	  //     }
-	  //   });
+	    $.ajax({
+	      url:'<?php echo site_url("general/get_dropdown_kec_by_kota"); ?>/',
+	      data : { id_kota : jsonData.kp_kota_id, id_kec : jsonData.kp_kec_id },
+	      type : 'post',
+	      success: function(data){
+	        $("#kp_id_kecamatan").html('').append(data);
+	      }
+	    });
+
+
+	    $.ajax({
+	      url:'<?php echo site_url("general/get_dropdown_desa_by_kec"); ?>/',
+	      data : { id_kec : jsonData.kp_kec_id, id_desa : jsonData.kp_id_desa  },
+	      type : 'post',
+	      success: function(data){
+	        $("#kp_id_desa").html('').append(data);
+	      }
+	    });
  		
  		
  		
@@ -1274,5 +1274,5 @@ BootstrapDialog.show({
           });
 }
 
-
+ 
 </script>
