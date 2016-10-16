@@ -89,15 +89,17 @@ function get_data(){
         foreach($result as $row) : 
 		//$daft_id = $row['daft_id'];
         	 
-$id = $row['lap_a_id'];
+        $id = $row['lap_laka_lantas_id'];
          
         	$arr_data[] = array(
         		 
+
+
 								$row['nomor'],
 								flipdate($row['tanggal']),
-								$row['pelapor_nama'],
-								$row['terlapor'],
-								$row['tindak_pidana'],								 
+								$row['kp_tempat_kejadian'],
+								$row['kp_tanggal'],
+								$row['pelapor_nama'],								 
         		  			 	($row['nama_penyidik']=="")?"<span style='color:red;'>BELUM ADA</span>":$row['nama_penyidik'], 
         		  			  
         		  				" 
@@ -120,19 +122,19 @@ function detail($id){
 	$detail = $this->dm->detail($id);
     // show_array($detail); exit;
 	$detail['tanggal'] = flipdate($detail['tanggal']);
-	$detail['kp_dilaporkan_pada'] = flipdate($detail['kp_dilaporkan_pada']);
+	// $detail['kp_dilaporkan_pada'] = flipdate($detail['kp_dilaporkan_pada']);
 	$detail['kp_tanggal'] = flipdate($detail['kp_tanggal']);
 
-    $detail['lap_a_id'] = $id;
+    $detail['lap_laka_lantas_id'] = $id;
 
 	
 	$detail['controller'] = $this->controller;
 
 	$detail['rec_pasal'] = $this->dm->get_pasal($id);
-	$detail['rec_tersangka'] = $this->dm->get_tersangka($id);
+	$detail['rec_pengemudi'] = $this->dm->get_pengemudi($id);
     $detail['rec_saksi'] = $this->dm->get_saksi($id);
     $detail['rec_korban'] = $this->dm->get_korban($id);
-    $detail['rec_barbuk'] = $this->dm->get_barbuk($id);
+    $detail['rec_kendaraan'] = $this->dm->get_kendaraan($id);
     $detail['rec_perkembangan'] = $this->dm->get_perkembangan($id);
 
 
@@ -153,7 +155,7 @@ function detail($id){
 /// korban section 
 
 
-function get_data_penyidik($lap_a_id){
+function get_data_penyidik($lap_laka_lantas_id){
         $controller = get_class($this);
         $userdata = $this->session->userdata("userdata");
         $draw = $_REQUEST['draw']; // get the requested page 
@@ -174,7 +176,7 @@ function get_data_penyidik($lap_a_id){
                 "sort_by" => $sidx,
                 "sort_direction" => $sord,
                 "limit" => null,
-                "lap_a_id" => $lap_a_id
+                "lap_laka_lantas_id" => $lap_laka_lantas_id
                 
                  
         );     
@@ -248,7 +250,7 @@ function get_data_penyidik($lap_a_id){
  
 // function cek_penyidik($id_penyidik)
 
-function penyidik_simpan($lap_a_id){
+function penyidik_simpan($lap_laka_lantas_id){
         $data=$this->input->post();
         
         $this->load->library('form_validation');
@@ -262,14 +264,14 @@ function penyidik_simpan($lap_a_id){
         if($this->form_validation->run() == TRUE ) { 
 
              
-            unset($data['id']);
+        unset($data['id']);
 
-            $data['lap_a_id'] = $lap_a_id;
+            $data['lap_laka_lantas_id'] = $lap_laka_lantas_id;
          
 
          
 
-             $res = $this->db->insert("lap_a_penyidik",$data);
+             $res = $this->db->insert("lap_laka_penyidik",$data);
              if($res) {
                 $ret = array("error"=>false,"message"=>"data penyidik berhasil disimpan","mode"=>"I");
              }
@@ -290,7 +292,7 @@ function penyidik_simpan($lap_a_id){
 function penyidik_hapus(){
     $data = $this->input->post();
     $this->db->where("id",$data['id']);
-    $res = $this->db->delete("lap_a_penyidik");
+    $res = $this->db->delete("lap_laka_penyidik");
 
     // echo $this->db->last_query();
     if($res){

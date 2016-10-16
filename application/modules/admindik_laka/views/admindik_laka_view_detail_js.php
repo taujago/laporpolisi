@@ -10,7 +10,7 @@ $(document).ready(function(){
 				"columnDefs": [ { "targets": 0, "orderable": true } ],
 				"processing": true,
 		        "serverSide": true,
-		        "ajax": '<?php echo site_url("$controller/get_data_penyidik/$lap_a_id") ?>'
+		        "ajax": '<?php echo site_url("$controller/get_data_penyidik/$lap_laka_lantas_id") ?>'
 		 	});
 
 		 
@@ -34,7 +34,7 @@ $(document).ready(function(){
 function penyidik_baru() {
    
   $("#peyidik_modal").modal("show");
-  $("#formulir_penyidik").attr('action','<?php echo site_url("$controller/penyidik_simpan/$lap_a_id") ?>');
+  $("#formulir_penyidik").attr('action','<?php echo site_url("$controller/penyidik_simpan/$lap_laka_lantas_id") ?>');
   $("#titleModal").html('TAMBAH DATA PENYIDIK');
 }
 

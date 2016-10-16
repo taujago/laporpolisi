@@ -216,7 +216,7 @@
             <li><a href="<?php echo site_url("penyidik_lap_b"); ?>">LAPORAN POLISI MODEL B</a></li>
             <li><a href="<?php echo site_url("penyidik_lap_c"); ?>">LAPORAN POLISI MODEL C</a></li>
             <li><a href="<?php echo site_url("penyidik_lap_d"); ?>">LAPORAN POLISI MODEL D</a></li>
-            <li><a href="<?php echo site_url("penyidik_lap_d"); ?>">LAPORAN LAKA LANTAS</a></li>
+            <li><a href="<?php echo site_url("penyidik_laka"); ?>">LAPORAN LAKA LANTAS</a></li>
            </ul>
             
         </li>
