@@ -16,6 +16,16 @@
 
 
  </style>
+
+ <a class="btn btn-danger" href="<?php echo site_url("$this->controller") ?>"><span class="glyphicon glyphicon-arrow-left"></span></i> Kembali </a>
+<a target="blank" class="btn btn-success" href="<?php echo site_url("$controller/cetak_laporan/$lap_d_id") ?>"><span class="glyphicon glyphicon-print"></span></i> Cetak Laporan Polisi </a>
+<a target="blank" class="btn btn-success" href="<?php echo site_url("$controller/cetak_surat_pernyataan/$lap_d_id") ?>"><span class="glyphicon glyphicon-print"></span></i> Cetak Surat Pernyataan </a>
+<a target="blank" class="btn btn-success" href="<?php echo site_url("$controller/cetak_tanda_bukti/$lap_d_id") ?>"><span class="glyphicon glyphicon-print"></span></i> Cetak Tanda Bukti Lapor </a>
+<a target="blank" class="btn btn-success" href="<?php echo site_url("$controller/cetak_rekomendasi/$lap_d_id") ?>"><span class="glyphicon glyphicon-print"></span></i> Cetak Rekomendasi Penilaian Laporan  Polisi </a>
+<hr /> 
+<br />
+
+
 <table class='table table-bordered' width="100%">
       <tr class="separator"> <td colspan="3"><strong>NOMOR LP</strong></td> 
       </tr>

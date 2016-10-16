@@ -2593,14 +2593,14 @@ function cetak_surat_pernyataan($id) {
 		
 
 
-		$pdf->Output('SURAT PERNYATAAN.pdf', 'I');
+		$pdf->Output('SURAT PERNYATAAN.pdf', 'FI');
 
 }
 
 
 function cetak_tanda_bukti($id){
 		$data = $this->dm->detail($id);
-		$data['terlapor']= $this->dm->get_data_terlapor($id);
+		// $data['terlapor']= $this->dm->get_data_terlapor($id);
 
 		// show_array($data); exit;
 
@@ -2641,12 +2641,12 @@ function cetak_tanda_bukti($id){
 		
 
 
-		$pdf->Output('TANDA BUKTI.pdf', 'I');
+		$pdf->Output('TANDA BUKTI.pdf', 'FI');
 }
 
 function cetak_rekomendasi($id){
 	$data = $this->dm->detail($id);
-		$data['terlapor']= $this->dm->get_data_terlapor($id);
+		// $data['terlapor']= $this->dm->get_data_terlapor($id);
 
 		// show_array($data); exit;
 
@@ -2687,7 +2687,7 @@ function cetak_rekomendasi($id){
 		
 
 
-		$pdf->Output('REKOMENDASI PENILAIAN.pdf', 'I');
+		$pdf->Output('REKOMENDASI PENILAIAN.pdf', 'FI');
 }
 
 function grafik() {

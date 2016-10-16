@@ -524,5 +524,190 @@ function get_grafik() {
 }
 
 
+function cetak_laporan($id) {
+		
+		$data = $this->dm->detail($id);
+		// show_array($data); exit;
+
+		// $data['tersangka'] = $this->dm->get_data_tersangka($id);
+		// $data['korban'] = $this->dm->get_data_korban($id);
+		// $data['saksi'] = $this->dm->get_data_saksi($id);
+		// $data['barbuk'] = $this->dm->get_data_barbuk($id);
+		// exit;
+
+		$this->load->library('Pdf');
+		$pdf = new Pdf('L', 'mm', 'F4', true, 'UTF-8', false);
+		$pdf->SetTitle('LAPORAN KEPOLISIAN');
+		//$pdf->SetHeaderMargin(30);
+		//$pdf->SetTopMargin(10);
+
+		
+		$pdf->SetMargins(10, 20, 10);
+		$pdf->SetHeaderMargin(15);
+		$pdf->SetFooterMargin(15);
+		$pdf->setFooterFont(Array('times', '', 8));
+
+ 		$pdf->SetAutoPageBreak(true,10);
+		$pdf->SetAuthor('polda banten');
+		 
+			
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(false);
+
+	 	// show_array($data); exit;
+		 
+		$pdf->AddPage('P');
+		//$data = array();
+		$html = $this->load->view("pdf/pdf_laporan",$data,true);		 
+		$pdf->writeHTML($html, true, false, true, false, '');
+		 
+
+
+		
+
+
+		$pdf->Output('LAPORAN POLISI.pdf', 'I');
+}	
+
+function cetak_surat_pernyataan($id) {
+
+	$data = $this->dm->detail($id);
+		// show_array($data); exit;
+
+		// $data['tersangka'] = $this->dm->get_data_tersangka($id);
+		// $data['korban'] = $this->dm->get_data_korban($id);
+		// $data['saksi'] = $this->dm->get_data_saksi($id);
+		// $data['barbuk'] = $this->dm->get_data_barbuk($id);
+		// exit;
+
+		$this->load->library('Pdf');
+		$pdf = new Pdf('L', 'mm', 'F4', true, 'UTF-8', false);
+		$pdf->SetTitle('SURAT PERNYATAAN');
+		//$pdf->SetHeaderMargin(30);
+		//$pdf->SetTopMargin(10);
+
+		
+		$pdf->SetMargins(10, 20, 10);
+		$pdf->SetHeaderMargin(15);
+		$pdf->SetFooterMargin(15);
+		$pdf->setFooterFont(Array('times', '', 8));
+
+ 		$pdf->SetAutoPageBreak(true,10);
+		$pdf->SetAuthor('polda banten');
+		 
+			
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(false);
+
+	 	// show_array($data); exit;
+		 
+		$pdf->AddPage('P');
+		//$data = array();
+		$html = $this->load->view("pdf/pdf_surat_pernyataan",$data,true);		 
+		$pdf->writeHTML($html, true, false, true, false, '');
+		 
+
+
+		
+
+
+		$pdf->Output('SURAT PERNYATAAN.pdf', 'I');
+
+}
+
+
+function cetak_tanda_bukti($id){
+		$data = $this->dm->detail($id);
+		// $data['terlapor']= $this->dm->get_data_terlapor($id);
+
+		// show_array($data); exit;
+
+		// $data['tersangka'] = $this->dm->get_data_tersangka($id);
+		// $data['korban'] = $this->dm->get_data_korban($id);
+		// $data['saksi'] = $this->dm->get_data_saksi($id);
+		// $data['barbuk'] = $this->dm->get_data_barbuk($id);
+		// exit;
+
+		$this->load->library('Pdf');
+		$pdf = new Pdf('L', 'mm', 'F4', true, 'UTF-8', false);
+		$pdf->SetTitle('SURAT PERNYATAAN');
+		//$pdf->SetHeaderMargin(30);
+		//$pdf->SetTopMargin(10);
+
+		
+		$pdf->SetMargins(10, 20, 10);
+		$pdf->SetHeaderMargin(15);
+		$pdf->SetFooterMargin(15);
+		$pdf->setFooterFont(Array('times', '', 8));
+
+ 		$pdf->SetAutoPageBreak(true,10);
+		$pdf->SetAuthor('polda banten');
+		 
+			
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(false);
+
+	 	// show_array($data); exit;
+		 
+		$pdf->AddPage('P');
+		//$data = array();
+		$html = $this->load->view("pdf/pdf_tanda_bukti",$data,true);		 
+		$pdf->writeHTML($html, true, false, true, false, '');
+		 
+
+
+		
+
+
+		$pdf->Output('TANDA BUKTI.pdf', 'I');
+}
+
+function cetak_rekomendasi($id){
+	$data = $this->dm->detail($id);
+		// $data['terlapor']= $this->dm->get_data_terlapor($id);
+
+		// show_array($data); exit;
+
+		// $data['tersangka'] = $this->dm->get_data_tersangka($id);
+		// $data['korban'] = $this->dm->get_data_korban($id);
+		// $data['saksi'] = $this->dm->get_data_saksi($id);
+		// $data['barbuk'] = $this->dm->get_data_barbuk($id);
+		// exit;
+
+		$this->load->library('Pdf');
+		$pdf = new Pdf('L', 'mm', 'F4', true, 'UTF-8', false);
+		$pdf->SetTitle('REKOMENDASI PENILAIAN');
+		//$pdf->SetHeaderMargin(30);
+		//$pdf->SetTopMargin(10);
+
+		
+		$pdf->SetMargins(10, 20, 10);
+		$pdf->SetHeaderMargin(15);
+		$pdf->SetFooterMargin(15);
+		$pdf->setFooterFont(Array('times', '', 8));
+
+ 		$pdf->SetAutoPageBreak(true,10);
+		$pdf->SetAuthor('polda banten');
+		 
+			
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(false);
+
+	 	// show_array($data); exit;
+		 
+		$pdf->AddPage('P');
+		//$data = array();
+		$html = $this->load->view("pdf/pdf_rekomendasi",$data,true);		 
+		$pdf->writeHTML($html, true, false, true, false, '');
+		 
+
+
+		
+
+
+		$pdf->Output('REKOMENDASI PENILAIAN.pdf', 'I');
+}
+
+
 }
 ?>
