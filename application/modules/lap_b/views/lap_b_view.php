@@ -128,7 +128,7 @@
 <div class="row">
 <div class="col-md-12">
 
-<a href="<?php echo site_url("$controller/baru"); ?>" class="btn btn-success">Tambah Baru </a><br><br>
+<a href="<?php echo site_url("$controller/baru"); ?>" class="btn btn-success">Tambah Baru </a> <a href="<?php echo site_url("$controller/grafik"); ?>" class="btn btn-primary">Grafik Pendaftar </a><br><br>
 
 <table width="100%"  border="0" class="table table-striped 
              table-bordered table-hover dataTable no-footer" id="leasing" role="grid">

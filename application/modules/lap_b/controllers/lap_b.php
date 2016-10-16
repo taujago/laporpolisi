@@ -2666,5 +2666,73 @@ function cetak_rekomendasi($id){
 		$pdf->Output('REKOMENDASI PENILAIAN.pdf', 'I');
 }
 
+function grafik() {
+
+	$controller = get_class($this);
+
+	$data_array['controller'] = $controller;
+
+	$query = "SELECT  
+
+			  COUNT(IF(MONTH(tanggal)=1,1,NULL) ) AS Januari,
+			  COUNT(IF(MONTH(tanggal)=2,1,NULL) ) AS Februari,
+			  COUNT(IF(MONTH(tanggal)=3,1,NULL) ) AS Maret,
+			  COUNT(IF(MONTH(tanggal)=4,1,NULL) ) AS April,
+			  COUNT(IF(MONTH(tanggal)=5,1,NULL) ) AS Mei,
+			  COUNT(IF(MONTH(tanggal)=6,1,NULL) ) AS Juni,
+			  COUNT(IF(MONTH(tanggal)=7,1,NULL) ) AS Juli,
+			  COUNT(IF(MONTH(tanggal)=8,1,NULL) ) AS Agustus,
+			  COUNT(IF(MONTH(tanggal)=9,1,NULL) ) AS September,
+			  COUNT(IF(MONTH(tanggal)=10,1,NULL) ) AS Oktober,
+			  COUNT(IF(MONTH(tanggal)=11,1,NULL) ) AS November,
+			  COUNT(IF(MONTH(tanggal)=12,1,NULL) ) AS Desember
+
+			  FROM lap_b
+			  WHERE YEAR(tanggal) = ". date('Y');
+
+	$data_array['query'] = $this->db->query($query)->row();
+	$data_array['title'] = "GRAFIK LAPORAN POLISI MODEL-B";
+
+	$content = $this->load->view($controller."_grafik",$data_array,true);
+
+	$this->set_subtitle("GRAFIK LAPORAN POLISI MODEL-B");
+	$this->set_title("GRAFIK LAPORAN  POLISI MODEL-B");
+	$this->set_content($content);
+	$this->render_baru();
+
+}
+
+function get_grafik() {
+
+	$controller = get_class($this);
+
+	$tahun = $this->input->post('tahun');
+	
+	$query = "SELECT  
+
+			  COUNT(IF(MONTH(tanggal)=1,1,NULL) ) AS Januari,
+			  COUNT(IF(MONTH(tanggal)=2,1,NULL) ) AS Februari,
+			  COUNT(IF(MONTH(tanggal)=3,1,NULL) ) AS Maret,
+			  COUNT(IF(MONTH(tanggal)=4,1,NULL) ) AS April,
+			  COUNT(IF(MONTH(tanggal)=5,1,NULL) ) AS Mei,
+			  COUNT(IF(MONTH(tanggal)=6,1,NULL) ) AS Juni,
+			  COUNT(IF(MONTH(tanggal)=7,1,NULL) ) AS Juli,
+			  COUNT(IF(MONTH(tanggal)=8,1,NULL) ) AS Agustus,
+			  COUNT(IF(MONTH(tanggal)=9,1,NULL) ) AS September,
+			  COUNT(IF(MONTH(tanggal)=10,1,NULL) ) AS Oktober,
+			  COUNT(IF(MONTH(tanggal)=11,1,NULL) ) AS November,
+			  COUNT(IF(MONTH(tanggal)=12,1,NULL) ) AS Desember
+
+			  FROM lap_b
+			  WHERE YEAR(tanggal) = ".$tahun;
+
+	$data_array['query'] = $this->db->query($query)->row();
+	$data_array['tahun'] = $tahun;
+	$data_array['title'] = "GRAFIK LAPORAN POLISI MODEL-B";
+
+	$this->load->view($controller."_grafik_view",$data_array);
+
+}
+
 }
 ?>
