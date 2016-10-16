@@ -214,18 +214,19 @@
                 
            </ul>
         </li>
-        
-        <!-- <li>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">LAPORAN<b class="caret"></b></a>
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          DATA GRAFIK<b class="caret"></b></a>
           <ul class="dropdown-menu multi-level">
-            <li><a href="<?php echo site_url("lap_a"); ?>">LAPORAN POLISI MODEL A</a></li>
-            <li><a href="<?php echo site_url("lap_b"); ?>">LAPORAN POLISI MODEL B</a></li>
-            <li><a href="<?php echo site_url("lap_c"); ?>">LAPORAN POLISI MODEL C</a></li>
-            <li><a href="<?php echo site_url("lap_d"); ?>">LAPORAN POLISI MODEL D</a></li>
-            <li><a href="<?php echo site_url("lap_d"); ?>">LAPORAN LAKA LANTAS</a></li>
+                <li><a href="<?php echo site_url("grafik_lap/grafik/1"); ?>">GRAFIK LAPORAN A</a></li>
+                <li><a href="<?php echo site_url("grafik_lap/grafik/2"); ?>">GRAFIK LAPORAN B</a></li>
+                <li><a href="<?php echo site_url("grafik_lap/grafik/3"); ?>">GRAFIK LAPORAN C</a></li>
+                <li><a href="<?php echo site_url("grafik_lap/grafik/4"); ?>">GRAFIK LAPORAN D</a></li>
+                 <li><a href="<?php echo site_url("grafik_lap/grafik/5"); ?>">GRAFIK LAPORAN LAKA LANTAS</a></li>   
            </ul>
-            
-        </li> -->
+        </li>
+        
+        
         <li><a href="<?php echo site_url("admin_pengguna"); ?>">PENGGUNA</a></li> 
         <li><a href="<?php echo site_url("login/logout"); ?>">KELUAR</a></li> 
 </div>
