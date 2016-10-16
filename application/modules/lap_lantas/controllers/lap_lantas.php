@@ -269,7 +269,7 @@ function simpan(){
 			 	$this->db->update("lap_laka_kendaraan",$arr_update);
 
 
-			 	$this->db->where("temp_laka_lantas_id",$temp_lap_laka_lantas_id);
+			 	$this->db->where("temp_lap_laka_lantas_id",$temp_lap_laka_lantas_id);
 			 	$this->db->update("lap_laka_pasal",$arr_update);
 
 			 	
@@ -2508,10 +2508,13 @@ function cetak_laporan($id) {
 		$data = $this->dm->detail($id);
 		// show_array($data); exit;
 
-		$data['tersangka'] = $this->dm->get_data_tersangka($id);
+		$data['pengemudi'] = $this->dm->get_data_pengemudi($id);
 		$data['korban'] = $this->dm->get_data_korban($id);
 		$data['saksi'] = $this->dm->get_data_saksi($id);
-		$data['barbuk'] = $this->dm->get_datlantas_kendaraan($id);
+		$data['kendaraan'] = $this->dm->get_data_kendaraan($id);
+		$data['tersangka'] = $this->dm->get_data_tersangka($id);
+		$data['pasal'] = $this->dm->get_data_pasal($id);
+		// echo $this->db->last_query();
 		// exit;
 
 		$this->load->library('Pdf');
@@ -2545,7 +2548,7 @@ function cetak_laporan($id) {
 		
 
 
-		$pdf->Output('LAPORAN POLISI.pdf', 'I');
+		$pdf->Output('LAPORAN POLISI.pdf', 'FI');
 }	
 
 function cetak_surat_pernyataan($id) {

@@ -17,6 +17,15 @@
 .datepicker{z-index:9999 !important}
 </style>
 
+<a class="btn btn-danger" href="<?php echo site_url("$this->controller") ?>"><span class="glyphicon glyphicon-arrow-left"></span></i> Kembali </a>
+<a target="blank" class="btn btn-success" href="<?php echo site_url("$controller/cetak_laporan/$lap_laka_lantas_id") ?>"><span class="glyphicon glyphicon-print"></span></i> Cetak Laporan Polisi </a>
+<a target="blank" class="btn btn-success" href="<?php echo site_url("$controller/cetak_surat_pernyataan/$lap_laka_lantas_id") ?>"><span class="glyphicon glyphicon-print"></span></i> Cetak Surat Pernyataan </a>
+<a target="blank" class="btn btn-success" href="<?php echo site_url("$controller/cetak_tanda_bukti/$lap_laka_lantas_id") ?>"><span class="glyphicon glyphicon-print"></span></i> Cetak Tanda Bukti Lapor </a>
+<a target="blank" class="btn btn-success" href="<?php echo site_url("$controller/cetak_rekomendasi/$lap_laka_lantas_id") ?>"><span class="glyphicon glyphicon-print"></span></i> Cetak Rekomendasi Penilaian Laporan  Polisi </a>
+<hr /> 
+<br />
+
+
   <table class="table table-bordered">
     <tr class="separator">
       <td colspan="2"><b> LP - Laka Lantas <b></td>

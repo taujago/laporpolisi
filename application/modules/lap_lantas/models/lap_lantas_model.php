@@ -257,25 +257,42 @@ function get_lap_lantas_korban_detail($id){
 
 function get_data_tersangka($lap_a_id) {
 	$this->db->select(
-		't.* , suku.suku, 
+		't.* ,  
 				k.pekerjaan, 
 				desa.desa, 
-				kec.id as tersangka_kec_id, 
+				kec.id as pengemudi_kec_id, 
 				kec.kecamatan, 
-				kota.id as tersangka_kota_id, 
+				kota.id as pengemudi_kota_id, 
 				kota.kota, 
-				prov.id as tersangka_prov_id, 
-				prov.provinsi, a.agama '
-		)->from('lap_a_tersangka t')
-	->join('m_suku suku','suku.id_suku = t.tersangka_id_suku','left')
-	->join('m_pekerjaan k','k.id_pekerjaan = t.tersangka_id_pekerjaan ','left')
-	->join('tiger_desa desa','desa.id = t.tersangka_id_desa ','left')
+				prov.id as pengemudi_prov_id, 
+				prov.provinsi, a.agama, p.pendidikan '
+		)->from('lap_laka_pengemudi t')
+	->join('m_pekerjaan k','k.id_pekerjaan = t.pengemudi_id_pekerjaan ','left')
+	->join('tiger_desa desa','desa.id = t.pengemudi_id_desa ','left')
 
 	->join('tiger_kecamatan kec','kec.id = desa.id_kecamatan ','left')
 	->join('tiger_kota kota','kota.id = kec.id_kota ','left')
 	->join('tiger_provinsi prov','prov.id = kota.id_provinsi','left')
-	->join('m_agama a','a.id_agama = t.tersangka_id_agama','left')
-	->where("lap_a_id",$lap_a_id);
+	->join('m_agama a','a.id_agama = t.pengemudi_id_agama','left')
+	->join('m_pendidikan p','p.id_pendidikan = t.pengemudi_id_pendidikan','left')
+	->where("lap_laka_lantas_id",$lap_a_id)
+	->where("pengemudi_pelaku", "YA");
+
+	$res = $this->db->get();
+	// echo $this->db->last_query(); 
+	return $res;
+}
+
+function get_data_pasal($lap_a_id) {
+	$this->db->select(
+		't.* ,  
+				
+				pasal.pasal, 
+				'
+		)->from('lap_laka_pasal t')
+	->join('m_pasal pasal','pasal.id = t.id_pasal ','left')
+	
+	->where("lap_laka_lantas_id",$lap_a_id);
 
 	$res = $this->db->get();
 	// echo $this->db->last_query(); 
@@ -283,7 +300,7 @@ function get_data_tersangka($lap_a_id) {
 }
 
 
-function get_data_korban($lap_a_id) {
+function get_data_korban($lap_laka_lantas_id) {
 	$this->db->select(
 		't.* , suku.suku, 
 				k.pekerjaan, 
@@ -293,8 +310,8 @@ function get_data_korban($lap_a_id) {
 				kota.id as korban_kota_id, 
 				kota.kota, 
 				prov.id as korban_prov_id, 
-				prov.provinsi, a.agama '
-		)->from('lap_a_korban t')
+				prov.provinsi, a.agama, p.pendidikan '
+		)->from('lap_laka_korban t')
 	->join('m_suku suku','suku.id_suku = t.korban_id_suku','left')
 	->join('m_pekerjaan k','k.id_pekerjaan = t.korban_id_pekerjaan ','left')
 	->join('tiger_desa desa','desa.id = t.korban_id_desa ','left')
@@ -303,7 +320,8 @@ function get_data_korban($lap_a_id) {
 	->join('tiger_kota kota','kota.id = kec.id_kota ','left')
 	->join('tiger_provinsi prov','prov.id = kota.id_provinsi','left')
 	->join('m_agama a','a.id_agama = t.korban_id_agama','left')
-	->where("lap_a_id",$lap_a_id);
+	->join('m_pendidikan p','p.id_pendidikan = t.korban_id_pendidikan','left')
+	->where("lap_laka_lantas_id",$lap_laka_lantas_id);
 
 	$res = $this->db->get();
 	// echo $this->db->last_query(); 
@@ -322,7 +340,7 @@ function get_data_saksi($lap_a_id) {
 				kota.kota, 
 				prov.id as saksi_prov_id, 
 				prov.provinsi, a.agama '
-		)->from('lap_a_saksi t')
+		)->from('lap_laka_saksi t')
 	->join('m_suku suku','suku.id_suku = t.saksi_id_suku','left')
 	->join('m_pekerjaan k','k.id_pekerjaan = t.saksi_id_pekerjaan ','left')
 	->join('tiger_desa desa','desa.id = t.saksi_id_desa ','left')
@@ -331,7 +349,7 @@ function get_data_saksi($lap_a_id) {
 	->join('tiger_kota kota','kota.id = kec.id_kota ','left')
 	->join('tiger_provinsi prov','prov.id = kota.id_provinsi','left')
 	->join('m_agama a','a.id_agama = t.saksi_id_agama','left')
-	->where("lap_a_id",$lap_a_id);
+	->where("lap_laka_lantas_id",$lap_a_id);
 
 	$res = $this->db->get();
 	// echo $this->db->last_query(); exit;
@@ -347,9 +365,44 @@ function get_data_barbuk($lap_a_id) {
 }
 
 function get_data_pengemudi($lap_laka_lantas_id) {
-	$this->db->where("lap_laka_lantas_id",$lap_laka_lantas_id); 
-	$data = $this->db->get("v_lap_a")->row();
-	return $data->pengemudi;
+	$this->db->select(
+		't.*, k.pekerjaan, 
+				desa.desa, 
+				kec.id as pengemudi_kec_id, 
+				kec.kecamatan, 
+				kota.id as pengemudi_kota_id, 
+				kota.kota, 
+				prov.id as pengemudi_prov_id, 
+				prov.provinsi, a.agama, p.pendidikan' 
+		)->from('lap_laka_pengemudi t')
+	->join('m_pekerjaan k','k.id_pekerjaan = t.pengemudi_id_pekerjaan ','left')
+	->join('tiger_desa desa','desa.id = t.pengemudi_id_desa ','left')
+
+	->join('tiger_kecamatan kec','kec.id = desa.id_kecamatan ','left')
+	->join('tiger_kota kota','kota.id = kec.id_kota ','left')
+	->join('tiger_provinsi prov','prov.id = kota.id_provinsi','left')
+	->join('m_agama a','a.id_agama = t.pengemudi_id_agama','left')
+	->join('m_pendidikan p','p.id_pendidikan = t.pengemudi_id_pendidikan','left')
+	
+
+	->where("t.lap_laka_lantas_id",$lap_laka_lantas_id);
+
+	$res = $this->db->get();
+	// echo $this->db->last_query(); 
+	return $res;
+}
+
+function get_data_kendaraan($lap_laka_lantas_id) {
+	$this->db->select(
+		't.*'
+		)->from('lap_laka_kendaraan t')
+	
+
+	->where("t.lap_laka_lantas_id",$lap_laka_lantas_id);
+
+	$res = $this->db->get();
+	// echo $this->db->last_query(); 
+	return $res;
 }
 
 
@@ -357,6 +410,7 @@ function detail($id){
 	 $this->db->select('a.*, 
 	 	 
 pel_pangkat.pangkat as pelapor_pangkat,
+pel_kesatuan.kesatuan as pelapor_kesatuan,
 
 meng_pangkat.pangkat as meng_pangkat,
 
@@ -375,6 +429,7 @@ u.nama as pengguna ')
 ->from("lap_laka_lantas a")
 
 ->join("m_pangkat pel_pangkat","pel_pangkat.id_pangkat = a.pelapor_id_pangkat ",'left')
+->join("m_kesatuan pel_kesatuan","pel_kesatuan.id_kesatuan = a.pelapor_id_kesatuan ",'left')
 
 ->join("m_pangkat meng_pangkat","meng_pangkat.id_pangkat = a.pengetahui_id_pangkat",'left')
 ->join("pengguna u","u.id = a.user_id",'left')
