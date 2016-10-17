@@ -97,7 +97,7 @@ function get_data_perkembangan($param){
 
 function get_perkembangan_detail_json($id){
 	$this->db->where("id",$id);
-	$data = $this->db->get("lap_a_perkembangan")->row_array();
+	$data = $this->db->get("lap_laka_perkembangan")->row_array();
 	return $data;
 }
 

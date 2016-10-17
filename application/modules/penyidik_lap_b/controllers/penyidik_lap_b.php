@@ -393,6 +393,8 @@ function perkembangan_simpan(){
 
             unset($data['id']);
 
+            
+
 
             $data['tanggal'] = flipdate($data['tanggal']);
            
@@ -488,11 +490,18 @@ function perkembangan_update(){
            
             //$data['user_id'] = $userdata['id'];
 
-            
-            $this->db->where("id",$data['id']);
-             $res = $this->db->update("lap_b_perkembangan",$data);
+            // show_array($data);
 
-             // echo $this->db->last_query(); exit;
+            $this->db->where("id",$data['id']);
+           
+
+
+           // show_array($data); exit;
+            
+            
+            $res = $this->db->update("lap_b_perkembangan",$data);
+
+            // echo $this->db->last_query(); exit;
 
              
 

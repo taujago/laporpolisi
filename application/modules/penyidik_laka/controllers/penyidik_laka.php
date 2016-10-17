@@ -496,7 +496,7 @@ function perkembangan_update(){
 
             
             $this->db->where("id",$data['id']);
-             $res = $this->db->update("lap_a_perkembangan",$data);
+             $res = $this->db->update("lap_laka_perkembangan",$data);
 
              // echo $this->db->last_query(); exit;
 

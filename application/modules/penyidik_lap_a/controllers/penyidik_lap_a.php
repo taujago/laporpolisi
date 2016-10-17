@@ -393,6 +393,8 @@ function perkembangan_simpan(){
 
             unset($data['id']);
 
+            
+
 
             $data['tanggal'] = flipdate($data['tanggal']);
            
@@ -487,6 +489,7 @@ function perkembangan_update(){
             $data['tanggal'] = flipdate($data['tanggal']);
            
             //$data['user_id'] = $userdata['id'];
+
 
             
             $this->db->where("id",$data['id']);

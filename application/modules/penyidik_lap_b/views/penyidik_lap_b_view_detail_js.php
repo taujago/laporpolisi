@@ -93,6 +93,9 @@ function perkembangan_edit(id) {
       $("#keterangan").val(jsonData.keterangan);
       $("#id").val(jsonData.id);
       $("#lap_b_id").val(jsonData.lap_b_id);
+
+      $("#id_pn").val(jsonData.id_pn);
+      $("#id_lapas").val(jsonData.id_lapas);
       //$("#nomor_dokumen").val(jsonData.nomor_dokumen);
 
       $.ajax({

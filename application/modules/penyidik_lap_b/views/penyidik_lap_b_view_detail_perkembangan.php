@@ -81,6 +81,25 @@
             <tr><td  >Keterangan</td>
             <TD><textarea name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan"></textarea></TD></tr>
 
+             <tr><td  >Pengadilan Negeri</td>
+            <TD><?php 
+            $arr_pn = $this->cm->get_arr_dropdown("m_pengadilan","id","pengadilan","pengadilan");
+            $arr_pn = add_arr_head($arr_pn,"x","== PILIH PENGADILAN ==");
+
+            echo form_dropdown("id_pn",$arr_pn,'','id="id_pn" class="form-control"');
+
+            ?></TD></tr>
+
+
+            <tr><td  >Lapas</td>
+            <TD><?php 
+            $arr_pn = $this->cm->get_arr_dropdown("m_lapas","id","lapas","lapas");
+            $arr_pn = add_arr_head($arr_pn,"x","== PILIH LAPAS ==");
+
+            echo form_dropdown("id_lapas",$arr_pn,'','id="id_lapas" class="form-control"');
+
+            ?></TD></tr>
+
 
             <tr><td  >Upload dokumen</td>
             <TD><input type="file" name="file_dokumen" id="file_dokumen"></TD></tr>

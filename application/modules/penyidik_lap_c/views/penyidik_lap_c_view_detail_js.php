@@ -95,6 +95,10 @@ function perkembangan_edit(id) {
       $("#lap_c_id").val(jsonData.lap_c_id);
       //$("#nomor_dokumen").val(jsonData.nomor_dokumen);
 
+
+      $("#id_pn").val(jsonData.id_pn);
+      $("#id_lapas").val(jsonData.id_lapas);
+
       $.ajax({
         url:'<?php echo site_url("general/get_dropdown_tahap"); ?>/',
         data : { lidik : jsonData.lidik, 
