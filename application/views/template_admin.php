@@ -211,6 +211,8 @@
                 <li><a href="<?php echo site_url("admin_kesatuan"); ?>">KESATUAN</a></li>
                 <li><a href="<?php echo site_url("admin_tempat"); ?>">KATEGORI TEMPAT KEJAHATAN</a></li>
                 <li><a href="<?php echo site_url("admin_motif"); ?>">MOTIF KEJAHATAN</a></li>
+                <li><a href="<?php echo site_url("admin_pengadilan"); ?>">PENGADILAN</a></li>
+                <li><a href="<?php echo site_url("admin_lapas"); ?>">LAPAS</a></li>
                 
            </ul>
         </li>
