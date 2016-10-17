@@ -38,8 +38,8 @@ class penyidik_laka extends penyidik_controller {
 		$data_array['status'] = isset($_GET['status'])?$_GET['status']:'0';
 		$content = $this->load->view($controller."_view",$data_array,true);
 
-		$this->set_subtitle("LAPORAN POLISI MODEL-A");
-		$this->set_title("LAPORAN  POLISI MODEL-A");
+		$this->set_subtitle("LAPORAN POLISI LAKA");
+		$this->set_title("LAPORAN  POLISI LAKA");
 		$this->set_content($content);
 		$this->render_admin();
 	}
