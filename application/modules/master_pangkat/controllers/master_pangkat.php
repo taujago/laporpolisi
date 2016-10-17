@@ -1,5 +1,5 @@
 <?php
-class master_pangkat extends master_controller {
+class master_pangkat extends admin_controller {
 
 	var $controller ;
 
@@ -38,7 +38,7 @@ class master_pangkat extends master_controller {
 		$this->set_subtitle("DATA PANGKAT");
 		$this->set_title("DATA PANGKAT");
 		$this->set_content($content);
-		$this->render_baru();
+		$this->render_admin();
 	}
 
 
@@ -125,7 +125,7 @@ function baru(){
 		$this->set_subtitle("INPUT DATA PANGKAT");
 		$this->set_title("PANGKAT");
 		$this->set_content($content);
-		$this->render_baru();
+		$this->render_admin();
 	 
 } 
 
@@ -175,7 +175,7 @@ function edit($id){
 		$this->set_subtitle("EDIT PANGKAT");
 		$this->set_title("EDIT PANGKAT");
 		$this->set_content($content);
-		$this->render_baru();
+		$this->render_admin();
 	}
 function update(){
 		$data=$this->input->post();
