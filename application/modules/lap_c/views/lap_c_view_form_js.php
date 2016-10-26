@@ -117,6 +117,45 @@ $.ajax({
 
 
 
+
+	    /// kejadian 
+
+	    $("#kejadian_id_provinsi").val(jsonData.kejadian_prov_id).attr('selected','selected');
+
+
+
+ 		$.ajax({
+	      url:'<?php echo site_url("general/get_dropdown_kota_by_prop"); ?>/',
+	      data : {id_prop : jsonData.kejadian_prov_id, id_kota : jsonData.kejadian_kota_id },
+	      type : 'post',
+	      success: function(data){
+	        $("#kejadian_id_kota").html('').append(data);
+	      }
+	    });
+
+
+	    $.ajax({
+	      url:'<?php echo site_url("general/get_dropdown_kec_by_kota"); ?>/',
+	      data : { id_kota : jsonData.kejadian_kota_id, id_kec : jsonData.kejadian_kec_id },
+	      type : 'post',
+	      success: function(data){
+	        $("#kejadian_id_kecamatan").html('').append(data);
+	      }
+	    });
+
+
+	    $.ajax({
+	      url:'<?php echo site_url("general/get_dropdown_desa_by_kec"); ?>/',
+	      data : { id_kec : jsonData.kejadian_kec_id, id_desa : jsonData.kejadian_id_desa  },
+	      type : 'post',
+	      success: function(data){
+	        $("#kejadian_id_desa").html('').append(data);
+	      }
+	    });
+
+
+
+
 	    $("#pelapor_id_agama").val(jsonData.pelapor_id_agama).attr('selected','selected');
 	    $("#pelapor_id_pendidikan").val(jsonData.pelapor_id_pendidikan).attr('selected','selected');
 	    $("#pelapor_id_warga_negara").val(jsonData.pelapor_id_warga_negara).attr('selected','selected');

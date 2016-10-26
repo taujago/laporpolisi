@@ -102,6 +102,20 @@ pen_pangkat.pangkat as penerima_pangkat,
 				prov.id as pelapor_prov_id, 
 				prov.provinsi, 
 
+
+
+				kejadian_desa.desa as kejadian_desa, 
+				kejadian_kec.id as kejadian_kec_id, 
+				kejadian_kec.kecamatan as kejadian_kecamatan, 
+				kejadian_kota.id as kejadian_kota_id, 
+				kejadian_kota.kota as kejadian_kota, 
+				kejadian_prov.id as kejadian_prov_id, 
+				kejadian_prov.provinsi as kejadian_provinsi,
+
+
+
+
+
 kerja.pekerjaan, 
 agama.agama,
 wn.warga_negara,
@@ -117,6 +131,13 @@ u.nama as pengguna ')
 ->join('m_pekerjaan kerja','a.pelapor_id_pekerjaan','kerja.id_pekerjaan')
 ->join('m_agama agama','a.pelapor_id_agama=agama.id_agama')
 ->join('m_warga_negara wn','a.pelapor_id_warga_negara=wn.id_warga_negara')
+
+
+
+->join('tiger_desa kejadian_desa','kejadian_desa.id = a.kejadian_id_desa ','left')
+->join('tiger_kecamatan kejadian_kec','kejadian_kec.id = kejadian_desa.id_kecamatan ','left')
+->join('tiger_kota kejadian_kota','kejadian_kota.id = kejadian_kec.id_kota ','left')
+->join('tiger_provinsi kejadian_prov','kejadian_prov.id = kejadian_kota.id_provinsi','left')
 
 
 ->where("a.lap_c_id",$id);

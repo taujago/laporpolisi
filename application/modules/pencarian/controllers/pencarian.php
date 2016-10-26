@@ -121,7 +121,7 @@ class pencarian extends master_controller {
 
 
 		   	array(
-		   	"id" => "bulan",
+		   	"id" => "bulan_kejadian",
 			"label" => "Bulan Kejadian",
 			"type" => "string",
 			"input" => "select",
@@ -132,7 +132,7 @@ class pencarian extends master_controller {
 
 
 		   	array(
-		   	"id" => "tahun",
+		   	"id" => "tahun_kejadian",
 			"label" => "Tahun Kejadian",
 			"type" => "string",
 			"operators" => array('equal')			 
@@ -169,6 +169,60 @@ class pencarian extends master_controller {
 			"operators" => array('equal', 'contains')
 		   	)
 
+
+		   	,
+
+		   	array(
+		   	"id" => "tersangka_nama",
+			"label" => "Nama tersangka",
+			"type" => "string",
+			"operators" => array('equal', 'contains')
+		   	)
+
+		   	,
+
+		   	array(
+		   	"id" => "saksi_nama",
+			"label" => "Nama saksi",
+			"type" => "string",
+			"operators" => array('equal', 'contains')
+		   	)
+
+		   	,
+
+		   	array(
+		   	"id" => "korban_nama",
+			"label" => "Nama korban",
+			"type" => "string",
+			"operators" => array('equal', 'contains')
+		   	)
+
+		   	,
+
+		   	array(
+		   	"id" => "barbuk_nama",
+			"label" => "Barang bukti",
+			"type" => "string",
+			"operators" => array('equal', 'contains')
+		   	)
+
+		   	,
+
+		   	array(
+		   	"id" => "pengemudi_nama",
+			"label" => "Nama pengemudi",
+			"type" => "string",
+			"operators" => array('equal', 'contains')
+		   	)
+
+		   	,
+
+		   	array(
+		   	"id" => "no_polisi",
+			"label" => "Nomor polisi",
+			"type" => "string",
+			"operators" => array('equal', 'contains')
+		   	)
 
 
 			);
@@ -230,13 +284,13 @@ function cari(){
 
 			if($operator =='equal') {
 				
-				if($field=="bulan") {
-					$str .=" month(kp_tanggal) = '$value' " ;
-				}
-				else if ($field=="tahun"){
-					$str .=" year(kp_tanggal) = '$value' " ;
-				}
-				else if ($field=="tanggal_awal"){
+				// if($field=="bulan") {
+				// 	$str .=" month(kp_tanggal) = '$value' " ;
+				// }
+				// else if ($field=="tahun"){
+				// 	$str .=" year(kp_tanggal) = '$value' " ;
+				// }
+				 if ($field=="tanggal_awal"){
 					$str .=" tanggal  >= '$value' " ;
 				}
 				else if ($field=="tanggal_akhir"){
@@ -262,13 +316,13 @@ function cari(){
 				if($sub_filter['operator'] =='equal') {
 					
 
-					if($sub_filter['field']=="bulan") {
-						$str .=" month(kp_tanggal) = '".$sub_filter['value']."' ";
-					}
-					else if ($sub_filter['field']=="tahun"){
-						$str .=" year(kp_tanggal) = '".$sub_filter['value']."' ";
-					}
-					else if ($sub_filter['field']=="tanggal_awal"){ 
+					// if($sub_filter['field']=="bulan") {
+					// 	$str .=" month(kp_tanggal) = '".$sub_filter['value']."' ";
+					// }
+					// else if ($sub_filter['field']=="tahun"){
+					// 	$str .=" year(kp_tanggal) = '".$sub_filter['value']."' ";
+					// }
+					if ($sub_filter['field']=="tanggal_awal"){ 
 						$str .=" tanggal >= '".$sub_filter['value']."' ";
 					}
 					else if ($sub_filter['field']=="tanggal_akhir"){ 
@@ -298,7 +352,9 @@ function cari(){
 		// $str .= $filter['id'] 
 		$i++;
 	endforeach;
-	$sql = "select * from v_lap_a_b ". $str; 
+	$sql = "select * from v_pencarian ". $str; 
+
+	$sql.=" group by laporan, id";
 
 	//echo $sql; 
 

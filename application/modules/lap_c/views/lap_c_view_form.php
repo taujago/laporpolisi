@@ -64,7 +64,7 @@
       <tr><td> Alamat </td>
             <td><input type="text" class="form-control" name="pelapor_alamat" id="pelapor_alamat" placeholder=" Alamat" />
         </td>
-      <tr>
+      </tr>
        <tr><td>Provinsi </td>
               <TD>
           <?php 
@@ -142,6 +142,57 @@
             <td><input type="text" class="form-control" name="kejadian_tempat" id="kejadian_tempat" placeholder="Tempat Kejadian" />
         </td>
         </tr>
+
+
+         <tr><td>Provinsi </td>
+              <TD>
+          <?php 
+                  $arr_provinsi = $this->cm->get_arr_dropdown("tiger_provinsi", 
+      "id","provinsi",'provinsi');
+
+                  echo form_dropdown("",$arr_provinsi,'','id="kejadian_id_provinsi" class="form-control" onchange="get_kota(this,\'#kejadian_id_kota\',1)"'); 
+
+
+
+                ?>
+
+
+                <tr><td>Kabupaten / Kota </td>
+              <TD>
+          <?php 
+                  
+
+                  echo form_dropdown("",array(),'','id="kejadian_id_kota" class="form-control" onchange="get_kecamatan(this,\'#kejadian_id_kecamatan\',1)"'); 
+                ?>
+
+
+              </TD></tr>
+
+               <tr><td>Kecamatan </td>
+              <TD>
+          <?php 
+                  
+
+                  echo form_dropdown("",array(),'','id="kejadian_id_kecamatan" class="form-control" onchange="get_desa(this,\'#kejadian_id_desa\',1)"'); 
+                ?>
+
+
+              </TD></tr>
+
+
+              <tr><td>Desa / Kelurahan </td>
+              <TD>
+          <?php 
+                  
+
+                  echo form_dropdown("kejadian_id_desa",array(),'','id="kejadian_id_desa" class="form-control" '); 
+                ?>
+                </TD></tr>
+
+
+
+
+
 
 
  
