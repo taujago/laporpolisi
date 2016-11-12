@@ -22,7 +22,8 @@ function data($param){
 
 	$sort_by = $arr_column[$param['sort_by']];
 
-	$this->db->select('*')->from('lap_laka_lantas'); 
+	$this->db->select('a.*,p.nama as nama')->from('lap_laka_lantas a'); 
+	$this->db->join("pengguna p","p.id = a.user_id",'left');
 
 	
 	

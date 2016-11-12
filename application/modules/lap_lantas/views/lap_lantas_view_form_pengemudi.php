@@ -15,6 +15,14 @@
                 <TD>
                   <input type="text" class="form-control" name="pengemudi_nama" id="pengemudi_nama" placeholder="Nama Pengemudi" />                </TD>
               </tr>
+
+
+              <tr>
+                <td width="30%" >Kendaraan yang dikendarai</td>
+                <TD>
+                  <input type="text" class="form-control" name="kendaraan" id="kendaraan" placeholder="Kendaraan" />   </TD>
+              </tr>
+
               <tr>
                 <td >Jenis Kelamin</td>
                 <TD>

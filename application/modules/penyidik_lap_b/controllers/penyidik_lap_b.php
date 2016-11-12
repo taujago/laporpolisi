@@ -400,7 +400,7 @@ function perkembangan_simpan(){
            
             //$data['user_id'] = $userdata['id'];
 
-            
+             $data['id'] = md5(microtime(). rand(0,999999) );
 
              $res = $this->db->insert("lap_b_perkembangan",$data);
 

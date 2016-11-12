@@ -87,9 +87,9 @@
 <thead>
 	<tr style="background-color:#CCC">
 
-        <th width="10%">NOMOR LAPORAN</th>
+        <th width="20%">NOMOR LAPORAN</th>
         <th width="10%">TANGGAL LAPORAN</th>
-        <th width="42%">PELAPOR</th>
+        <th width="10%">PELAPOR</th>
         <th width="18%">ENTRY DATA</th>
         <th width="11%">OPERATOR</th>
       <th width="9%">PROSES</th>

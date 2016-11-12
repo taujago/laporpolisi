@@ -240,7 +240,7 @@ function simpan(){
 			// exit;
 			// exit;
 
-
+			$data['lap_b_id'] = md5(microtime());
 
 			 $res = $this->db->insert("lap_b",$data);
 			 $lap_b_id = $this->db->insert_id();
@@ -693,6 +693,7 @@ function tersangka_simpan($lap_b_id){
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
+			$data['id'] = md5(microtime());
 
 			 $res = $this->db->insert("lap_b_tersangka",$data);
 			 if($res) {
@@ -854,7 +855,7 @@ function saksi_simpan($lap_b_id){
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
-
+			$data['id'] = md5(microtime());
 			 $res = $this->db->insert("lap_b_saksi",$data);
 			 if($res) {
 			 	$ret = array("error"=>false,"message"=>"data berhasil disimpan",
@@ -1103,11 +1104,11 @@ function korban_simpan($lap_b_id){
 			$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
 			$data['lap_b_id'] = $lap_b_id;
 			 
-
+			$data['id'] = md5(microtime());
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
-
+			$data['id'] = md5(microtime());
 			 $res = $this->db->insert("lap_b_korban",$data);
 			 if($res) {
 			 	$ret = array("error"=>false,"message"=>"data berhasil disimpan",
@@ -1421,7 +1422,7 @@ function barbuk_simpan($lap_b_id){
 
  			 
 			 
-
+ 			$data['id'] = md5(microtime());
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
@@ -1558,7 +1559,7 @@ function pasal_simpan($lap_b_id){
 
 
  			$data['lap_b_id'] = $lap_b_id;
-
+ 			$data['id'] = md5(microtime());
  			 
 			 
 
@@ -1697,7 +1698,7 @@ function tmp_tersangka_simpan(){
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
-
+			$data['id'] = md5(microtime());
 			 $res = $this->db->insert("lap_b_tersangka",$data);
 			 // echo $this->db->last_query();
 			 if($res) {
@@ -1882,7 +1883,8 @@ function tmp_saksi_simpan(){
 			$data['saksi_tgl_lahir'] = flipdate($data['saksi_tgl_lahir']);
 
 			$data['temp_lap_b_id'] = $temp_lap_b_id;
-			 
+			$data['id'] = md5(microtime());
+ 
 
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
@@ -2071,7 +2073,7 @@ function tmp_korban_simpan(){
 
 			$data['temp_lap_b_id'] = $temp_lap_b_id;
 			 
-
+			$data['id'] = md5(microtime());
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
@@ -2329,7 +2331,7 @@ function tmp_barbuk_simpan(){
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
-
+			$data['id'] = md5(microtime());
 			 $res = $this->db->insert("lap_b_barbuk",$data);
 			 // echo $this->db->last_query();
 			 if($res) {
@@ -2432,7 +2434,7 @@ function tmp_pasal_simpan(){
 			$data['temp_lap_b_id'] = $temp_lap_b_id;
 
 
-		 
+		 $data['id'] = md5(microtime());
 
 			// show_array($data);
 			 

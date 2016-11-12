@@ -264,7 +264,7 @@ function penyidik_simpan($lap_d_id){
 
             $data['lap_d_id'] = $lap_d_id;
          
-
+            $data['id'] = md5(microtime(). rand(0,999999) );
          
 
              $res = $this->db->insert("lap_d_penyidik",$data);

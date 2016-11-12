@@ -264,10 +264,12 @@ function penyidik_simpan($lap_c_id){
 
             $data['lap_c_id'] = $lap_c_id;
          
-
+            $data['id'] = md5(microtime(). rand(0,999999) );
          
 
              $res = $this->db->insert("lap_c_penyidik",$data);
+             // echo $this->db->last_query(); 
+             // exit;
              if($res) {
                 $ret = array("error"=>false,"message"=>"data penyidik berhasil disimpan","mode"=>"I");
              }

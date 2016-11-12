@@ -142,6 +142,8 @@ function simpan(){
 		if($this->form_validation->run() == TRUE ) { 
 			unset($data['mode']);
 			unset($data['id_pangkat']);
+
+			$data['id_pangkat'] = md5(microtime());
 			 $res = $this->db->insert("m_pangkat",$data);
 			 if($res) {
 			 	$ret = array("error"=>false,"message"=>"data berhasil disimpan");

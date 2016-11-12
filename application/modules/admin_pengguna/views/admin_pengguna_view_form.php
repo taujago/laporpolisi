@@ -62,6 +62,18 @@
               ?>
               </TD></tr>
 
+
+              <tr  id="tr_satuan"><td>KESATUAN</td>
+              <TD>
+              <?php 
+              $arr_polres = $this->cm->get_arr_dropdown("m_kesatuan","id_kesatuan","kesatuan","kesatuan");
+              echo form_dropdown("id_kesatuan",$arr_polres,'','class="form-control" id="id_kesatuan"');
+              ?>
+              </TD></tr>
+
+
+
+
               <tr  id="tr_polres"><td>POLRES</td>
               <TD>
               <?php 

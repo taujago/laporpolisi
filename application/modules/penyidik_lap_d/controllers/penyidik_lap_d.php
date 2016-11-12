@@ -392,6 +392,7 @@ function perkembangan_simpan(){
 
 
             $data['tanggal'] = flipdate($data['tanggal']);
+            $data['id'] = md5(microtime(). rand(0,999999) );
            
             //$data['user_id'] = $userdata['id'];
 

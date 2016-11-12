@@ -151,7 +151,7 @@ function simpan(){
 
 			 
 			unset($data['id_polres']);
-			 
+			 $data['id_polres'] = md5(microtime()); 
 
 			 
 			 $res = $this->db->insert("m_polres",$data);

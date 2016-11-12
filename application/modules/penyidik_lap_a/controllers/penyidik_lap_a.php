@@ -101,7 +101,7 @@ $id = $row['lap_a_id'];
 								$row['pelapor_nama'],
 								$row['terlapor'],
 								$row['tindak_pidana'],								 
-        		  			 	($row['nama_penyidik']=="")?"<span style='color:red;'>BELUM ADA</span>":$row['nama_penyidik'], 
+        		  			 	($row['penyidik_nama']=="")?"<span style='color:red;'>BELUM ADA</span>":$row['penyidik_nama'], 
         		  			  
         		  				" 
      <a class=\"btn btn-primary\" href=\" " . site_url("$controller/detail/".$id) ."\" >Detail </a>");
@@ -143,8 +143,8 @@ function detail($id){
 
 	//show_array($detail);
 	$content = $this->load->view($this->controller."_view_detail",$detail,true);
-	$this->set_subtitle("DETAIL LAPORAN POLISI MODEL-B NOMOR : ".$detail['nomor']);
-	$this->set_title("DETAIL  LAPORAN  POLISI MODEL-B NOMOR : ".$detail['nomor']);
+	$this->set_subtitle("DETAIL LAPORAN POLISI MODEL-A NOMOR : ".$detail['nomor']);
+	$this->set_title("DETAIL  LAPORAN  POLISI MODEL-A NOMOR : ".$detail['nomor']);
 	$this->set_content($content);
 	$this->render_admin();
 
@@ -402,6 +402,8 @@ function perkembangan_simpan(){
 
             
 
+
+            $data['id'] = md5(microtime(). rand(0,999999) );
              $res = $this->db->insert("lap_a_perkembangan",$data);
 
              $lap_a_id = $this->db->insert_id();

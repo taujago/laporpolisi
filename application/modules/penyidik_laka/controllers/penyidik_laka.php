@@ -403,7 +403,7 @@ function perkembangan_simpan(){
             $data['tanggal'] = flipdate($data['tanggal']);
            
             //$data['user_id'] = $userdata['id'];
-
+            $data['id'] = md5(microtime(). rand(0,999999) );
             
 
              $res = $this->db->insert("lap_laka_perkembangan",$data);

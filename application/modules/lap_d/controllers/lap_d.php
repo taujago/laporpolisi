@@ -178,7 +178,7 @@ function simpan(){
 			$data['user_id'] = $userdata['id'];
 			$data['nomor'] = $this->cm->get_lap_number($this->controller,$data); 
 
-
+			$data['lap_d_id'] = md5(microtime());
 			 $res = $this->db->insert("lap_d",$data);
 			 if($res) {
 			 	$ret = array("error"=>false,"message"=>"data berhasil disimpan");

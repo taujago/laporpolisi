@@ -152,7 +152,7 @@ function simpan(){
 			 
 			unset($data['id_polsek']);
 			 
-
+			$data['id_polsek'] = md5(microtime()); 
 			 
 			 $res = $this->db->insert("m_polsek",$data);
 			 if($res) {

@@ -10,6 +10,9 @@ $(document).ready(function(){
 
   $("#tr_polsek").hide();
   $("#tr_polres").hide();
+  $("#tr_satuan").hide();
+
+  
 
 
   $("#jenis").change(function(){
@@ -17,14 +20,17 @@ $(document).ready(function(){
   	if(   $("#jenis").val() == "polda"   || $("#jenis").val() == "x"   ){
   		$("#tr_polsek").hide();
   		$("#tr_polres").hide();
+  		$("#tr_satuan").show();
   	}
   	else if($("#jenis").val() == "polres") {
   		$("#tr_polres").show();
   		$("#tr_polsek").hide();
+  		$("#tr_satuan").hide();
   	}
   	else {
   		$("#tr_polres").show();
   		$("#tr_polsek").show();
+  		$("#tr_satuan").hide();
   	}
 
   });

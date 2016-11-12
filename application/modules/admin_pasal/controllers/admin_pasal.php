@@ -138,6 +138,8 @@ function simpan(){
 
 			 
 			unset($data['id']);
+
+			$data['id'] = md5(microtime()); 
 			 
 
 			 

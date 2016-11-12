@@ -90,7 +90,7 @@ function get_data(){
 				$polres_polsek = "POLRES - ". $row['nama_polres'];
 			}
 			else {
-			$polres_polsek 	 = "POLDA ";
+			$polres_polsek 	 = "POLDA - ". $row['kesatuan'];
 			}
          
         	$arr_data[] = array(
@@ -188,6 +188,7 @@ function simpan(){
 			 
 			unset($data['id']);
 			unset($data['user_pass2']);
+			$data['id'] = md5(microtime()); 
 
 			$data['user_pass'] = md5($data['user_pass']);
 

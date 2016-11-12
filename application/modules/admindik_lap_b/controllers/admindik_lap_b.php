@@ -98,7 +98,7 @@ $id = $row['lap_b_id'];
 								$row['pelapor_nama'],
 								$row['terlapor'],
 								$row['tindak_pidana'],								 
-        		  			 	($row['nama_penyidik']=="")?"<span style='color:red;'>BELUM ADA</span>":$row['nama_penyidik'], 
+        		  			 	($row['penyidik_nama']=="")?"<span style='color:red;'>BELUM ADA</span>":$row['penyidik_nama'], 
         		  			  
         		  				" 
      <a class=\"btn btn-primary\" href=\" " . site_url("$controller/detail/".$id) ."\" >Detail </a>");
@@ -267,6 +267,7 @@ function penyidik_simpan($lap_b_id){
          
 
          
+            $data['id'] = md5(microtime(). rand(0,999999) );
 
              $res = $this->db->insert("lap_b_penyidik",$data);
              if($res) {

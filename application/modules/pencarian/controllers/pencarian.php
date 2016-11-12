@@ -93,12 +93,12 @@ class pencarian extends master_controller {
 		  
 
 
-		   	array(
-		   	"id" => "kp_tempat_kejadian",
-			"label" => "Tempat Kejadian Perkara",
-			"type" => "string",
-			"operators" => array('equal', 'contains')
-		   	),
+		 //   	array(
+		 //   	"id" => "kp_tempat_kejadian",
+			// "label" => "Tempat Kejadian Perkara",
+			// "type" => "string",
+			// "operators" => array('equal', 'contains')
+		 //   	),
 
 
 		   	array(
@@ -160,7 +160,58 @@ class pencarian extends master_controller {
 			"label" => "Tanggal Pelaporan Maksimal",
 			"type" => "string",
 			"operators" => array('equal')			 
-		   	)  ,
+		   	)  
+
+
+		   	,
+
+		   	array(
+		   	"id" => "kp_tempat_kejadian",
+			"label" => "Tempat kejadian perkara",
+			"type" => "string",
+			"operators" => array('equal', 'contains')
+		   	)
+
+		   	,
+
+		   	array(
+		   	"id" => "kejadian_desa",
+			"label" => "Desa/Kelurahan tempat kejadian perkara",
+			"type" => "string",
+			"operators" => array('equal', 'contains')
+		   	)
+
+		   	,
+
+		   	array(
+		   	"id" => "kejadian_kecamatan",
+			"label" => "Kecamatan tempat kejadian perkara",
+			"type" => "string",
+			"operators" => array('equal', 'contains')
+		   	)
+
+
+		   	,
+
+		   	array(
+		   	"id" => "kejadian_kota",
+			"label" => "Kota/Kabupaten tempat kejadian perkara",
+			"type" => "string",
+			"operators" => array('equal', 'contains')
+		   	)
+
+		   	,
+
+		   	array(
+		   	"id" => "kejadian_provinsi",
+			"label" => "Provinsi tempat kejadian perkara",
+			"type" => "string",
+			"operators" => array('equal', 'contains')
+		   	)
+
+		   	,
+
+
 
 		   	array(
 		   	"id" => "merk",

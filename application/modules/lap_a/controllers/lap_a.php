@@ -216,7 +216,7 @@ function simpan(){
 		$this->load->library('form_validation');
 		
 		$this->form_validation->set_rules('tanggal','Tanggal','required'); 
-		// $this->form_validation->set_rules('id_pasal','Pasal','required');
+		$this->form_validation->set_rules('kp_tanggal','Tanggal kejadian','required');
 		 
 		$this->form_validation->set_message('required', ' %s Harus diisi ');
 		
@@ -245,11 +245,11 @@ function simpan(){
 			// exit;
 			// exit;
 
-
+			$data['lap_a_id'] = md5(microtime());
 
 			 $res = $this->db->insert("lap_a",$data);
 
-			 $lap_a_id = $this->db->insert_id();
+			 $lap_a_id = $data['lap_a_id'] ; //$this->db->insert_id();
 
 			 if($res) {
 
@@ -671,6 +671,8 @@ function tersangka_simpan($lap_a_id){
 			$data['lap_a_id'] = $lap_a_id;
 			 
 
+
+			$data['id'] = md5(microtime());
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
@@ -834,6 +836,8 @@ function saksi_simpan($lap_a_id){
 
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
+
+			$data['id'] = md5(microtime());
 
 
 			 $res = $this->db->insert("lap_a_saksi",$data);
@@ -1085,6 +1089,9 @@ function korban_simpan($lap_a_id){
 
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
+
+
+			$data['id'] = md5(microtime());
 
 
 			 $res = $this->db->insert("lap_a_korban",$data);
@@ -1401,7 +1408,7 @@ function barbuk_simpan($lap_a_id){
 
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
-
+ 			$data['id'] = md5(microtime());
 
 			 $res = $this->db->insert("lap_a_barbuk",$data);
 			 if($res) {
@@ -1665,7 +1672,7 @@ function tmp_tersangka_simpan(){
 		if($this->form_validation->run() == TRUE ) { 
 			unset($data['tersangka_id']);
 			 
-
+			$data['id'] = md5(microtime());
 
 			$data['tersangka_tgl_lahir'] = flipdate($data['tersangka_tgl_lahir']);
 
@@ -1855,6 +1862,7 @@ function tmp_saksi_simpan(){
 		if($this->form_validation->run() == TRUE ) { 
 			unset($data['saksi_id']);
 			 
+			$data['id'] = md5(microtime()); 
 
 
 			$data['saksi_tgl_lahir'] = flipdate($data['saksi_tgl_lahir']);
@@ -2043,7 +2051,7 @@ function tmp_korban_simpan(){
 		if($this->form_validation->run() == TRUE ) { 
 			unset($data['korban_id']);
 			 
-
+			$data['id'] = md5(microtime());
 
 			$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
 
@@ -2228,7 +2236,7 @@ function tmp_barbuk_simpan(){
 			unset($data['satuan_baru']);			 
 
 
- 
+ 			$data['id'] = md5(microtime());
 			$data['temp_lap_a_id'] = $temp_lap_a_id;
 			 
 

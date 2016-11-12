@@ -19,12 +19,13 @@ function data($param){
 
 	$sort_by = $arr_column[$param['sort_by']];
 
-	$this->db->select("a.*, b.pangkat, l.level  as level2,
+	$this->db->select("a.*, b.pangkat, l.level  as level2, sat.kesatuan,
 	   res.nama_polres, sek.nama_polsek
-	 ")->from('pengguna a',false)
+	 ")->from('pengguna a')
 	->join('m_pangkat b','a.id_pangkat=b.id_pangkat','left')
 	->join("m_polres res","res.id_polres = a.id_polres",'left')
 	->join("m_polsek sek","sek.id_polsek=a.id_polsek","left")
+	->join("m_kesatuan sat","sat.id_kesatuan=a.id_kesatuan","left")
 	->join("m_level l",'l.id=a.level','left');
 
 	if($param['nama'] <> '') {

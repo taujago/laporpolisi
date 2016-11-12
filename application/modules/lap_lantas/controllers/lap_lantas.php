@@ -92,15 +92,16 @@ function get_data(){
 		//$daft_id = $row['daft_id'];
         	 
 $id = $row['lap_laka_lantas_id'];
-$user_id = $row['user_id'];
-$this->db->where('id', $user_id);
-$rsnama = $this->db->get('pengguna')->row_array();
-// echo 
-// show_array($rsnama);
-// exit();
-$nama = $rsnama['nama'];
+// $user_id = $row['user_id'];
+// $this->db->where('id', $user_id);
+// $rsnama = $this->db->get('pengguna')->row_array();
+// // echo 
+// // show_array($rsnama);
+// // exit();
+// // echo "vangkeh..";
+// $nama = "bangkehh.."; //$rsnama['nama'];
 
-
+        $nama = $row['nama']; 
          
         	$arr_data[] = array(
         		 
@@ -243,12 +244,12 @@ function simpan(){
 			$data['nomor'] = $this->cm->get_lap_number($this->controller,$data);
 
 		 
-
+			$data['lap_laka_lantas_id'] = md5(microtime());
 
 
 			 $res = $this->db->insert("lap_laka_lantas",$data);
 
-			 $lap_lantas_id = $this->db->insert_id();
+			 $lap_lantas_id = $data['lap_laka_lantas_id'];
 
 			 if($res) {
 
@@ -842,7 +843,7 @@ function saksi_add($lap_a_id){
 
 
 
-function saksi_simpan($lap_a_id){
+function saksi_simpan($lap_laka_lantas_id){
 		$data=$this->input->post();
 
  
@@ -862,14 +863,14 @@ function saksi_simpan($lap_a_id){
 
 
 			$data['saksi_tgl_lahir'] = flipdate($data['saksi_tgl_lahir']);
-			$data['lap_a_id'] = $lap_a_id;
+			$data['lap_laka_lantas_id'] = $lap_laka_lantas_id;
 			 
 
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
-
-			 $res = $this->db->insert("lap_a_saksi",$data);
+			$data['saksi_id'] = md5(microtime());
+			 $res = $this->db->insert("lap_laka_saksi",$data);
 			 if($res) {
 			 	$ret = array("error"=>false,"message"=>"data berhasil disimpan",
 			 		"mode"=>"I");
@@ -1025,7 +1026,7 @@ function korban_add($lap_a_id){
 
 
 
-function korban_simpan($lap_a_id){
+function korban_simpan($lap_laka_lantas_id){
 		$data=$this->input->post();
 
  
@@ -1045,14 +1046,15 @@ function korban_simpan($lap_a_id){
 
 
 			$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
-			$data['lap_a_id'] = $lap_a_id;
+			$data['lap_laka_lantas_id'] = $lap_laka_lantas_id;
 			 
 
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
+			$data['korban_id'] = md5(microtime());
 
-			 $res = $this->db->insert("lap_a_korban",$data);
+			 $res = $this->db->insert("lap_laka_korban",$data);
 			 if($res) {
 			 	$ret = array("error"=>false,"message"=>"data berhasil disimpan",
 			 		"mode"=>"I");
@@ -1293,7 +1295,11 @@ function kendaraan_simpan($lap_laka_lantas_id){
 		
 		$this->load->library('form_validation');
 		
-		$this->form_validation->set_rules('no_polisi','Nama','required'); 
+		$this->form_validation->set_rules('no_polisi','Nomor Polisi','required'); 
+		$this->form_validation->set_rules('tahun_buat','Tahun buat','required|numeric'); 
+
+
+		
  		 
 		$this->form_validation->set_message('required', ' %s Harus diisi ');
 		
@@ -1309,7 +1315,7 @@ function kendaraan_simpan($lap_laka_lantas_id){
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
-
+ 			$data['id'] = md5(microtime());
 			 $res = $this->db->insert("lap_laka_kendaraan",$data);
 			 if($res) {
 			 	$ret = array("error"=>false,"message"=>"data berhasil disimpan",
@@ -1442,7 +1448,7 @@ function pasal_simpan($lap_laka_lantas_id){
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
-
+ 			$data['id'] = md5(microtime());
 			 $res = $this->db->insert("lap_laka_pasal",$data);
 			 if($res) {
 			 	$ret = array("error"=>false,"message"=>"data berhasil disimpan",
@@ -1460,6 +1466,59 @@ function pasal_simpan($lap_laka_lantas_id){
 		echo json_encode($ret);
 		
 	}
+
+
+
+
+
+
+function pengemudi_simpan($lap_laka_lantas_id){
+		$data=$this->input->post();
+
+ 
+
+		
+		$this->load->library('form_validation');
+		
+		$this->form_validation->set_rules('pengemudi_nama','Nama','required'); 
+		$this->form_validation->set_rules('pengemudi_tgl_lahir','Nama','required'); 
+ 		 
+		$this->form_validation->set_message('required', ' %s Harus diisi ');
+		
+ 		$this->form_validation->set_error_delimiters('', '<br>');
+		if($this->form_validation->run() == TRUE ) { 
+			unset($data['id']);
+			 
+
+
+ 			$data['lap_laka_lantas_id'] = $lap_laka_lantas_id;
+
+ 			 
+			 
+
+			 
+			$data['pengemudi_tgl_lahir'] = flipdate($data['pengemudi_tgl_lahir']);
+
+ 			$data['lap_laka_lantas_pengemudi_id'] = md5(microtime());
+			 $res = $this->db->insert("lap_laka_pengemudi",$data);
+			 if($res) {
+			 	$ret = array("error"=>false,"message"=>"data berhasil disimpan",
+			 		"mode"=>"I");
+			 }
+			 else {
+			 	$ret = array("error"=>true,"message"=>$this->db->_error_message());
+			 }
+			 
+		}
+		else {
+			$ret = array("error"=>true,"message"=>validation_errors());
+		}
+		
+		echo json_encode($ret);
+		
+	}
+
+
 
 function temp_get_lap_lantas_pengemudi() {
 
@@ -1574,10 +1633,12 @@ function tmp_pengemudi_simpan(){
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
-
+			 $data['lap_laka_lantas_pengemudi_id'] = md5(microtime());
 			 $res = $this->db->insert("lap_laka_pengemudi",$data);
 			 // echo $this->db->last_query();
 			 // exit();
+
+
 			 if($res) {
 			 	$ret = array("error"=>false,"message"=>"Data tersangka berhasil disimpan",
 			 		"mode"=>"I"
@@ -1755,6 +1816,7 @@ function tmp_saksi_simpan(){
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
+			 $data['saksi_id'] = md5(microtime());
 
 			 $res = $this->db->insert("lap_laka_saksi",$data);
 			 // echo $this->db->last_query();
@@ -2019,7 +2081,7 @@ function tmp_korban_simpan(){
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
-
+			 $data['korban_id'] = md5(microtime());
 			 $res = $this->db->insert("lap_laka_korban",$data);
 			 // echo $this->db->last_query();
 			 if($res) {
@@ -2199,9 +2261,10 @@ function tmp_kendaraan_simpan(){
 		
 		$this->load->library('form_validation');
 		
-		$this->form_validation->set_rules('no_polisi','Nama','required'); 
- 		 
+		$this->form_validation->set_rules('no_polisi','Nomor Polisi','required'); 
+ 		$this->form_validation->set_rules('tahun_buat','Tahun buat','required|numeric');  	
 		$this->form_validation->set_message('required', ' %s Harus diisi ');
+		$this->form_validation->set_message('numeric', ' %s Harus diisi dengan angka');
 		
  		$this->form_validation->set_error_delimiters('', '<br>');
 		if($this->form_validation->run() == TRUE ) { 
@@ -2216,6 +2279,8 @@ function tmp_kendaraan_simpan(){
 
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
+
+			 $data['id'] = md5(microtime());
 
 
 			 $res = $this->db->insert("lap_laka_kendaraan",$data);
@@ -2398,6 +2463,8 @@ function tmp_pasal_simpan(){
 
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
+
+			$data['id'] = md5(microtime());
 
 
 			 $res = $this->db->insert("lap_laka_pasal",$data);

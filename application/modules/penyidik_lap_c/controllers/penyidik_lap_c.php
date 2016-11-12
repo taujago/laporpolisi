@@ -396,10 +396,10 @@ function perkembangan_simpan(){
             //$data['user_id'] = $userdata['id'];
 
             
-
+            $data['id'] = md5(microtime(). rand(0,999999) );
              $res = $this->db->insert("lap_c_perkembangan",$data);
 
-             $lap_c_id = $this->db->insert_id();
+             // $lap_c_id = $this->db->insert_id();
 
              if($res) {
 

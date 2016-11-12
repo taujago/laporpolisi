@@ -82,6 +82,9 @@ $.ajax({
 
  		$("#pelapor_id_provinsi").val(jsonData.pelapor_prov_id).attr('selected','selected');
 
+ 		$("#pen_lapor_id_pangkat").val(jsonData.pen_lapor_id_pangkat).attr('selected','selected');
+
+
 
 
  		$.ajax({

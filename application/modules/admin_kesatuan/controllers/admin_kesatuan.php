@@ -121,6 +121,8 @@ function simpan(){
 
 			 
 			unset($data['id_kesatuan']);
+
+			$data['id_kesatuan'] = md5(microtime()); 
 			 
 
 			 

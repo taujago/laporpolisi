@@ -138,7 +138,8 @@ function simpan(){
 
 			 
 			unset($data['id']);
-			 
+			
+			$data['id'] = md5(date('Ymdhis').$data['pasal']); 
 
 			 
 			 $res = $this->db->insert("m_pasal",$data);

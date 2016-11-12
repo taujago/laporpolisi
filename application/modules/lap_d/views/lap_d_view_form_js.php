@@ -82,7 +82,10 @@ $.ajax({
 
  		$("#kejadian_id_provinsi").val(jsonData.kejadian_prov_id).attr('selected','selected');
 
+ 		$("#pen_lapor_id_pangkat").val(jsonData.kejadian_prov_id).attr('selected','selected');
 
+
+ 		 
 
  		$.ajax({
 	      url:'<?php echo site_url("general/get_dropdown_kota_by_prop"); ?>/',

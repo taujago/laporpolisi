@@ -221,6 +221,7 @@ function simpan(){
 			// exit;
 			// exit;
 
+			$data['lap_c_id'] = md5(microtime());
 
 
 			 $res = $this->db->insert("lap_c",$data);
