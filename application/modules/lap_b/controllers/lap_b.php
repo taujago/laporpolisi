@@ -246,6 +246,30 @@ function simpan(){
 			 $lap_b_id = $this->db->insert_id();
 			 if($res) {
 
+			 	// $temp_lap_b_id = $this->session->userdata("temp_lap_b_id");
+
+			 	// $arr_update = array("lap_b_id"=>$lap_b_id);
+
+			 	// $this->db->where("temp_lap_b_id",$temp_lap_b_id);
+			 	// $this->db->update("lap_b_tersangka",$arr_update);
+
+			 	// $this->db->where("temp_lap_b_id",$temp_lap_b_id);
+			 	// $this->db->update("lap_b_saksi",$arr_update);
+
+			 	// $this->db->where("temp_lap_b_id",$temp_lap_b_id);
+			 	// $this->db->update("lap_b_korban",$arr_update);
+
+			 	// $this->db->where("temp_lap_b_id",$temp_lap_b_id);
+			 	// $this->db->update("lap_b_barbuk",$arr_update);
+
+
+		 		// $this->db->where("temp_lap_b_id",$temp_lap_b_id);
+			 	// $this->db->update("lap_b_pasal",$arr_update);
+
+
+			 	// $this->session->unset_userdata("temp_lap_b_id");
+			 	$lap_b_id = $data['lap_b_id'];
+
 			 	$temp_lap_b_id = $this->session->userdata("temp_lap_b_id");
 
 			 	$arr_update = array("lap_b_id"=>$lap_b_id);
