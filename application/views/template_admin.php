@@ -224,7 +224,12 @@
                 <li><a href="<?php echo site_url("grafik_lap/grafik/2"); ?>">GRAFIK LAPORAN B</a></li>
                 <li><a href="<?php echo site_url("grafik_lap/grafik/3"); ?>">GRAFIK LAPORAN C</a></li>
                 <li><a href="<?php echo site_url("grafik_lap/grafik/4"); ?>">GRAFIK LAPORAN D</a></li>
-                 <li><a href="<?php echo site_url("grafik_lap/grafik/5"); ?>">GRAFIK LAPORAN LAKA LANTAS</a></li>   
+                 <li><a href="<?php echo site_url("grafik_lap/grafik/5"); ?>">GRAFIK LAPORAN LAKA LANTAS</a></li>
+                 <li><a href="<?php echo site_url("grafik_penyidik/grafik/1"); ?>">GRAFIK PENYIDIK LAP. A</a></li>
+                 <li><a href="<?php echo site_url("grafik_penyidik/grafik/2"); ?>">GRAFIK PENYIDIK LAP. B</a></li>
+                 <li><a href="<?php echo site_url("grafik_penyidik/grafik/3"); ?>">GRAFIK PENYIDIK LAP. C</a></li>
+                 <li><a href="<?php echo site_url("grafik_penyidik/grafik/4"); ?>">GRAFIK PENYIDIK LAP. D</a></li>
+                 <li><a href="<?php echo site_url("grafik_penyidik/grafik/5"); ?>">GRAFIK PENYIDIK LAP. LAKA LANTAS</a></li>   
            </ul>
         </li>
         

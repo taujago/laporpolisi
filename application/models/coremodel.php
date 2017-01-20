@@ -43,6 +43,8 @@ class coremodel extends CI_Model {
 
         }
 
+
+
         function arr_level() {
                 $arr = array(1=>"Level 1","Level 2","Level 3");
                 return $arr;
@@ -54,6 +56,19 @@ function get_setting(){
   $res =  $this->db->get("setting");
   return $res->row();
 }
+
+function get_arr_dropdownpolres($tbname, $index,$value,$sorter) {
+  $ret = array();
+  $ret = array('' => '- Pilih Polres -', );;
+  $this->db->order_by($sorter);
+  $res = $this->db->get($tbname);
+  foreach($res->result_array() as $row) : 
+    $ret[$row[$index]]  = $row[$value];
+  endforeach;
+  //show_array($ret); exit;
+  return $ret;
+}
+
 
 
 function get_arr_dropdown($tbname, $index,$value,$sorter) {
