@@ -11,6 +11,18 @@
             <table width="100%"  class='table table-bordered'>
               <tr>
                
+              <tr><td width="30%" >Golongan </td>
+              <TD>
+                <?php 
+                $arr = $this->cm->arr_dropdown("m_golongan","id","golongan","id");
+
+                echo form_dropdown("id_golongan",$arr,"",'id="id_golongan" class="form-control"'); 
+
+                ?>
+
+              </TD></tr>
+
+
               <tr><td width="30%" >Nama Kelompok </td>
               <TD><input type="text" class="form-control" name="kelompok" id="kelompok" placeholder="Kelompok " /> </TD></tr>
 

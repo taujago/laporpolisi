@@ -198,6 +198,8 @@
     <div class="collapse navbar-collapse" style="padding-left: 0px;">       
       <ul class="nav navbar-nav">
         <li class="active"><a href="<?php echo site_url("index_administrator"); ?>">HOME</a></li>
+
+        <li><a href="<?php echo site_url("admin_polda"); ?>">DATA POLDA</a></li>
         <li>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           DATA MASTER<b class="caret"></b></a>
@@ -230,6 +232,24 @@
                  <li><a href="<?php echo site_url("grafik_penyidik/grafik/3"); ?>">GRAFIK PENYIDIK LAP. C</a></li>
                  <li><a href="<?php echo site_url("grafik_penyidik/grafik/4"); ?>">GRAFIK PENYIDIK LAP. D</a></li>
                  <li><a href="<?php echo site_url("grafik_penyidik/grafik/5"); ?>">GRAFIK PENYIDIK LAP. LAKA LANTAS</a></li>   
+           </ul>
+        </li>
+
+
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          LAPORAN <b class="caret"></b></a>
+          <ul class="dropdown-menu multi-level">
+                <li><a href="<?php echo site_url("laporan_harian"); ?>">LAPORAN HARIAN GANGGUAN KAMTIBMAS (LHGK)</a></li>
+                <li><a href="<?php echo site_url("laporan_mingguan"); ?>">LAPORAN MINGGUAN GANGGUAN KAMTIBMAS (LMGK)</a></li>
+                <li><a href="<?php echo site_url("laporan_bulanan"); ?>">LAPORAN BULANAN GANGGUAN KAMTIBMAS  </a></li>
+                <li><a href="<?php echo site_url("laporan_per_lokasi"); ?>">LAPORAN TIDAK KEJAHATAN PER LOKASI</a></li>
+                 <!-- <li><a href="<?php echo site_url("grafik_lap/grafik/5"); ?>">GRAFIK LAPORAN LAKA LANTAS</a></li>
+                 <li><a href="<?php echo site_url("grafik_penyidik/grafik/1"); ?>">GRAFIK PENYIDIK LAP. A</a></li>
+                 <li><a href="<?php echo site_url("grafik_penyidik/grafik/2"); ?>">GRAFIK PENYIDIK LAP. B</a></li>
+                 <li><a href="<?php echo site_url("grafik_penyidik/grafik/3"); ?>">GRAFIK PENYIDIK LAP. C</a></li>
+                 <li><a href="<?php echo site_url("grafik_penyidik/grafik/4"); ?>">GRAFIK PENYIDIK LAP. D</a></li>
+                 <li><a href="<?php echo site_url("grafik_penyidik/grafik/5"); ?>">GRAFIK PENYIDIK LAP. LAKA LANTAS</a></li>    -->
            </ul>
         </li>
         

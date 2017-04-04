@@ -9,21 +9,26 @@
         
 <form action="" id="formulir" method="post">
             <table width="100%"  class='table table-bordered'>
-              <tr>
+               
                
               <tr><td width="30%" >Nama Polres </td>
               <TD><input type="text" class="form-control" name="nama_polres" id="nama_polres" placeholder="Nama Polres" /> </TD></tr>
 
+              <tr><td width="30%" >Tempat kedudukan </td>
+              <TD><input type="text" class="form-control" name="tempat" id="tempat" placeholder="Tempat kedudukan" /> </TD></tr>
 
-              
 
+              <tr><td >Nama Penandatangan </td>
+              <TD><input type="text" class="form-control" name="ttd_nama" id="ttd_nama" placeholder="Nama Penandatangan" /> </TD></tr>
 
+              <tr><td >NRP Penandatangan </td>
+              <TD><input type="text" class="form-control" name="ttd_nrp" id="ttd_nrp" placeholder="NRP Penandatangan" /> </TD></tr>
 
-                 
+              <tr><td >Jabatan Penandatangan </td>
+              <TD><input type="text" class="form-control" name="ttd_jabatan" id="ttd_jabatan" placeholder="Jabatan Penandatangan" /> </TD></tr>
 
-                
-              
-            </table>
+              <tr><td >Pangkat Penandatangan </td>
+              <TD><input type="text" class="form-control" name="ttd_pangkat" id="ttd_pangkat" placeholder="Pangkat Penandatangan" /> </TD></tr> </table>
             <input type="hidden" name="id_polres" value=""  id="id_polres"  />
        
             

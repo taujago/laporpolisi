@@ -10,12 +10,13 @@ function data($param){
 
 	//show_array($param);
 
-	$arr_column = array("kelompok");
+	$arr_column = array("golongan","kelompok");
 
 	$sort_by = $arr_column[$param['sort_by']];
 
 	$this->db->select('*')
-	->from("m_kelompok_kejahatan");
+	->from("m_kelompok_kejahatan a")
+	->join("m_golongan b","b.id=id_golongan");
 
 	if($param['nama'] <> '') {
 		$this->db->like('kelompok',$param['nama']);

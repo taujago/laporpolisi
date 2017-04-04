@@ -1,9 +1,11 @@
 <link href="<?php echo base_url("assets") ?>/css/jquery.dataTables.css" rel="stylesheet">
 <link href="<?php echo base_url("assets") ?>/css/datepicker.css" rel="stylesheet">
+<link href="<?php echo base_url("assets") ?>/select2/dist/css/select2.min.css" rel="stylesheet">
 
 <script src="<?php echo base_url("assets") ?>/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url("assets") ?>/js/bootstrap-datepicker.js"></script>
 <script src="<?php echo base_url("assets") ?>/js/jquery.loadJSON.js"></script>
+<script src="<?php echo base_url("assets") ?>/select2/dist/js/select2.full.min.js"></script>
 
 
 <style type="text/css">
@@ -29,34 +31,35 @@
       <tr><td>Nomor </td>
             <td><input readonly="readonly" type="text" class="form-control" name="nomor" id="nomor" placeholder="(auto generated)" />        </td>
      
-      <tr><td>Golongan Kejahatan </td>
+
+       <tr><td> Golongan Kejahatan</td>
             <td>  
 
             <?php 
 
-            $arr_kelompok_kejahan = $this->cm->get_arr_dropdown("m_kelompok_kejahatan","id_kelompok","kelompok","kelompok");
+            $id_gol_kejahatan = isset($id_gol_kejahatan)?$id_gol_kejahatan:"";
+            echo form_dropdown("id_gol_kejahatan",$arr_golongan_kejahatan,$id_gol_kejahatan,'id="id_gol_kejahatan" class="form-control ds2"') ?>
 
-            $arr_kelompok_kejahan = add_arr_head($arr_kelompok_kejahan,"x","= PILIH GOLONGAN KEJAHATAN =");
-           
-            echo form_dropdown("",$arr_kelompok_kejahan,'',
-              'id="id_kelompok" class="form-control" 
-               onchange="get_data_kejahatan(this,\'#id_gol_kejahatan\',1)"
-
-              '); 
-
-
-           
-            ?>
       </td>
 
+      
 
 
       <tr><td> </td>
             <td>  
 
-            <?php echo form_dropdown("id_gol_kejahatan",array(),'','id="id_gol_kejahatan" class="form-control"') ?>
+            <input disabled="disabled" type="text" id="id_kelompok" class="form-control " />
+             
 
-      </td>
+      </td></tr>
+
+
+
+     <tr><td> </td>
+            <td>  
+                 <input disabled="disabled" type="text" id="id_golongan" class="form-control " />
+            
+      </td></tr>
 
 
       <tr><td>Tempat Kejadian Perkara</td>
@@ -89,7 +92,7 @@
             </td></tr>
 
       
-
+<!-- 
 <tr> <td colspan="2"> <b> PASAL</b>  </td> </tr>
 
 
@@ -115,12 +118,12 @@
 
 
 
-            </td> </tr>    
+            </td> </tr>     -->
 
 
 
 
-   <tr> <td colspan="2"> <b> PELAPOR</b>  </td> </tr>
+   <tr class="separator"> <td colspan="2"> <b> PELAPOR</b>  </td> </tr>
       <tr><td> Nama Pelapor</td>
             <td><input type="text" class="form-control" name="pelapor_nama" id="pelapor_nama" placeholder="Pelapor Nama" />        </td>
       <tr><td>Pangkat </td>
@@ -415,6 +418,11 @@
 
 
        <tr class="separator"> <td colspan="2"> <b> TINDAKAN YANG DILAKUKAN </b>  </td> </tr>
+
+<?php 
+$userdata = $this->userdata;
+?>
+
       <tr><td>Tindakan Yang Dilakukan </td>
             <td><!-- <input type="text" class="form-control" name="tindakan_yang_dilakukan" id="tindakan_yang_dilakukan" placeholder="Tindakan Yang Dilakukan" />   -->      
             <textarea  class="form-control" name="tindakan_yang_dilakukan" id="tindakan_yang_dilakukan" placeholder="Tindakan Yang Dilakukan" ></textarea>
@@ -423,23 +431,31 @@
             </td>
       </tr>
      <tr class="separator"> <td colspan="2"> <b> PENERIMA LAPORAN </b>  </td> </tr>
+      
+      <tr><td>NRP </td>
+            <td><input type="text" class="form-control" name="pen_lapor_nrp" id="pen_lapor_nrp" placeholder="NRP" value="<?php echo $userdata['user_id']; ?>" />        </td>
+
       <tr><td>Nama </td>
-            <td><input type="text" class="form-control" name="pen_lapor_nama" id="pen_lapor_nama" placeholder="Nama" />        </td>
+            <td><input type="text" class="form-control" name="pen_lapor_nama" id="pen_lapor_nama" placeholder="Nama" value="<?php echo $userdata['nama']; ?>" />        </td>
       <tr><td>Pangkat  </td>
               
 <td>
-                   <?php echo form_dropdown("pen_lapor_id_pangkat",$arr_pangkat,'','id="pen_lapor_id_pangkat" class="form-control"') ?>
+                   <?php 
+
+                   $id_pangkat = isset($userdata['id_pangkat'])?$userdata['id_pangkat']:'';
+
+                   echo form_dropdown("pen_lapor_id_pangkat",$arr_pangkat,$id_pangkat,'id="pen_lapor_id_pangkat" class="form-control"') ?>
             </td>
-      <tr><td>NRP </td>
-            <td><input type="text" class="form-control" name="pen_lapor_nrp" id="pen_lapor_nrp" placeholder="NRP" />        </td>
+     
       <tr><td>Kesatuan </td>
             <td>
             <!-- <input type="text" class="form-control" name="pen_lapor_kesatuan" id="pen_lapor_kesatuan" placeholder="Kesatuan" />   -->      
             <?php 
 
+            $id_kesatuan = isset($userdata['id_kesatuan'])?$userdata['id_kesatuan']:'';
             $arr_kesatuan = $this->cm->get_arr_dropdown("m_kesatuan","id_kesatuan","kesatuan","kesatuan");
            
-            echo form_dropdown("pen_lapor_id_kesatuan",$arr_kesatuan,'',
+            echo form_dropdown("pen_lapor_id_kesatuan",$arr_kesatuan,$id_kesatuan,
               'id="pen_lapor_id_kesatuan" class="form-control" '); 
 
 
@@ -448,12 +464,14 @@
 
             </td>
       <tr><td>Jabatan </td>
-            <td><input type="text" class="form-control" name="pen_lapor_jabatan" id="pen_lapor_jabatan" placeholder="Jabatan" />        </td>
+            <td><input type="text" class="form-control" name="pen_lapor_jabatan" id="pen_lapor_jabatan" placeholder="Jabatan" value="<?php echo $userdata['jabatan']; ?>" />        </td>
       <tr><td>Telpon </td>
-            <td><input type="text" class="form-control" name="pen_lapor_telpon" id="pen_lapor_telpon" placeholder="Telpon" />        </td>
+            <td><input type="text" class="form-control" name="pen_lapor_telpon" id="pen_lapor_telpon" placeholder="Telpon" value="<?php echo $userdata['nomor_hp']; ?>" />        </td>
             </tr>
 
       <tr class="separator"> <td colspan="2"> <b> MENGETAHUI </b>  </td> </tr>
+      <tr><td>NRP </td>
+            <td><input type="text" class="form-control" name="mengetahui_nrp" id="mengetahui_nrp" placeholder="NRP" />  <a href="#" onclick="get_user_info();"> Query </a>      </td></tr>
       <tr><td>Nama </td>
             <td><input type="text" class="form-control" name="mengetahui_nama" id="mengetahui_nama" placeholder="Nama" />        </td>
       <tr><td>Pangkat </td>
@@ -463,8 +481,7 @@
             </td>
 
               </td>
-      <tr><td>NRP </td>
-            <td><input type="text" class="form-control" name="mengetahui_nrp" id="mengetahui_nrp" placeholder="NRP" />        </td>
+      
       <tr><td>Jabatan </td>
             <td><input type="text" class="form-control" name="mengetahui_jabatan" id="mengetahui_jabatan" placeholder="Jabatan" />        </td>
      
@@ -484,7 +501,7 @@
 <?php $this->load->view($controller."_view_form_saksi");?>
 <?php $this->load->view($controller."_view_form_korban");?>
 <?php $this->load->view($controller."_view_form_barbuk");?>
-<?php $this->load->view($controller."_view_form_pasal");?>
+<?php //$this->load->view($controller."_view_form_pasal");?>
 
 <?php $this->load->view($controller."_view_form_js");?>
 <?php $this->load->view("js/general_js") ?>

@@ -42,6 +42,10 @@
               </TD></tr>
 
 
+              <tr><td>Jabatan</td>
+              <TD><input type="text" class="form-control" name="jabatan" id="jabatan" placeholder="Jabatan" /></TD></tr>
+
+
               <tr><td>Level</td>
               <TD>
               <?php 

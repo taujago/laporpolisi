@@ -84,6 +84,19 @@ $.ajax({
 
  		$("#pen_lapor_id_pangkat").val(jsonData.kejadian_prov_id).attr('selected','selected');
 
+ 		$("#id_kelompok").val(jsonData.id_kelompok).attr('selected','selected');
+
+ 		$.ajax({
+	      url:'<?php echo site_url("general/get_dropdown_gol_kejahatan"); ?>/',
+	      data : {id_kelompok : jsonData.id_kelompok, 
+	      		id_gol_kejahatan : jsonData.id_gol_kejahatan },
+	      type : 'post',
+	      success: function(data){
+	        $("#id_gol_kejahatan").html('').append(data);
+	      }
+	    });
+
+
 
  		 
 

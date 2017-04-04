@@ -20,8 +20,9 @@ class lap_a extends master_controller {
 
 	function index(){
 		// echo "fuckkk.."; exit;
-		$userdata = $this->session->userdata("userdata");
+		$userdata = $_SESSION['userdata'];
 
+		// show_array($userdata); exit;
 		$controller = get_class($this);
 
 
@@ -63,13 +64,16 @@ function get_data(){
 
 
       //  order[0][column]
+
+
         $req_param = array (
 				"sort_by" => $sidx,
 				"sort_direction" => $sord,
 				"limit" => null ,
 				"tanggal_awal" => $tanggal_awal, 
 				"tanggal_akhir" => $tanggal_akhir, 
-				"id_fungsi" => $id_fungsi 
+				"id_fungsi" => $id_fungsi , 
+				"userdata" => $this->userdata
 				 
 		);     
            
@@ -152,9 +156,14 @@ function baru(){
 
 		// show_array($data);
 
+		$data['arr_golongan'] = $this->cm->get_arr_dropdown("m_golongan", 
+			"id","golongan",'golongan');
 
-		$data['arr_gol_kejahatan'] = $this->cm->get_arr_dropdown("m_golongan_kejahatan", 
-			"id","golongan_kejahatan",'golongan_kejahatan');
+
+		$data['arr_golongan_kejahatan'] = $this->cm->get_arr_gol_kejahatan();
+
+		// $data['arr_gol_kejahatan'] = $this->cm->get_arr_dropdown("m_golongan_kejahatan", 
+		// 	"id","golongan_kejahatan",'golongan_kejahatan');
 
 		$data['arr_jenis_lokasi'] = $this->cm->get_arr_dropdown("m_jenis_lokasi", 
 			"id_jenis_lokasi","jenis_lokasi",'jenis_lokasi');
@@ -310,8 +319,13 @@ function edit($id){
 		$data['controller'] = $this->controller;
 
 
-		$data['arr_gol_kejahatan'] = $this->cm->get_arr_dropdown("m_golongan_kejahatan", 
-			"id","golongan_kejahatan",'golongan_kejahatan');
+		$data['arr_golongan'] = $this->cm->get_arr_dropdown("m_golongan", 
+			"id","golongan",'golongan');
+
+		$data['arr_golongan_kejahatan'] = $this->cm->get_arr_gol_kejahatan();
+
+		// $data['arr_gol_kejahatan'] = array(); // $this->cm->get_arr_dropdown("m_golongan_kejahatan", 
+		// 	"id","golongan_kejahatan",'golongan_kejahatan');
 
 		$data['arr_jenis_lokasi'] = $this->cm->get_arr_dropdown("m_jenis_lokasi", 
 			"id_jenis_lokasi","jenis_lokasi",'jenis_lokasi');
@@ -2507,9 +2521,16 @@ function pasal_hapus(){
 
 
 function cetak_laporan($id) {
+
+
 		
 		$data = $this->dm->detail($id);
-		// show_array($data); exit;
+
+		$data['ttd'] = $this->get_header_by_user_id($data['user_id']);
+
+		
+		// // show_array($ttd);
+		
 
 		$data['tersangka'] = $this->dm->get_data_tersangka($id);
 		$data['korban'] = $this->dm->get_data_korban($id);
@@ -2524,13 +2545,13 @@ function cetak_laporan($id) {
 		//$pdf->SetTopMargin(10);
 
 		
-		$pdf->SetMargins(10, 20, 10);
+		$pdf->SetMargins(20, 20, 10);
 		$pdf->SetHeaderMargin(15);
 		$pdf->SetFooterMargin(15);
 		$pdf->setFooterFont(Array('times', '', 8));
 
  		$pdf->SetAutoPageBreak(true,10);
-		$pdf->SetAuthor('polda banten');
+		$pdf->SetAuthor('polda DIY');
 		 
 			
 		$pdf->setPrintHeader(false);
@@ -2756,6 +2777,10 @@ function get_grafik() {
 
 	$this->load->view($controller."_grafik_view",$data_array);
 
+}
+
+function get_user_info(){
+	$this->input->post();
 }
 
 

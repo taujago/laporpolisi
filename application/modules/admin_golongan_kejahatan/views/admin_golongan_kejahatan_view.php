@@ -69,9 +69,11 @@
              table-bordered table-hover dataTable no-footer" id="datagrid" role="grid">
 <thead>
 	<tr style="background-color:#CCC">
-        <th width="40%">GOLONGAN KEJAHTAN</th>
+        <th width="30%">JENIS KEJAHATAN</th>
 
-        <th width="40%">KELOMPOK </th>
+        <th width="30%">KELOMPOK </th>
+        <th width="20%">GOLONGAN </th>
+        <th width="30%">PASAL</th>
          
       <th width="14%">#</th>
     </tr>

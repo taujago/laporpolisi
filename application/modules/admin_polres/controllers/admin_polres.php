@@ -82,7 +82,12 @@ function get_data(){
         		 
         		  			 	
         		  				 
-        		  				$row['nama_polres'],
+        		  				$row['nama_polres']. "(".$row['tempat'].")",
+        		  				$row['ttd_nama'],
+        		  				$row['ttd_nrp'],
+        		  				$row['ttd_pangkat'],
+        		  				$row['ttd_jabatan'],
+
         		  				 
         		  				 
         		  			  

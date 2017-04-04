@@ -37,7 +37,7 @@ function get_data(){
       	$draw = $_REQUEST['draw']; // get the requested page 
     	$start = $_REQUEST['start'];
         $limit = $_REQUEST['length']; // get how many rows we want to have into the grid 
-        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"nama_polres"; // get index row - i.e. user click to sort 
+        $sidx = isset($_REQUEST['order'][0]['column'])?$_REQUEST['order'][0]['column']:"golongan"; // get index row - i.e. user click to sort 
         $sord = isset($_REQUEST['order'][0]['dir'])?$_REQUEST['order'][0]['dir']:"asc"; // get the direction if(!$sidx) $sidx =1;  
         
         $nama = (isset($_REQUEST['columns'][1]['search']['value']))?$_REQUEST['columns'][1]['search']['value']:"";
@@ -79,6 +79,8 @@ function get_data(){
 			$id = $row['id_kelompok'];
          
         	$arr_data[] = array(
+        	
+        	$row['golongan'],
         	$row['kelompok'],
 			"<div class=\"btn-group\"> 
      <a class=\"btn dropdown-toggle btn-primary\" data-toggle=\"dropdown\" href=\"#\">Proses<span class=\"caret\"></span></a>

@@ -20,7 +20,7 @@
       </tr>
 
       
-
+<!-- 
 <tr> <td colspan="2"> <b> PASAL</b>  </td> </tr>
 
 
@@ -28,9 +28,9 @@
             <td colspan="2"><?php $this->load->view($this->controller."_view_detail_pasal"); ?></td> </tr>    
 
 
+ -->
 
-
-   <tr> <td colspan="2"> <b> PELAPOR</b>  </td> </tr>
+   <tr class="separator"> <td colspan="2"> <b> PELAPOR</b>  </td> </tr>
       <tr><td> Nama Pelapor</td>
         <td><?php echo $pelapor_nama; ?> </td>
       <tr><td>Pangkat </td>

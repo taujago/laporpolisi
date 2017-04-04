@@ -4,6 +4,27 @@
 $(document).ready(function(){
 
 
+$(".ds2").select2({
+	placeholder: "Pilih "
+});
+
+
+$("#id_gol_kejahatan").change(function(){
+	//alert('ini dan itu');
+	$.ajax({
+		url : '<?php echo site_url("general/get_detail_golongan") ?>',
+		data : {id_gol_kejahatan : $(this).val() },
+		type : 'post',
+		dataType : 'json',
+		success : function(rsdata) {
+			$("#id_kelompok").val(rsdata.kelompok);
+			$("#id_golongan").val(rsdata.golongan);
+
+			
+		}
+	});
+});
+
 
 
 $("#tr_barbuk_baru").hide();
@@ -177,18 +198,55 @@ $.ajax({
  		$("#pelapor_id_provinsi").val(jsonData.pelapor_prov_id).attr('selected','selected');
 
  		
- 		$("#id_kelompok").val(jsonData.id_kelompok).attr('selected','selected');
+ 		// $("#id_kelompok").val(jsonData.id_kelompok).attr('selected','selected');
 
- 		$.ajax({
-	      url:'<?php echo site_url("general/get_dropdown_gol_kejahatan"); ?>/',
-	      data : {id_kelompok : jsonData.id_kelompok, 
-	      		id_gol_kejahatan : jsonData.id_gol_kejahatan },
-	      type : 'post',
-	      success: function(data){
-	        $("#id_gol_kejahatan").html('').append(data);
-	      }
-	    });
+ 		// $.ajax({
+	  //     url:'<?php echo site_url("general/get_dropdown_gol_kejahatan"); ?>/',
+	  //     data : {id_kelompok : jsonData.id_kelompok, 
+	  //     		id_gol_kejahatan : jsonData.id_gol_kejahatan },
+	  //     type : 'post',
+	  //     success: function(data){
+	  //       $("#id_gol_kejahatan").html('').append(data);
+	  //     }
+	  //   });
 
+	  // $("#id_golongan").val(jsonData.id_golongan).attr('selected','selected');
+
+
+
+ 		// $.ajax({
+	  //     url:'<?php echo site_url("general/get_dropdown_kel_kejahatan"); ?>/',
+	  //     data : {id_kelompok : jsonData.id_kelompok, 
+	  //     		 id_golongan : jsonData.id_golongan },
+	  //     type : 'post',
+	  //     success: function(data){
+	  //       $("#id_kelompok").html('').append(data);
+	  //     }
+	  //   });
+
+
+ 		// $.ajax({
+	  //     url:'<?php echo site_url("general/get_dropdown_gol_kejahatan"); ?>/',
+	  //     data : {id_kelompok : jsonData.id_kelompok, 
+	  //     		id_gol_kejahatan : jsonData.id_gol_kejahatan },
+	  //     type : 'post',
+	  //     success: function(data){
+	  //       $("#id_gol_kejahatan").html('').append(data);
+	  //     }
+	  //   });
+
+	  $.ajax({
+		url : '<?php echo site_url("general/get_detail_golongan") ?>',
+		data : {id_gol_kejahatan :jsonData.id_gol_kejahatan },
+		type : 'post',
+		dataType : 'json',
+		success : function(rsdata) {
+			$("#id_kelompok").val(rsdata.kelompok);
+			$("#id_golongan").val(rsdata.golongan);
+
+			
+		}
+	});
 
 
  		$.ajax({

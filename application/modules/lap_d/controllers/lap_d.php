@@ -250,8 +250,8 @@ function edit($id){
 
 		$content = $this->load->view($this->controller."_view_form",$data,true);
 		
-		$this->set_subtitle("EDIT DATA LAPORAN TIPE B");
-		$this->set_title("EDIT DATA LAPORAN TIPE B");
+		$this->set_subtitle("EDIT DATA LAPORAN TIPE D");
+		$this->set_title("EDIT DATA LAPORAN TIPE D");
 		$this->set_content($content);
 		$this->render_baru();
 	}

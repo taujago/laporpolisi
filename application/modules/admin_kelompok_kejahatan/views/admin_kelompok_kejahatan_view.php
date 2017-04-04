@@ -66,10 +66,11 @@
              table-bordered table-hover dataTable no-footer" id="datagrid" role="grid">
 <thead>
 	<tr style="background-color:#CCC">
-
-        <th width="80%">KELOMPOK KEJAHATAN</th>
+         <th width="30%">GOLONGAN</th>
+         <th width="60%">KELOMPOK KEJAHATAN</th>
+       
          
-      <th width="14%">#</th>
+      <th width="10%">#</th>
     </tr>
 	
 </thead>

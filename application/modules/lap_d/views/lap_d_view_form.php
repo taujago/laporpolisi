@@ -19,6 +19,30 @@
         <td colspan="2">Nomor </td>
         <td><input readonly="readonly" type="text" class="form-control" name="nomor" id="nomor" placeholder="(auto generated)" />   </td>
       <tr>
+
+
+      <tr><td colspan="2">Golongan Kejadian </td>
+            <td>  
+
+            <?php 
+
+            $arr_kelompok  = $this->dm->get_arr_kelompok();
+            echo form_dropdown("",$arr_kelompok,'','id="id_kelompok" class="form-control" onchange="get_data_kejahatan(this,\'#id_gol_kejahatan\',1)" ') ?>
+
+      </td>
+
+
+
+      <tr><<td colspan="2"> </td>
+            <td>  
+
+            <?php echo form_dropdown("id_gol_kejahatan",array(),'','id="id_gol_kejahatan" class="form-control"') ?>
+
+      </td>
+      </tr>
+
+
+
         <td colspan="3"><strong>A. TEMPAT KEJADIAN/WAKTU</strong></td>
         <tr>
           <td width="3%">1.</td>

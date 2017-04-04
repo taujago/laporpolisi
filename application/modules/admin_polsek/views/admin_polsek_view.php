@@ -69,6 +69,11 @@
         <th width="40%">POLSEK</th>
 
         <th width="40%">POLRES</th>
+
+        <th >PENANDATANGAN</th>
+        <th >NRP</th>
+        <th >PANGKAT</th>
+        <th >JABATAN</th>
          
       <th width="14%">PROSES</th>
     </tr>

@@ -32,6 +32,12 @@ function data($param){
     }
 
 
+    if($param['userdata']['jenis']=="polres") {
+    	$this->db->where("id_polres",$param['userdata']['id_polres']); 
+    }
+    else if ($param['userdata']['jenis']=="polsek") {
+    	$this->db->where("id_polsek",$param['userdata']['id_polsek']); 
+    }
 
 
 	($param['limit'] != null ? $this->db->limit($param['limit']['end'], $param['limit']['start']) : '');
@@ -140,6 +146,7 @@ function get_lap_a_terlapor($param){
 function detail($id){
 	 $this->db->select('a.*,gk.golongan_kejahatan, 
 	 	gk.id_kelompok,
+	 	kel.id_golongan, 
 	 	pasal.pasal, 
 lok.jenis_lokasi, 
 f.fungsi, 
@@ -180,6 +187,7 @@ u.nama as pengguna ')
 ->join('tiger_provinsi prov','prov.id = kota.id_provinsi','left')
 ->join('m_kesatuan satu','a.pelapor_id_kesatuan = satu.id_kesatuan','left')
 ->join('m_kesatuan pl','a.pelapor_id_kesatuan = pl.id_kesatuan','left')
+->join('m_kelompok_kejahatan kel','kel.id_kelompok = gk.id_kelompok')
 
 
 ->where("a.lap_a_id",$id);
@@ -695,7 +703,7 @@ function get_data_saksi($lap_a_id) {
 				kota.id as saksi_kota_id, 
 				kota.kota, 
 				prov.id as saksi_prov_id, 
-				prov.provinsi, a.agama '
+				prov.provinsi, a.agama as saksi_agama'
 		)->from('lap_a_saksi t')
 	->join('m_suku suku','suku.id_suku = t.saksi_id_suku','left')
 	->join('m_pekerjaan k','k.id_pekerjaan = t.saksi_id_pekerjaan ','left')
@@ -754,6 +762,7 @@ function temp_get_lap_a_pasal($param){
 
 	$res = $this->db->get();
 }
+
 
 	
 }

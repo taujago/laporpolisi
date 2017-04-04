@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>laporjogjadb</string>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>name</key>
+			<string>localhost</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>latin1</string>
+			<key>contentFilter</key>
+			<dict/>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGNjdYJHZlcnNpb25YJG9iamVjdHNZJGFy
+			Y2hpdmVyVCR0b3ASAAGGoK0HCBUWFxgZHSQoLDA0VSRudWxs0wkK
+			CwwQFFdOUy5rZXlzWk5TLm9iamVjdHNWJGNsYXNzow0OD4ACgAOA
+			BKMREhOABYAGgAiADFR0eXBlVHJvd3NUa2V5c18QJlNlbGVjdGlv
+			bkRldGFpbFR5cGVQcmltYXJ5S2V5ZWREZXRhaWxz0wkKCxobHKCg
+			gAfSHh8gIVokY2xhc3NuYW1lWCRjbGFzc2VzXxATTlNNdXRhYmxl
+			RGljdGlvbmFyeaMgIiNcTlNEaWN0aW9uYXJ5WE5TT2JqZWN00goL
+			JSehJoAJgAvSCykqK1lOUy5zdHJpbmeAClhsYXBfZF9pZNIeHy0u
+			XxAPTlNNdXRhYmxlU3RyaW5noy0vI1hOU1N0cmluZ9IeHzEyXk5T
+			TXV0YWJsZUFycmF5ozEzI1dOU0FycmF50h4fIjWiIiNfEA9OU0tl
+			eWVkQXJjaGl2ZXLRODlUZGF0YYABAAgAEQAaACMALQAyADcARQBL
+			AFIAWgBlAGwAcAByAHQAdgB6AHwAfgCAAIIAhwCMAJEAugDBAMIA
+			wwDFAMoA1QDeAPQA+AEFAQ4BEwEVARcBGQEeASgBKgEzATgBSgFO
+			AVcBXAFrAW8BdwF8AX8BkQGUAZkAAAAAAAACAQAAAAAAAAA6AAAA
+			AAAAAAAAAAAAAAABmw==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {1080, 517}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>select gk.golongan_kejahatan, ifnull(md,0)  md ,  ifnull(lr,0) lr,  ifnull(lb,0) lb, ifnull(kejadian,0) kejadian, ifnull(kerugian,0) as kerugian
+from m_golongan_kejahatan gk 
+join ( 
+
+select d.id_gol_kejahatan, 
+sum((korban_mati_l + korban_mati_p )) md, 
+sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
+sum((korban_luka_berat_l +  korban_luka_berat_p)) lb,
+count(*) as kejadian, 
+sum(d.korban_seluruh_jumlah) as kerugian 		
+from m_golongan gol 
+		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
+		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
+
+join lap_d d  on d.id_gol_kejahatan = gk.id
+where d.tanggal between '2017-03-1' and '2017-03-31'
+group by gk.id ) x 
+on gk.id = x.id_gol_kejahatan
+</string>
+			<key>table</key>
+			<string>lap_d</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>200</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>select id_gol_kejahatan, month(tanggal) bulan, 
+if(penyelesaian='p21',1,0) as p21
+from lap_a</string>
+		<string>select month(tanggal) bulan, 
+if(penyelesaian='p21',1,0) as p21
+from lap_a</string>
+		<string>select month(tanggal), 
+if(penyelesaian='p21',1,0) as p21
+from lap_a</string>
+		<string>select month(tanggal) from lap_a</string>
+		<string>select gk.golongan_kejahatan, ifnull(md,0)  md ,  ifnull(lr,0) lr,  ifnull(lb,0) lb, ifnull(kejadian,0) kejadian, ifnull(kerugian,0) as kerugian
+from m_golongan_kejahatan gk 
+join ( 
+
+select d.id_gol_kejahatan, 
+sum((korban_mati_l + korban_mati_p )) md, 
+sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
+sum((korban_luka_berat_l +  korban_luka_berat_p)) lb,
+count(*) as kejadian, 
+sum(d.korban_seluruh_jumlah) as kerugian 		
+from m_golongan gol 
+		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
+		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
+
+join lap_d d  on d.id_gol_kejahatan = gk.id
+where d.tanggal between '2017-03-1' and '2017-03-31'
+group by gk.id ) x 
+on gk.id = x.id_gol_kejahatan</string>
+		<string>select * from m_golongan_kejahatan gk 
+join ( 
+
+select d.id_gol_kejahatan, 
+sum((korban_mati_l + korban_mati_p )) md, 
+sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
+sum((korban_luka_berat_l +  korban_luka_berat_p)) lb,
+count(*) as kejadian, 
+sum(d.korban_seluruh_jumlah) as kerugian 		
+from m_golongan gol 
+		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
+		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
+
+join lap_d d  on d.id_gol_kejahatan = gk.id
+where d.tanggal between '2017-03-1' and '2017-03-31'
+group by gk.id ) x 
+on gk.id = x.id_gol_kejahatan</string>
+		<string>select d.id_gol_kejahatan, 
+sum((korban_mati_l + korban_mati_p )) md, 
+sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
+sum((korban_luka_berat_l +  korban_luka_berat_p)) lb,
+count(*) as kejadian, 
+sum(d.korban_seluruh_jumlah) as kerugian 		
+from m_golongan gol 
+		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
+		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
+
+join lap_d d  on d.id_gol_kejahatan = gk.id
+where d.tanggal between '2017-03-1' and '2017-03-31'
+group by gk.id</string>
+		<string>select d.id_gol_kejahatan, gol.golongan, kel.kelompok, gk.golongan_kejahatan,   
+sum((korban_mati_l + korban_mati_p )) md, 
+sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
+sum((korban_luka_berat_l +  korban_luka_berat_p)) lb,
+count(*) as kejadian, 
+sum(d.korban_seluruh_jumlah) as kerugian 		
+from m_golongan gol 
+		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
+		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
+
+join lap_d d  on d.id_gol_kejahatan = gk.id
+where d.tanggal between '2017-03-1' and '2017-03-31'
+group by gk.id</string>
+		<string>select d.id_gol_kejahatan, gol.golongan, kel.kelompok, gk.golongan_kejahatan,   
+sum((korban_mati_l + korban_mati_p )) md, 
+sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
+sum((korban_luka_berat_l +  korban_luka_berat_p)) lb,
+count(*) as kejadian 		
+from m_golongan gol 
+		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
+		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
+
+join lap_d d  on d.id_gol_kejahatan = gk.id
+where d.tanggal between '2017-03-1' and '2017-03-31'
+group by gk.id</string>
+		<string>select d.id_gol_kejahatan, gol.golongan, kel.kelompok, gk.golongan_kejahatan,   
+sum((korban_mati_l + korban_mati_p )) md, 
+sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
+sum((korban_luka_berat_l +  korban_luka_berat_p)) lb 		
+from m_golongan gol 
+		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
+		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
+
+join lap_d d  on d.id_gol_kejahatan = gk.id
+where d.tanggal between '2017-03-1' and '2017-03-31'
+group by gk.id</string>
+		<string>select gol.golongan, kel.kelompok, gk.golongan_kejahatan,   
+sum((korban_mati_l + korban_mati_p )) md, 
+sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
+sum((korban_luka_berat_l +  korban_luka_berat_p)) lb 		
+from m_golongan gol 
+		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
+		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
+
+join lap_d d  on d.id_gol_kejahatan = gk.id
+where d.tanggal between '2017-03-1' and '2017-03-31'
+group by gk.id</string>
+		<string>select gol.golongan, kel.kelompok, gk.golongan_kejahatan,   
+sum((korban_mati_l + korban_mati_p )) md, 
+sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
+sum((korban_luka_berat_l +  korban_luka_berat_p)) lb 		
+from m_golongan gol 
+		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
+		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
+
+join lap_d d  on d.id_gol_kejahatan = gk.id
+group by gk.id
+where d.tanggal between '2017-03-1' and '2017-03-31'</string>
+		<string>select gol.golongan, kel.kelompok, gk.golongan_kejahatan,   
+sum((korban_mati_l + korban_mati_p )) md, 
+sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
+sum((korban_luka_berat_l +  korban_luka_berat_p)) lb 		
+from m_golongan gol 
+		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
+		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
+
+join lap_d d  on d.id_gol_kejahatan = gk.id
+group by gk.id</string>
+		<string>select gol.golongan, kel.kelompok, gk.golongan_kejahatan,   (korban_mati_l + korban_mati_p ) md, 
+(korban_luka_ringan_l +  korban_luka_ringan_p) lr,  
+(korban_luka_berat_l +  korban_luka_berat_p) lb 		from m_golongan gol 
+		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
+		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
+
+join lap_d d  on d.id_gol_kejahatan = gk.id</string>
+		<string>select   (korban_mati_l + korban_mati_p ) md, 
+(korban_luka_ringan_l +  korban_luka_ringan_p) lr,  
+(korban_luka_berat_l +  korban_luka_berat_p) lb 
+
+from 
+
+lap_d d</string>
+		<string>select d.id_gol_kejahatan, tanggal, korban_mati_l , korban_mati_p,  (korban_mati_l + korban_mati_p ) md, 
+korban_luka_ringan_l, korban_luka_ringan_p, (korban_luka_ringan_l +  korban_luka_ringan_p) lr,  
+korban_luka_berat_l, korban_luka_berat_p, (korban_luka_berat_l +  korban_luka_berat_p) lb 
+
+from 
+
+lap_d d</string>
+		<string>select d.id_gol_kejahatan, tanggal, korban_mati_l , korban_mati_p
+
+from 
+
+lap_d d</string>
+		<string>select d.id_gol_kejahatan, tanggal
+
+from 
+
+lap_d d</string>
+		<string>select d.id_gol_kejahatan
+
+from 
+
+lap_d d</string>
+		<string>select * from 
+
+lap_d d</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>5.7.14</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>

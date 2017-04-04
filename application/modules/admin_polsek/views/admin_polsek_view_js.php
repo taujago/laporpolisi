@@ -147,6 +147,12 @@ $("#titleModal").html('EDIT DATA POLSEK');
 			$("#id_polres").val(obj.id_polres).attr('selected','selected');
 			$("#nama_polsek").val(obj.nama_polsek);
 			$("#id_polsek").val(obj.id_polsek);
+
+			$("#ttd_nama").val(obj.ttd_nama);
+			$("#ttd_nrp").val(obj.ttd_nrp);
+			$("#ttd_pangkat").val(obj.ttd_pangkat);
+			$("#ttd_jabatan").val(obj.ttd_jabatan);
+			$("#tempat").val(obj.tempat);
 			 
 			 
 

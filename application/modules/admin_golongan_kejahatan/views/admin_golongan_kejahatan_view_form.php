@@ -28,11 +28,12 @@
 
 
                
-              <tr><td width="30%" >Golongan Kejahatan</td>
+              <tr><td width="30%" >Jenis Kejahatan</td>
               <TD><input type="text" class="form-control" name="golongan_kejahatan" id="golongan_kejahatan" placeholder="Golongan Kejahatan" /> </TD></tr>
 
 
-              
+               <tr><td width="30%" >Pasal  </td>
+              <TD><input type="text" class="form-control" name="pasal" id="pasal" placeholder="Ketentuan yang mengatur" /> </TD></tr>
 
 
 

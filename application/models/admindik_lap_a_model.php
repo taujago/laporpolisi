@@ -257,6 +257,20 @@ function get_data_penyidik($param){
 function get_arr_data_penyidik(){
 	 
 
+	// [jenis] => polres
+ //    [id_polres] => 43d5ffd8440acefff3fca348e2e6b004
+
+    $userdata = $this->userdata;
+
+    $this->db->where("jenis",$userdata['jenis']);
+
+    if($userdata['jenis']=="polres"){
+    	$this->db->where("id_polres",$userdata['id_polres']);
+    }
+    else if($userdata['jenis']=="polsek") {
+    	$this->db->where("id_polsek",$userdata['id_polsek']);
+    }
+
 	$this->db->where("level","2");
 	$this->db->order_by("nama");
 	$res = $this->db->get("pengguna a");

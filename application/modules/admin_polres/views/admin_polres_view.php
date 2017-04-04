@@ -67,7 +67,11 @@
 <thead>
 	<tr style="background-color:#CCC">
 
-        <th width="80%">POLRES</th>
+        <th >POLRES</th>
+        <th >PENANDATANGAN</th>
+        <th >NRP</th>
+        <th >PANGKAT</th>
+        <th >JABATAN</th>
          
       <th width="14%">PROSES</th>
     </tr>

@@ -146,6 +146,11 @@ $("#titleModal").html('EDIT DATA POLRES');
 		success : function(obj) {
 			$("#id_polres").val(obj.id_polres);
 			$("#nama_polres").val(obj.nama_polres);
+			$("#ttd_nama").val(obj.ttd_nama);
+			$("#ttd_nrp").val(obj.ttd_nrp);
+			$("#ttd_pangkat").val(obj.ttd_pangkat);
+			$("#ttd_jabatan").val(obj.ttd_jabatan);
+			$("#tempat").val(obj.tempat);
 			 
 			 
 

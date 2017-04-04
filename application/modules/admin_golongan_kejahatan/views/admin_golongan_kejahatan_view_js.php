@@ -49,8 +49,8 @@ $(document).ready(function(){
 function hapus(id){
 
 BootstrapDialog.show({
-            message : 'ANDA AKAN MENGHAPUS DATA POLSEK. ANDA YAKIN  ?  ',
-            title: 'KONFIRMASI HAPUS DATA POLSEK',
+            message : 'ANDA AKAN MENGHAPUS DATA JENIS KEJAHATAN. ANDA YAKIN  ?  ',
+            title: 'KONFIRMASI HAPUS DATA JENIS KEJAHATAN',
             draggable: true,
             buttons : [
               {
@@ -109,14 +109,14 @@ BootstrapDialog.show({
 function baru(){
 	$("#pengguna_modal").modal("show");
 	$("#formulir").attr('action','<?php echo site_url("$controller/simpan") ?>');
-	$("#titleModal").html('TAMBAH DATA GOLONGAN KEJAHATAN');
+	$("#titleModal").html('TAMBAH DATA JENIS KEJAHATAN');
 }
 
 function edit(id){
 
 $("#pengguna_modal").modal("show");
 $("#formulir").attr('action','<?php echo site_url("$controller/update") ?>');	
-$("#titleModal").html('EDIT DATA GOLONGAN KEJAHATAN');
+$("#titleModal").html('EDIT DATA JENIS KEJAHATAN');
 
 	$.ajax({
 		url : '<?php echo site_url("$controller/get_json_detail") ?>/'+id, 
@@ -124,6 +124,7 @@ $("#titleModal").html('EDIT DATA GOLONGAN KEJAHATAN');
 		success : function(obj) {
 			$("#id_kelompok").val(obj.id_kelompok).attr('selected','selected');
 			$("#golongan_kejahatan").val(obj.golongan_kejahatan);
+			$("#pasal").val(obj.pasal);
 			$("#id").val(obj.id);
 			 
 			 

@@ -145,6 +145,8 @@ $("#titleModal").html('EDIT DATA KELOMPOK KEJAHATAN');
 		dataType : 'json',
 		success : function(obj) {
 			$("#id_kelompok").val(obj.id_kelompok);
+			//$("#id_golongan").val(obj.id_golongan).attr('selected','selected');
+			$("#id_golongan").val(obj.id_golongan).attr('selected','selected');
 			$("#kelompok").val(obj.kelompok);
 			 
 			 

@@ -186,7 +186,7 @@ function get_data_polres($id_polres){
 		$this->db->where("id_polres",$id_polres);
 		$this->db->order_by("nama_polsek");
 		$res = $this->db->get("m_polsek");
-		// echo $this->db->last_query();
+		echo $this->db->last_query();
 		$html = "";
 		foreach($res->result() as $row): 
 			$html .= "<option value=$row->id_polsek > $row->nama_polsek </option> ";
@@ -218,16 +218,62 @@ function get_data_polres_edit(){
 
 
 
-function get_data_kejahatan($id) {
-	$this->db->where("id_kelompok",$id);
-	$res = $this->db->get("m_golongan_kejahatan");
+function get_kelompok($id) {
+	$html = "";
+	$this->db->where("id_golongan",$id);
+	$res = $this->db->get("m_kelompok_kejahatan");
 	foreach($res->result() as $row ) :
 			 
-			$html .= "<option value=$row->id > $row->golongan_kejahatan </option>"; 
+			$html .= "<option value=$row->id_kelompok > $row->kelompok </option>"; 
 	endforeach;
 	echo $html;
 
 }
+
+
+function get_data_kejahatan($id) {
+	$html = "";
+	$this->db->where("id_kelompok",$id);
+	$res = $this->db->get("m_golongan_kejahatan");
+	foreach($res->result() as $row ) :
+			$panjang = strlen($row->golongan_kejahatan); 
+
+			if($panjang >= 100){
+				$text = substr($row->golongan_kejahatan, 0,100)."...";
+			}	
+			else {
+				$text = $row->golongan_kejahatan;
+			}
+
+
+
+			$html .= "<option value=$row->id >". $text ."</option>"; 
+	endforeach;
+	echo $html;
+
+}
+
+
+
+
+function get_dropdown_kel_kejahatan(){
+		$post = $this->input->post();
+
+		$this->db->where("id_golongan",$post['id_golongan']);
+		$this->db->order_by("kelompok");
+
+		$res = $this->db->get("m_kelompok_kejahatan");
+		// echo $this->db->last_query(); 
+		$html = "";
+		foreach($res->result() as $row ) :
+			$sel = ($row->id_kelompok == $post['id_kelompok'])?"selected":"";
+			$html .= "<option value=$row->id_kelompok $sel> $row->kelompok </option>"; 
+		endforeach;
+
+		echo $html;
+
+}
+
 
 function get_dropdown_gol_kejahatan(){
 		$post = $this->input->post();
@@ -279,6 +325,19 @@ function get_tahap($id) {
 			$html .= "<option value=$row->id > $row->tahap </option>"; 
 	endforeach;
 	echo $html;
+
+}
+
+function get_detail_golongan(){
+	$post = $this->input->post();
+	$this->db->select('k.kelompok,g.golongan')
+	->from('m_kelompok_kejahatan k')
+	->join('m_golongan g','g.id=k.id_golongan')
+	->join('m_golongan_kejahatan gk','gk.id_kelompok = k.id_kelompok')
+	->where('gk.id',$post['id_gol_kejahatan']);
+
+	$data = $this->db->get()->row_array();
+	echo json_encode($data);
 
 }
 

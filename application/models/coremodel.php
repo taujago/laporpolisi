@@ -16,6 +16,12 @@ class coremodel extends CI_Model {
                 echo "</pre>";
         }
 
+
+ var $arr_bulan = array(1=>"JANUARI","FEBRUARI","MARET","APRIL",
+                           "MEI","JUNI","JULI","AGUSTUS",
+                           "SEPTEMBER","OKTOBER","NOVEMBER","DESEMBER");
+
+
   var  $arr_status =  array(
             0=>"Pilih Status",
             "Level 2",
@@ -29,6 +35,19 @@ class coremodel extends CI_Model {
             "Menunggu Blokir",
             "Gagal Blokir",
             "Berhasil Blokir");
+
+
+  var $arr_alasan = array("tidakcukupbukti"=>"TIDAK CUKUP BUKTI",
+                   "bukanpkrpidana" => "BUKAN PERKARA PIDANA",
+                   "aduandicabut"   => "ADUAN DICABUT",
+                   "nebisinidem"    => "NEBIS IN IDEM",
+                   "tskmati"        => "TERSANGKA MATI",
+                   "tskgila"        => "TERSANGKA GILA",
+                   "kadaluarsa"     => "KASUS KADALUARSA");
+
+var $arr_penyelesaian = array("p21"=>"P 21",
+                   "dihentikan"=>"PENYIDIKAN DIHENTIKAN");
+
 
         function arr_dropdown($vTable, $vINDEX, $vVALUE, $vORDERBY){
                 $this->db->order_by($vORDERBY);
@@ -84,6 +103,18 @@ function get_arr_dropdown($tbname, $index,$value,$sorter) {
 }
 
 
+function get_arr_kelompok(){
+  $this->db->select('*')->from("m_golongan a")
+  ->join("m_kelompok_kejahatan b","a.id=b.id_golongan")
+  ->order_by("a.id");
+  $res = $this->db->get();
+  //echo $this->db->last_query(); exit;
+  foreach($res->result_array() as $row) : 
+    $ret[$row['id']]  = $row['kelompok'] . " - ". $row['golongan'];
+  endforeach;
+  //show_array($ret); exit;
+  return $ret;
+}
 
 function get_lap_number($jenis,$data){
 
@@ -320,6 +351,20 @@ function arr_penyidik() {
   endforeach;
   return $arr;
 }
+
+
+
+function get_arr_gol_kejahatan(){
+  $this->db->order_by("golongan_kejahatan");
+  $res = $this->db->get("m_golongan_kejahatan");
+  $arr = array();
+  foreach($res->result() as $row):
+    $arr[$row->id] =  substr($row->golongan_kejahatan, 0,100);
+  endforeach;
+  return $arr;
+
+}
+ 
 
 }
 ?>

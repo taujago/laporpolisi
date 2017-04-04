@@ -24,8 +24,8 @@ class admin_golongan_kejahatan extends admin_controller {
  		 
 		$content = $this->load->view($controller."_view",$data_array,true);
 
-		$this->set_subtitle("DATA GOLOGNAN KEJAHATAN");
-		$this->set_title("DATA GOLOGNAN KEJAHATAN");
+		$this->set_subtitle("DATA JENIS KEJAHATAN");
+		$this->set_title("DATA JENIS KEJAHATAN");
 		$this->set_content($content);
 		$this->render_admin();
 	}
@@ -85,6 +85,8 @@ function get_data(){
         		  			 	
         		  				$row['golongan_kejahatan'], 
         		  				$row['kelompok'],
+        		  				$row['golongan'],
+        		  				$row['pasal'],
         		  				 
         		  				 
         		  			  

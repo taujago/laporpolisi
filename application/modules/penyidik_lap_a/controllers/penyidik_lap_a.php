@@ -126,6 +126,7 @@ function detail($id){
 	$detail['kp_tanggal'] = flipdate($detail['kp_tanggal']);
 
     $detail['lap_a_id'] = $id;
+    $_SESSION['lap_a_id'] = $id;
 
     // show_array($detail); exit;
 
@@ -352,12 +353,19 @@ function perkembangan_simpan(){
         if($this->form_validation->run() == TRUE ) { 
             
 
+            if($data['id_pn'] == "x"){
+                unset($data['id_pn']);
+            }
+            if($data['id_lapas'] == "x"){
+                unset($data['id_lapas']);
+            }
+
 
 
             /// upload the file 
             if(! empty($_FILES['file_dokumen']['name']) ) {
                     $config['upload_path'] = './documents/';
-                    $config['allowed_types'] = 'txt|pdf|doc|docx|xls|xlsx';
+                    $config['allowed_types'] = 'png|jpg|txt|pdf|doc|docx|xls|xlsx';
                     $config['max_size'] = '1000000';
                     $config['max_width']  = '1024000';
                     $config['max_height']  = '76800000';
@@ -403,12 +411,26 @@ function perkembangan_simpan(){
             
 
 
-            $data['id'] = md5(microtime(). rand(0,999999) );
+             $data['id'] = md5(microtime(). rand(0,999999) );
              $res = $this->db->insert("lap_a_perkembangan",$data);
 
-             $lap_a_id = $this->db->insert_id();
+             // $lap_a_id = $this->db->insert_id();
 
              if($res) {
+
+
+                
+
+                if($data['proses_penyidikan']=="YA") {
+
+                    $arr = array("lap_a_id"=>$data['lap_a_id'],
+                            "penyelesaian"=>"lidik");
+
+                    $this->db->where("lap_a_id",$data['lap_a_id']);
+                    $rx = $this->db->update("lap_a",$arr);
+
+                }
+
 
                  $ret = array("error"=>false,"message"=>"data perkembangan berhasil disimpan");
              }
@@ -495,13 +517,36 @@ function perkembangan_update(){
 
             
             $this->db->where("id",$data['id']);
-             $res = $this->db->update("lap_a_perkembangan",$data);
+            $res = $this->db->update("lap_a_perkembangan",$data);
 
              // echo $this->db->last_query(); exit;
 
              
 
              if($res) {
+
+                $this->db->where("lap_a_id",$data['lap_a_id']);
+                $this->db->where("proses_penyidikan","YA");
+                $jumlah = $this->db->get("lap_a_perkembangan")->num_rows();
+
+                if($jumlah == 0 ){ // kembalikan ke sidik 
+
+                    $arr = array("lap_a_id"=>$data['lap_a_id'],
+                            "penyelesaian"=>"sidik");
+
+                    $this->db->where("lap_a_id",$data['lap_a_id']);
+                    $rx = $this->db->update("lap_a",$arr);
+                }
+                else {
+                    $arr = array("lap_a_id"=>$data['lap_a_id'],
+                            "penyelesaian"=>"lidik");
+
+                    $this->db->where("lap_a_id",$data['lap_a_id']);
+                    $rx = $this->db->update("lap_a",$arr);
+                }
+
+
+
 
                  $ret = array("error"=>false,"message"=>"data perkembangan berhasil disimpan");
              }
@@ -521,10 +566,39 @@ function perkembangan_update(){
     
 function perkembangan_hapus(){
     $data = $this->input->post();
+
+    $this->db->where("id",$data['id']);
+    $dpk = $this->db->get("lap_a_perkembangan")->row();
+    $lap_a_id = $dpk->lap_a_id;
+
+
     $this->db->where("id",$data['id']);
     $res = $this->db->delete("lap_a_perkembangan");
     if($res){
         $ret = array("error"=>false,"message"=>"Data Berhasi dihapus");
+
+        $this->db->where("lap_a_id",$lap_a_id);
+        $this->db->where("proses_penyidikan","YA");
+        $jumlah = $this->db->get("lap_a_perkembangan")->num_rows();
+
+        // echo $this->db->last_query();
+        // exit;
+
+        if($jumlah == 0 ){ // kembalikan ke sidik 
+
+            $arr = array("lap_a_id"=>$lap_a_id,
+                    "penyelesaian"=>"sidik");
+
+            $this->db->where("lap_a_id",$lap_a_id);
+            $rx = $this->db->update("lap_a",$arr);
+        }
+        else {
+            $arr = array("lap_a_id"=>$lap_a_id,
+                    "penyelesaian"=>"lidik");
+
+            $this->db->where("lap_a_id",$lap_a_id);
+            $rx = $this->db->update("lap_a",$arr);
+        }
 
     }
     else {
@@ -539,6 +613,39 @@ function get_perkembangan_detail_json($id){
     // show_array($detail);
     $detail['tanggal'] = flipdate($detail['tanggal']);
     echo json_encode($detail);
+}
+
+
+function update_penyelesaian(){
+    $userdata = $this->userdata;
+    $post = $this->input->post();
+    $this->db->where("lap_a_id",$_SESSION['lap_a_id']);
+
+    if($post['penyelesaian']=="p21"){
+        unset($post['alasan']);
+    }
+    $post['penyelesaian_waktu'] = date("Y-m-d");
+    $post['penyelesaian_by'] = $userdata['id'];
+
+    $res = $this->db->update("lap_a",$post);
+
+    if($res){
+        $ret = array("error"=>false,"message"=>"Penyelesaian laporan berhasil diupdate");
+
+    }
+    else {
+        $ret = array("error"=>true,"message"=>"Penyelesaian Laporan berhasil diupdate");
+    }
+    echo json_encode($ret);
+
+}
+
+function get_lap_a_detail($id){
+    $this->db->where("lap_a_id",$id);
+    $data = $this->db->get("lap_a")->row_array();
+
+    echo json_encode($data);
+
 }
 
 

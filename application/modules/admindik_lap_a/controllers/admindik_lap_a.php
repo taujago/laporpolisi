@@ -11,6 +11,8 @@ class admindik_lap_a extends admindik_controller {
 		$this->controller = get_class($this);
 		$this->userdata = $_SESSION['userdata'];
 
+        //show_array($this->userdata); exit;
+
 	}
 
  
@@ -18,6 +20,7 @@ class admindik_lap_a extends admindik_controller {
 	function index(){
 		// echo "fuckkk.."; exit;
 		$userdata = $this->session->userdata("userdata");
+
 
 		$controller = get_class($this);
 

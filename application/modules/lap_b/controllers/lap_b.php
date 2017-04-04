@@ -67,7 +67,8 @@ function get_data(){
 				"limit" => null,
 				"tanggal_awal" => $tanggal_awal, 
 				"tanggal_akhir" => $tanggal_akhir,
-				"id_fungsi" => $id_fungsi 
+				"id_fungsi" => $id_fungsi, 
+				"userdata" => $this->userdata 
 				 
 		);     
            
@@ -146,6 +147,11 @@ function baru(){
 
 		//$this->session->unset_userdata("temp_lap_b_id");
 		$data['temp_lap_b_id']=$temp_lap_b_id;
+
+		$data['arr_golongan'] = $this->cm->get_arr_dropdown("m_golongan", 
+			"id","golongan",'golongan');
+
+		$data['arr_golongan_kejahatan'] = $this->cm->get_arr_gol_kejahatan();
 
 
 		$data['arr_gol_kejahatan'] = $this->cm->get_arr_dropdown("m_golongan_kejahatan", 
@@ -329,6 +335,12 @@ function edit($id){
 		$data['action']="update";
 		$data['mode']="U";
 		$data['controller'] = $this->controller;
+
+
+		$data['arr_golongan'] = $this->cm->get_arr_dropdown("m_golongan", 
+			"id","golongan",'golongan');
+
+		$data['arr_golongan_kejahatan'] = $this->cm->get_arr_gol_kejahatan();
 
 
 		$data['arr_gol_kejahatan'] = $this->cm->get_arr_dropdown("m_golongan_kejahatan", 
@@ -2513,6 +2525,8 @@ function cetak_laporan($id) {
 		$data = $this->dm->detail($id);
 		// show_array($data); exit;
 
+		$data['ttd'] = $this->get_header_by_user_id($data['user_id']);
+
 		$data['tersangka'] = $this->dm->get_data_tersangka($id);
 		$data['korban'] = $this->dm->get_data_korban($id);
 		$data['saksi'] = $this->dm->get_data_saksi($id);
@@ -2526,7 +2540,7 @@ function cetak_laporan($id) {
 		//$pdf->SetTopMargin(10);
 
 		
-		$pdf->SetMargins(10, 20, 10);
+		$pdf->SetMargins(20, 10, 10);
 		$pdf->SetHeaderMargin(15);
 		$pdf->SetFooterMargin(15);
 		$pdf->setFooterFont(Array('times', '', 8));

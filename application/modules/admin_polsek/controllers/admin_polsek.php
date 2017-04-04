@@ -83,6 +83,11 @@ function get_data(){
         		  			 	
         		  				$row['nama_polsek'], 
         		  				$row['nama_polres'],
+
+        		  				$row['ttd_nama'],
+        		  				$row['ttd_nrp'],
+        		  				$row['ttd_pangkat'],
+        		  				$row['ttd_jabatan'],
         		  				 
         		  				 
         		  			  

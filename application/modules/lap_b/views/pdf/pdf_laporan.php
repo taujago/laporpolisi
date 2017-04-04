@@ -1,6 +1,6 @@
 <style>
 * {
-font-size : 10px;
+font-size : 9px;
 }
 
 .garisbawah {
@@ -11,371 +11,180 @@ font-size : 10px;
 <?php 
 $setting = $this->cm->get_setting();
 ?>
-<table width="100%" border="0" cellpadding="3">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="57%" align="center">KEPOLISIAN NEGARA REPUBLIK INDONESIA</td>
-    <td width="16%">KEJAHATAN</td>
-    <td width="27%">:</td>
+    <td width="49%" align="center">KEPOLISIAN NEGARA REPUBLIK INDONESIA<br />
+        <?php echo $ttd['nama_polda']. "<br />"; 
+	echo $ttd['instansi']; 
+	
+	?>
+        <hr></td>
+    <td width="24%">&nbsp;</td>
+    <td width="27%">&nbsp;</td>
   </tr>
   <tr>
-    <td align="center">DAERAH BANTEN</td>
-    <td>PELANGGARAN </td>
-    <td>: YANG DITERIMA</td>
-  </tr>
-  <tr>
-    <td align="center"><U>Jl. Syekh Nawawi Al Bantani No. 76 Serang 42121</U></td>
-    <td>LAIN - LAIN </td>
-    <td>: </td>
-  </tr>
-  <tr>
-    <td>&quot;PROJUSTITIA&quot;</td>
+    <td align="left">&quot;PROJUSTITIA&quot;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td colspan="3" align="center"><img width="60px" height="60px" src="<?php  echo FCPATH; ?>/assets/images/logo.png>" /></td>
+    <td align="center">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="right">&nbsp;</td>
   </tr>
   <tr>
-    <td colspan="3" align="center"><H2><U> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;LAPORAN POLISI &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</U></H2> </td>
+    <td colspan="3" align="center"><img width="30px" height="30px" src="<?php  echo FCPATH; ?>/assets/images/logo.png>" /></td>
   </tr>
   <tr>
-    <td colspan="3" align="center">NOMOR : <?php echo $nomor; ?></td>
+    <td colspan="3" align="center"><b><u>LAPORAN POLISI</u></b> <br />
+      NOMOR : <?php echo $nomor; ?></td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center">&nbsp;</td>
   </tr>
 </table>
-<table width="100%" border="0" cellpadding="0">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  
   <tr>
-    <td width="31%"><U>YANG MELAPORKAN</U></td>
-    <td width="3%">&nbsp;</td>
-    <td width="66%">&nbsp;</td>
+    <td colspan="3"><hr />
+      <U>PELAPOR : </U></td>
   </tr>
   <tr>
-    <td>NAMA</td>
+    <td width="25%">Nama </td>
+    <td width="1%">:</td>
+    <td width="74%"><b><?php echo $pelapor_nama; ?>,  </b><?php echo $pelapor_tmp_lahir; ?>,  <?php echo (flipdate($pelapor_tgl_lahir)); ?>,  <?php echo ($pelapor_jk=="P")?" PEREMPUAN ":"LAKI - LAKI "; ?>, <?php echo $agama; ?>, <?php echo $pekerjaan; ?> d/a <?php echo $pelapor_alamat; ?> - <?php echo $desa; ?> - <?php echo $kecamatan; ?> - <?php echo $kota; ?> - <?php echo $provinsi; ?> No. telp. <?php echo $pelapor_telpon; ?></td>
+  </tr>
+  <tr>
+    <td colspan="3"><hr />
+      <u>PERISTIWA YANG DILAPORKAN : </u></td>
+  </tr>
+  
+  <tr>
+    <td>1. Waktu kejadian</td>
     <td>:</td>
-    <td><?php echo $pelapor_nama; ?></td>
+    <td>Mulai tanggal <?php echo  ucwords(strtolower(tgl_indo(flipdate($kejadian_tanggal)))); ?></td>
   </tr>
   <tr>
-    <td>TEMPAT / TGL. LAHIR</td>
-    <td>:</td>
-    <td><?php echo $pelapor_tmp_lahir; ?> / <?php echo tgl_indo(flipdate($pelapor_tgl_lahir)); ?></td>
-  </tr>
-  <tr>
-    <td>JENIS KELAMIN </td>
-    <td>:</td>
-    <td><?php echo $pelapor_jk; ?></td>
-  </tr>
-  <tr>
-    <td>PEKERJAAN</td>
-    <td>: </td>
-    <td><?php echo $pekerjaan; ?></td>
-  </tr>
-  <tr>
-    <td>AGAMA </td>
-    <td>:</td>
-    <td><?php echo $agama; ?></td>
-  </tr>
-  <tr>
-    <td>ALAMAT </td>
-    <td>: </td>
-    <td><?php echo $pelapor_alamat; ?> - <?php echo $desa; ?> - <?php echo $kecamatan; ?> - <?php echo $kota; ?> - <?php echo $provinsi; ?></td>
-  </tr>
-  <tr>
-    <td>TEL / FAX / EMAIL </td>
-    <td>: </td>
-    <td><?php echo $pelapor_telpon; ?> </td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td><u>PERISTIWA YANG DILAPORKAN</u></td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td>1. WAKTU KAJADIAN</td>
-    <td>:</td>
-    <td><?php echo $kejadian_jam; ?></td>
-  </tr>
-  <tr>
-    <td>2. TEMPAT KEJADIAN </td>
+    <td>2. Tempat kejadian</td>
     <td>:</td>
     <td><?php echo $kejadian_tempat; ?></td>
   </tr>
   <tr>
-    <td>3. APA YANG TERJADI </td>
+    <td>3. Apa yang terjadi </td>
     <td>:</td>
     <td><?php echo $kejadian_apa; ?></td>
   </tr>
-</table>
-<table width="100%" border="0" cellpadding="0">
   <tr>
-    <td width="2%">&nbsp;</td>
-    <td width="29%">&nbsp;</td>
-    <td width="3%">&nbsp;</td>
-    <td width="66%">&nbsp;</td>
-  </tr>
-  <tr>
-    <td>4.</td>
-    <td><u>TERLAPOR</u> </td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <?php foreach($tersangka->result() as $row) :  ?>
-  <tr>
-    <td>&nbsp;</td>
-    <td>NAMA</td>
+    <td>4. Siapa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a. Pelaku</td>
     <td>:</td>
-    <td><?php echo $row->tersangka_nama; ?></td>
+    <td><?php 
+			$n=0; 
+			foreach($tersangka->result() as $row) :  
+			$n++;
+			?>  
+    		<b><?php 
+			$break = ($n>1)?"<br />":"";
+			echo  $break . $n. ". ". $row->tersangka_nama; ?></b>, 
+			<?php echo umur($row->tersangka_tgl_lahir); ?> Th,
+			<?php echo ($tersangka_jk=="P")?" PEREMPUAN ":"LAKI - LAKI "; ?>, 
+			<?php echo $row->pekerjaan; ?> d/a  
+ 
+    	    <?php echo $row->tersangka_alamat; ?> - <?php echo $row->desa ?> - <?php echo $row->kecamatan; ?> - <?php echo $row->kota; ?> - <?php echo $row->provinsi; ?>
+   	     <?php endforeach; ?>    </td>
   </tr>
   <tr>
-    <td>&nbsp;</td>
-    <td>TMP/ TGL. LAHIR / UMUR </td>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. Korban </td>
+    <td>: </td>
+    <td><b><?php echo $pelapor_nama; ?>, </b><?php echo $pelapor_tmp_lahir; ?>, <?php echo (flipdate($pelapor_tgl_lahir)); ?>, <?php echo ($pelapor_jk=="P")?" PEREMPUAN ":"LAKI - LAKI "; ?>, <?php echo $agama; ?>, <?php echo $pekerjaan; ?> d/a <?php echo $pelapor_alamat; ?> - <?php echo $desa; ?> - <?php echo $kecamatan; ?> - <?php echo $kota; ?> - <?php echo $provinsi; ?> No. telp. <?php echo $pelapor_telpon; ?></td>
+  </tr>
+  <tr>
+    <td>5. Bagaimana terjadi </td>
+    <td>: </td>
+    <td><?php echo $kejadian_bagaimaan; ?></td>
+  </tr>
+  <tr>
+    <td>6. Dilaporkan pada </td>
     <td>:</td>
-    <td><?php echo $row->tersangka_tmp_lahir; ?> / <?php echo flipdate($row->tersangka_tgl_lahir); ?> / <?php echo umur($row->tersangka_tgl_lahir); ?> Tahun </td>
+    <td><?php echo hari($kejadian_tanggal_lapor). ", ".  ucwords(strtolower(tgl_indo(flipdate($kejadian_tanggal_lapor)))); ?> Jam <?php echo $kejadian_jam_lapor; ?> WIB</td>
   </tr>
   <tr>
-    <td>&nbsp;</td>
-    <td>JENIS KELAMIN </td>
+    <td colspan="3"><hr /></td>
+  </tr>
+  <tr>
+    <td><U>TIDAK PIDANA APA </U> </td>
     <td>:</td>
-    <td><?php echo $row->tersangka_jk; ?></td>
+    <td align="center"><U>NAMA DAN ALAMAT SAKSI - SAKSI</U></td>
   </tr>
   <tr>
+    <td><?php echo $tindak_pidana; ?></td>
     <td>&nbsp;</td>
-    <td>PEKERJAAN</td>
-    <td>:</td>
-    <td><?php echo $row->pekerjaan; ?></td>
-  </tr>
-  
-  
-  
-  <tr>
-    <td>&nbsp;</td>
-    <td>ALAMAT</td>
-    <td>:</td>
-    <td><?php echo $row->tersangka_alamat; ?> - <?php echo $row->desa ?> - <?php echo $row->kecamatan; ?> - <?php echo $row->kota; ?> -  <?php echo $row->provinsi; ?></td>
-  </tr>
-  
-  <?php endforeach; ?>
-  
-  
-  <tr>
-    <td width="2%">&nbsp;</td>
-    <td width="29%">&nbsp;</td>
-    <td width="3%">&nbsp;</td>
-    <td width="66%">&nbsp;</td>
-  </tr>
-  <tr>
-    <td>5.</td>
-    <td><u>KORBAN</u> </td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <?php foreach($korban->result() as $row) :  ?>
-  <tr>
-    <td>&nbsp;</td>
-    <td>NAMA</td>
-    <td>:</td>
-    <td><?php echo $row->korban_nama; ?></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>TMP/ TGL. LAHIR / UMUR </td>
-    <td>:</td>
-    <td><?php echo $row->korban_tmp_lahir; ?> / <?php echo flipdate($row->korban_tgl_lahir); ?> / <?php echo umur($row->korban_tgl_lahir); ?> Tahun </td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>JENIS KELAMIN </td>
-    <td>:</td>
-    <td><?php echo $row->korban_jk; ?></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>PEKERJAAN</td>
-    <td>:</td>
-    <td><?php echo $row->pekerjaan; ?></td>
-  </tr>
-  
-  
-  
-  <tr>
-    <td>&nbsp;</td>
-    <td>ALAMAT</td>
-    <td>:</td>
-    <td><?php echo $row->korban_alamat; ?> - <?php echo $row->desa ?> - <?php echo $row->kecamatan; ?> - <?php echo $row->kota; ?> -  <?php echo $row->provinsi; ?></td>
-  </tr>
-  
-  <?php endforeach; ?>
-  
+    <td align="left">
 
-<tr>
-    <td width="2%">&nbsp;</td>
-    <td width="29%">&nbsp;</td>
-    <td width="3%">&nbsp;</td>
-    <td width="66%">&nbsp;</td>
-  </tr>
-  <tr>
-    <td>6.</td>
-    <td><u>SAKSI - SAKSI</u> </td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <?php 
-  $no = 1;
-  foreach($saksi->result() as $row) :  ?>
-  <tr>
-    <td>&nbsp;</td>
-    <td><?php echo $no; ?>) NAMA</td>
-    <td>:</td>
-    <td><?php echo $row->saksi_nama; ?></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp; &nbsp;  TMP/ TGL. LAHIR / UMUR </td>
-    <td>:</td>
-    <td><?php echo $row->saksi_tmp_lahir; ?> / <?php echo flipdate($row->saksi_tgl_lahir); ?> / <?php echo umur($row->saksi_tgl_lahir); ?> Tahun </td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp; &nbsp;  JENIS KELAMIN </td>
-    <td>:</td>
-    <td><?php echo $row->saksi_jk; ?></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp; &nbsp;  PEKERJAAN</td>
-    <td>:</td>
-    <td><?php echo $row->pekerjaan; ?></td>
-  </tr>
+  
+    
   
   
-  
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp; &nbsp;   ALAMAT</td>
-    <td>:</td>
-    <td><?php echo $row->saksi_alamat; ?> - <?php echo $row->desa ?> - <?php echo $row->kecamatan; ?> - <?php echo $row->kota; ?> -  <?php echo $row->provinsi; ?></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp; &nbsp;   TELP / FAX / EMAIL </td>
-    <td>:</td>
-    <td><?php echo $row->saksi_telpon; ?> - <?php echo $row->saksi_email ?></td>
-</tr>
-   <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <?php 
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <?php echo $no; 
+  $no = 0;
+  foreach($saksi->result() as $row) :  
   $no++; 
-  endforeach; ?>  
-  
-  
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+  $break = ($n>1)?"<br />":"";
+  ?>
+    <tr>
+      <td width="6%"><?php echo $no ?>. </td>
+      <td width="94%"><?php echo $row->saksi_nama; ?>, <?php echo umur($row->saksi_tgl_lahir); ?> Th, <?php echo ($row->saksi_jk=="P")?"Perempuan":"Laki-laki"; ?>,  <?php echo $row->saksi_agama; ?>,<?php echo $row->pekerjaan; ?>, <?php echo $row->saksi_alamat; ?> - <?php echo $row->desa ?> - <?php echo $row->kecamatan; ?> - <?php echo $row->kota; ?> - <?php echo $row->provinsi; ?> </td>
+    </tr>
+      <?php endforeach; ?>  
+  </table></td>
   </tr>
 </table>
-<table width="100%" border="1" cellpadding="3">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  
   <tr>
-    <td align="center">URAIAN KEJADIAN</td>
+    <td colspan="3"><hr /></td>
   </tr>
   <tr>
+    <td width="17%"><U>BARANG BUKTI :</U> </td>
+    <td width="2%">&nbsp;</td>
+    <td width="81%" align="center"><U>URAIAN SINGKAT KEJADIAN</U></td>
+  </tr>
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <?php 
+	$no = 0;
+  	foreach($barbuk->result() as $row) : 
+	$no++;
+	?>
+      <tr>
+        <td width="13%"><?php echo $no; ?>. </td>
+        <td width="87%"><?php echo $row->barbuk_nama. " ( $row->barbuk_jumlah $row->barbuk_satuan )"; ?></td>
+      </tr>
+    <?php 
+	endforeach;
+	?>
+    </table></td>
+    <td>&nbsp;</td>
     <td><?php echo $kejadian_uraian; ?></td>
   </tr>
-</table>
-<p>&nbsp;</p>
-<table width="100%" border="0" cellpadding="3">
   <tr>
-    <td width="54%" align="center">&nbsp;</td>
-    <td width="46%" align="center">Pelapor</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td align="center">&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td align="center">&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td align="center"><u><?php echo $pelapor_nama; ?></u></td>
+    <td colspan="3"><hr />
+    TINDAKAN YANG DIAMBIL : Menerima laporan, Membuat LP, Membuat Surat Tanda Terima Laporan Polisi </td>
   </tr>
 </table>
 <p>&nbsp;</p>
 <table width="100%" border="0" cellpadding="0">
   <tr>
-    <td width="4%">&nbsp;</td>
-    <td width="4%">&nbsp;</td>
-    <td width="92%">&nbsp;</td>
-  </tr>
-  <tr>
-    <td>1.</td>
-    <td colspan="2">TINDAKAN YANG DIAMBIL : </td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td colspan="2">a. Membuat laporan polisi <br />
-      b. Membuat Tanda Bukti Lapor <br />
-      c. Membuat Surat Pernyataan Pelapor <br />
-      d. Menerima Barang Bukti </td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td colspan="2">&nbsp;</td>
-  </tr>
-  <tr>
-    <td>2.</td>
-    <td colspan="2">TINDAK PIDANA APA : </td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td colspan="2"><?php echo $tindak_pidana; ?></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td colspan="2">&nbsp;</td>
-  </tr>
-  <tr>
-    <td>3.</td>
-    <td colspan="2">BARANG BUKTI</td>
-  </tr>
-  <?php 
-  $no = 1;
-  foreach($barbuk->result() as $row) : 
-  ?>
-  <tr>
-    <td></td>
-    <td>- <?php //echo $no; ?></td>
-    <td><?php echo $row->barbuk_nama; ?></td>
-  </tr>
-  <?php 
-  $no++;
-  endforeach; ?>
-</table>
-<table width="100%" border="0" cellpadding="0">
-  <tr>
-    <td width="47%">&nbsp;</td>
-    <td width="53%">&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="center">&nbsp;</td>
-    <td align="center">Serang, <?php echo tgl_indo(flipdate($tanggal)) ?> </td>
-  </tr>
-  <tr>
-    <td align="center">&nbsp;</td>
-    <td align="center">a.n Kepala KEPALA KEPOLISIAN DAERAH BANTEN </td>
+    <td width="50%">&nbsp;</td>
+    <td width="50%">&nbsp;</td>
   </tr>
   <tr>
     <td align="center">PELAPOR</td>
-    <td align="center"><?php echo $setting->ttd_jabatan; ?></td>
+    <td align="center"><?php echo $ttd['tempat'] ?>, <?php echo tgl_indo(flipdate($tanggal)) ?> </td>
+  </tr>
+  <tr>
+    <td align="center">&nbsp;</td>
+    <td align="center">Yang Menerima Laporan </td>
   </tr>
   <tr>
     <td align="center">&nbsp;</td>
@@ -390,20 +199,34 @@ $setting = $this->cm->get_setting();
     <td align="center">&nbsp;</td>
   </tr>
   <tr>
+    <td align="center"><b>( <?php echo $pelapor_nama; ?> )</b></td>
+    <td align="center"><strong><u><?php echo $pen_lapor_nama; ?></u></strong></td>
+  </tr>
+  <tr>
     <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
+    <td align="center"><strong><?php echo $penerima_pangkat; ?> NRP. 
+      <?php  echo $pen_lapor_nrp; ?> 
+    </strong></td>
   </tr>
   <tr>
     <td align="center">&nbsp;</td>
     <td align="center">&nbsp;</td>
   </tr>
   <tr>
-    <td align="center">&nbsp;</td>
-    <td align="center"><u><?php echo $setting->ttd_nama; ?></u></td>
+    <td colspan="2" align="center">Mengetahui <br />
+      a.n KEPALA KEPOLISIAN <?php echo $ttd['instansi'];  ?><br />
+      <?php echo $mengetahui_jabatan;  ?><br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <b><u><?php echo $mengetahui_nama; ?></u><br />
+      <?php echo $mengetahui_pangkat; ?> NRP. <?php echo $mengetahui_nrp; ?></b><br /></td>
   </tr>
   <tr>
     <td align="center">&nbsp;</td>
-    <td align="center"><?php echo $setting->ttd_nrp; ?></td>
+    <td align="center">&nbsp;</td>
   </tr>
 </table>
 <p>&nbsp;</p>

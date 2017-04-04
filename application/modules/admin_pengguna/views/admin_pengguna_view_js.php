@@ -176,6 +176,7 @@ $("#titleModal").html('EDIT DATA PENGGUNA');
 			$("#user_pass2").val('');
 			$("#nomor_hp").val(obj.nomor_hp);
 			$("#email").val(obj.email);
+			$("#jabatan").val(obj.jabatan);
 			$("#id_pangkat").val(obj.id_pangkat).attr('selected','selected');
 			$("#level").val(obj.level).attr('selected','selected');
 			$("#jenis").val(obj.jenis).attr('selected','selected');

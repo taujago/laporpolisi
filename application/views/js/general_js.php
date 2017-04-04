@@ -75,6 +75,16 @@ function get_data_polres(id,target,dropdown){
  	}
 
 
+
+function get_kelompok(id,target,dropdown) {
+	$.ajax({
+ 			url:'<?php echo site_url("general/get_kelompok"); ?>/'+$(id).val()+'/'+dropdown,
+ 			success: function(data){
+ 				$(target).html('').append(data);
+ 			}
+ 	});
+}
+
 function get_data_kejahatan(id,target,dropdown) {
 	$.ajax({
  			url:'<?php echo site_url("general/get_data_kejahatan"); ?>/'+$(id).val()+'/'+dropdown,

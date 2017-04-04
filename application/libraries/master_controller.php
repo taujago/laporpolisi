@@ -212,6 +212,37 @@ function execute_service2($url,$method,$json_data) {
 
 
 
+function request_user_info($data) {
+
+	 
+	$req_url = 'http://localhost/laporjogja/index.php/service/get_user_info';
+
+	$json_data = "user_id=$data";
+
+ 	$ch = curl_init();
+
+	//set the url, number of POST vars, POST data
+	curl_setopt($ch,CURLOPT_URL, $req_url);
+	curl_setopt($ch,CURLOPT_POST, 1);
+	curl_setopt($ch,CURLOPT_POSTFIELDS, $json_data);
+	curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+
+	//execute post
+	$result = curl_exec($ch);
+	// echo $result;  
+
+	$obj  = json_decode($result);
+	$array = (array) $obj;
+
+	$info = curl_getinfo($ch);
+
+	$error = ($info['http_code']=="200")?false:true;
+	// show_array($array); exit;
+	curl_close($ch);
+	return array("data"=>$array,"error"=>$error);
+}
+
+
 function validasi($daft_id) {
 
 			$userdata = $this->session->userdata("userdata");
@@ -499,7 +530,50 @@ function generate_qrcode($file_name,$arr_data){
 	$this->ciqrcode->generate($params);
 }
 
+function get_header_by_user_id($user_id) {
+	$this->db->limit(1);
+	$data = $this->db->get("m_setting_polda")->row_array();
 
+	$this->db->where("id",$user_id);
+	$user = $this->db->get("pengguna")->row_array();
+	$ret = array();
+	$ret['nama_polda']  = $data['nama_polda'];
+	if($user['jenis']=='polda') {
+		$ret['instansi'] = '<br />';
+		$ret['ttd_nama'] = $data['ttd_nama'];
+		$ret['ttd_nrp'] = $data['ttd_nrp'];
+		$ret['ttd_jabatan'] = $data['ttd_jabatan'];
+		$ret['ttd_pangkat'] = $data['ttd_pangkat'];
+		$ret['tempat'] = $data['tempat'];
+
+	}
+	else if ($user['jenis']=='polres') {
+		$this->db->where("id_polres",$user['id_polres']);
+		$dt_polres = $this->db->get("m_polres")->row_array();
+
+		$ret['instansi'] 		= $dt_polres['nama_polres'];
+		$ret['ttd_nama'] 		= $dt_polres['ttd_nama'];
+		$ret['ttd_nrp'] 		= $dt_polres['ttd_nrp'];
+		$ret['ttd_jabatan'] 	= $dt_polres['ttd_jabatan'];
+		$ret['ttd_pangkat'] 	= $dt_polres['ttd_pangkat'];
+		$ret['tempat'] = $data['tempat'];
+	}
+
+	else if ($user['jenis']=='polsek') {
+		$this->db->where("id_polsek",$user['id_polsek']);
+		$dt_polsek = $this->db->get("m_polsek")->row_array();
+
+		$ret['instansi'] = $dt_polsek['nama_polres'];
+		$ret['ttd_nama'] = $dt_polsek['ttd_nama'];
+		$ret['ttd_nrp'] = $dt_polsek['ttd_nrp'];
+		$ret['ttd_jabatan'] = $dt_polsek['ttd_jabatan'];
+		$ret['ttd_pangkat'] = $dt_polsek['ttd_pangkat'];
+		$ret['tempat'] = $data['tempat'];
+	}
+
+	return $ret;
+
+}
 
 
 }

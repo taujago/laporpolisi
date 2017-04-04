@@ -2,6 +2,32 @@
 
 
 $(document).ready(function(){
+ 
+$(".ds2").select2({
+	placeholder: "Pilih "
+});
+
+
+//$(".ds2").select2().select2('303', null);
+
+$("#id_gol_kejahatan").change(function(){
+	//alert('ini dan itu');
+	$.ajax({
+		url : '<?php echo site_url("general/get_detail_golongan") ?>',
+		data : {id_gol_kejahatan : $(this).val() },
+		type : 'post',
+		dataType : 'json',
+		success : function(rsdata) {
+			$("#id_kelompok").val(rsdata.kelompok);
+			$("#id_golongan").val(rsdata.golongan);
+
+			
+		}
+	});
+});
+
+
+
 
 
 $("#tr_barbuk_baru").hide();
@@ -159,7 +185,7 @@ $.ajax({
 	type : 'post',
  	success : function(jsonData){
  		$("#formulir").loadJSON(jsonData);
- 		$("#id_gol_kejahatan").val(jsonData.id_gol_kejahatan).attr('selected','selected');
+ 		
  		$("#id_jenis_lokasi").val(jsonData.id_jenis_lokasi).attr('selected','selected');
  		$("#id_fungsi").val(jsonData.id_fungsi).attr('selected','selected');
  		$("#pelapor_id_pangkat").val(jsonData.pelapor_id_pangkat).attr('selected','selected');
@@ -172,31 +198,63 @@ $.ajax({
  		$("#pelapor_id_kesatuan").val(jsonData.pelapor_id_kesatuan).attr('selected','selected');
  		$("#pen_lapor_id_kesatuan").val(jsonData.pen_lapor_id_kesatuan).attr('selected','selected');
 
+ 		// $("#id_golongan").val(jsonData.id_golongan).attr('selected','selected');
 
 
- 		$.ajax({
-	      url:'<?php echo site_url("general/get_dropdown_gol_kejahatan"); ?>/',
-	      data : {id_kelompok : jsonData.id_kelompok, 
-	      		id_gol_kejahatan : jsonData.id_gol_kejahatan },
-	      type : 'post',
-	      success: function(data){
-	        $("#id_gol_kejahatan").html('').append(data);
-	      }
-	    });
+
+ 		// $.ajax({
+	  //     url:'<?php echo site_url("general/get_dropdown_kel_kejahatan"); ?>/',
+	  //     data : {id_kelompok : jsonData.id_kelompok, 
+	  //     		 id_golongan : jsonData.id_golongan },
+	  //     type : 'post',
+	  //     success: function(data){
+	  //       $("#id_kelompok").html('').append(data);
+	  //     }
+	  //   });
+
+
+ 		// $.ajax({
+	  //     url:'<?php echo site_url("general/get_dropdown_gol_kejahatan"); ?>/',
+	  //     data : {id_kelompok : jsonData.id_kelompok, 
+	  //     		id_gol_kejahatan : jsonData.id_gol_kejahatan },
+	  //     type : 'post',
+	  //     success: function(data){
+	  //       $("#id_gol_kejahatan").html('').append(data);
+	  //     }
+	  //   });
+	  //$("#id_gol_kejahatan").val(rsdata.id_gol_kejahatan).attr('selected','selected');
+	 
+	  //$("#id_gol_kejahatan").select2().select2(jsonData.id_gol_kejahatan, jsonData.golongan_kejahatan);
+
+	  // $("#id_gol_kejahatan").select2(jsonData.id_gol_kejahatan, jsonData.golongan_kejahatan);
+	  //$("#id_gol_kejahatan").select2(jsonData.id_gol_kejahatan,null);
+
+	  console.log(jsonData.id_gol_kejahatan);
+	  console.log(jsonData.golongan_kejahatan);
+	  // jsonData.id_gol_kejahatan, 
+
+	  console.log(jsonData.id_golongan);
+	//  $("#id_gol_kejahatan").val(jsonData.id_gol_kejahatan).attr('selected','selected');
+
+	  $.ajax({
+		url : '<?php echo site_url("general/get_detail_golongan") ?>',
+		data : {id_gol_kejahatan :jsonData.id_gol_kejahatan},
+		type : 'post',
+		dataType : 'json',
+		success : function(rsdata) {
+			console.log(rsdata);
+			$("#id_kelompok").val(rsdata.kelompok);
+			$("#id_golongan").val(rsdata.golongan);
+
+			
+		}
+	});
 
 
  		
  		 
 
- 		$.ajax({
- 			url : '<?php echo site_url("$controller/get_pasa_edit_dropdown/") ?>',
-			type : 'post',
-			data : {id_fungsi : jsonData.id_fungsi, id_pasal : jsonData.id_pasal  },
-			success : function(pasalData) {
-				$("#id_pasal").html(pasalData);
-			}
- 		});
-
+ 	 
 
 
 
@@ -403,6 +461,8 @@ $.ajax({
       
     }
   });
+
+
 	
 
 }
@@ -1147,5 +1207,18 @@ BootstrapDialog.show({
           });
 }
 
+function get_user_info(){
+	v_id_user = $("#mengetahui_nrp").val();
+	$.ajax({
+		url : '<?php echo site_url("$this->controller/get_user_info") ?>',
+		data : {id_user : v_id_user}, 
+		type : 'post',
+		dataType : 'json',
+		success : function(rsdata){
+			console.log(rsdata);
+		}
+
+	});
+}
 
 </script>

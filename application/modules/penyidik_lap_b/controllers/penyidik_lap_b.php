@@ -357,7 +357,7 @@ function perkembangan_simpan(){
             /// upload the file 
             if(! empty($_FILES['file_dokumen']['name']) ) {
                     $config['upload_path'] = './documents/';
-                    $config['allowed_types'] = 'txt|pdf|doc|docx|xls|xlsx';
+                    $config['allowed_types'] = 'png|jpg|txt|pdf|doc|docx|xls|xlsx';
                     $config['max_size'] = '1000000';
                     $config['max_width']  = '1024000';
                     $config['max_height']  = '76800000';
@@ -365,9 +365,9 @@ function perkembangan_simpan(){
                     if ( ! $this->upload->do_upload('file_dokumen'))
                     {    
                         $error = array('error' => $this->upload->display_errors()); 
-                         
+                        show_array($error);  
                         $ret = array("success"=>false,
-                                    "pesan"=>"Gambar terlalu besar atau file bukan file gambar. Silahkan pilih gambar yang lain",
+                                    "message"=>"File terlalu besar atau jenis file salah". $error,
                                     "operation" =>"insert");
                         echo json_encode($ret);
                         exit;
@@ -409,6 +409,18 @@ function perkembangan_simpan(){
              if($res) {
 
                  $ret = array("error"=>false,"message"=>"data perkembangan berhasil disimpan");
+
+                 if($data['proses_penyidikan']=="YA") {
+
+                    $arr = array("lap_b_id"=>$data['lap_b_id'],
+                            "penyelesaian"=>"lidik");
+
+                    $this->db->where("lap_b_id",$data['lap_b_id']);
+                    $rx = $this->db->update("lap_b",$arr);
+
+                }
+
+
              }
              else {
                 $ret = array("error"=>true,"message"=>$this->db->_error_message());
@@ -474,19 +486,7 @@ function perkembangan_update(){
                 unset($data['file_dokumen']);
             }
 
-            // end of upload file 
-
-
-
-
-
-
-
-
-          
-
-
-            $data['tanggal'] = flipdate($data['tanggal']);
+           $data['tanggal'] = flipdate($data['tanggal']);
            
             //$data['user_id'] = $userdata['id'];
 
@@ -506,9 +506,34 @@ function perkembangan_update(){
              
 
              if($res) {
+                $ret = array("error"=>false,"message"=>"data perkembangan berhasil disimpan");
 
-                 $ret = array("error"=>false,"message"=>"data perkembangan berhasil disimpan");
-             }
+                // update ke laporan 
+                $this->db->where("lap_b_id",$data['lap_b_id']);
+                $this->db->where("proses_penyidikan","YA");
+                $jumlah = $this->db->get("lap_b_perkembangan")->num_rows();
+
+                if($jumlah == 0 ){ // kembalikan ke sidik 
+
+                    $arr = array("lap_b_id"=>$data['lap_b_id'],
+                            "penyelesaian"=>"sidik");
+
+                    $this->db->where("lap_b_id",$data['lap_b_id']);
+                    $rx = $this->db->update("lap_b",$arr);
+                }
+                else {
+                    $arr = array("lap_b_id"=>$data['lap_b_id'],
+                            "penyelesaian"=>"lidik");
+
+                    $this->db->where("lap_b_id",$data['lap_b_id']);
+                    $rx = $this->db->update("lap_b",$arr);
+                }
+                
+
+
+                 
+
+                             }
              else {
                 $ret = array("error"=>true,"message"=>$this->db->_error_message());
              }
@@ -525,10 +550,43 @@ function perkembangan_update(){
     
 function perkembangan_hapus(){
     $data = $this->input->post();
+
+    $this->db->where("id",$data['id']);
+    $dpk = $this->db->get("lap_b_perkembangan")->row();
+    $lap_b_id = $dpk->lap_b_id;
+
+    // echo $this->db->last_query(); exit;
+
+
     $this->db->where("id",$data['id']);
     $res = $this->db->delete("lap_b_perkembangan");
     if($res){
         $ret = array("error"=>false,"message"=>"Data Berhasi dihapus");
+
+
+        $this->db->where("lap_b_id",$lap_b_id);
+        $this->db->where("proses_penyidikan","YA");
+        $jumlah = $this->db->get("lap_b_perkembangan")->num_rows();
+
+        // echo $this->db->last_query();
+        // exit;
+
+        if($jumlah == 0 ){ // kembalikan ke sidik 
+
+            $arr = array("lap_b_id"=>$lap_b_id,
+                    "penyelesaian"=>"sidik");
+
+            $this->db->where("lap_b_id",$lap_b_id);
+            $rx = $this->db->update("lap_b",$arr);
+        }
+        else {
+            $arr = array("lap_b_id"=>$lap_b_id,
+                    "penyelesaian"=>"lidik");
+
+            $this->db->where("lap_b_id",$lap_b_id);
+            $rx = $this->db->update("lap_b",$arr);
+        }
+
 
     }
     else {

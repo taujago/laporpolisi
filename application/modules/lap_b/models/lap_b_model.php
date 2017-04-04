@@ -32,6 +32,13 @@ function data($param){
     }
 
 
+    if($param['userdata']['jenis']=="polres") {
+    	$this->db->where("id_polres",$param['userdata']['id_polres']); 
+    }
+    else if ($param['userdata']['jenis']=="polsek") {
+    	$this->db->where("id_polsek",$param['userdata']['id_polsek']); 
+    }
+
 
 
 	($param['limit'] != null ? $this->db->limit($param['limit']['end'], $param['limit']['start']) : '');
@@ -140,6 +147,7 @@ function get_lap_b_terlapor($param){
 function detail($id){
 	 $this->db->select('a.*,gk.golongan_kejahatan, 
 	 	gk.id_kelompok,
+	 	kel.id_golongan, 
 	 	pasal.pasal, 
 lok.jenis_lokasi, 
 f.fungsi, 
@@ -196,6 +204,7 @@ u.nama as pengguna ')
 ->join('tiger_kecamatan k_kec','k_kec.id = k_desa.id_kecamatan ','left')
 ->join('tiger_kota k_kota','k_kota.id = k_kec.id_kota ','left')
 ->join('tiger_provinsi k_prov','k_prov.id = k_kota.id_provinsi','left')
+->join('m_kelompok_kejahatan kel','kel.id_kelompok = gk.id_kelompok')
 
 
 ->where("a.lap_b_id",$id);

@@ -99,16 +99,18 @@ function detail($id){
 				kota.id as kejadian_kota_id, 
 				kota.kota, 
 				prov.id as kejadian_prov_id, 
-				prov.provinsi, 
+				prov.provinsi,
+				lp.id_gol_kejahatan,
+				gk.id_kelompok
 	  ')
-	 ->from("lap_d lp")
-	 ->join("m_pangkat p","lp.pen_lapor_id_pangkat = p.id_pangkat","left")
+	->from("lap_d lp")
+	->join("m_pangkat p","lp.pen_lapor_id_pangkat = p.id_pangkat","left")
 
-	 ->join('tiger_desa desa','desa.id = lp.kejadian_id_desa ','left')
+	->join('tiger_desa desa','desa.id = lp.kejadian_id_desa ','left')
 	->join('tiger_kecamatan kec','kec.id = desa.id_kecamatan ','left')
 	->join('tiger_kota kota','kota.id = kec.id_kota ','left')
 	->join('tiger_provinsi prov','prov.id = kota.id_provinsi','left')
-	 ;
+	->join('m_golongan_kejahatan gk','gk.id=lp.id_gol_kejahatan','left') ;
 
 	 $this->db->where("lp.lap_d_id",$id);
 	 $data = $this->db->get()->row_array();
@@ -116,7 +118,15 @@ function detail($id){
  
 }
 
- 
+function get_arr_kelompok(){
+	$this->db->where("id_golongan","4");
+	$res = $this->db->get("m_kelompok_kejahatan");
+	$arr = array();
+	foreach($res->result() as $row) : 
+			$arr[$row->id_kelompok] = $row->kelompok;
+	endforeach;
+	return $arr;
+} 
 	
 }
 ?>

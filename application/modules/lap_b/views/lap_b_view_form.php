@@ -1,10 +1,16 @@
 <link href="<?php echo base_url("assets") ?>/css/jquery.dataTables.css" rel="stylesheet">
 <link href="<?php echo base_url("assets") ?>/css/datepicker.css" rel="stylesheet">
+<link href="<?php echo base_url("assets") ?>/select2/dist/css/select2.min.css" rel="stylesheet">
+
 
 <script src="<?php echo base_url("assets") ?>/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url("assets") ?>/js/bootstrap-datepicker.js"></script>
 <script src="<?php echo base_url("assets") ?>/js/jquery.loadJSON.js"></script>
+<script src="<?php echo base_url("assets") ?>/select2/dist/js/select2.full.min.js"></script>
+
 <style type="text/css">
+
+
       .umur {
             width: 100px;
       }
@@ -31,34 +37,31 @@
             <td><input readonly="readonly" type="text" class="form-control" name="nomor" id="nomor" placeholder="(auto generated)" />        </td>
      
 
-     <tr><td>Golongan Kejahatan </td>
+     <tr><td> Golongan Kejahatan</td>
             <td>  
 
-            <?php 
+            <?php echo form_dropdown("id_gol_kejahatan",$arr_golongan_kejahatan,'','id="id_gol_kejahatan" class="form-control ds2"') ?>
 
-            $arr_kelompok_kejahan = $this->cm->get_arr_dropdown("m_kelompok_kejahatan","id_kelompok","kelompok","kelompok");
-
-            $arr_kelompok_kejahan = add_arr_head($arr_kelompok_kejahan,"x","== PILIH ==");
-           
-            echo form_dropdown("",$arr_kelompok_kejahan,'',
-              'id="id_kelompok" class="form-control" 
-               onchange="get_data_kejahatan(this,\'#id_gol_kejahatan\',1)"
-
-              '); 
-
-
-           
-            ?>
       </td>
 
+      
 
 
       <tr><td> </td>
             <td>  
 
-            <?php echo form_dropdown("id_gol_kejahatan",array(),'','id="id_gol_kejahatan" class="form-control"') ?>
+            <input disabled="disabled" type="text" id="id_kelompok" class="form-control " />
+             
 
-      </td>
+      </td></tr>
+
+
+
+     <tr><td> </td>
+            <td>  
+                 <input disabled="disabled" type="text" id="id_golongan" class="form-control " />
+            
+      </td></tr>
 
 
       <tr><td>Tempat Kejadian Perkara</td>
@@ -92,7 +95,7 @@
 
             </td></tr>
 
-
+<!-- 
 <tr> <td colspan="2"> <b> PASAL</b>  </td> </tr>
 
 
@@ -119,9 +122,9 @@
 
 
             </td> </tr>    
-
+ -->
                
-   <tr> <td colspan="2"> <b> PELAPOR</b>  </td> </tr>
+   <tr class="separator"> <td colspan="2"> <b> PELAPOR</b>  </td> </tr>
    <tr>
       <td> Nama </td>
             <td><input type="text" class="form-control" name="pelapor_nama" id="pelapor_nama" placeholder=" Nama" />

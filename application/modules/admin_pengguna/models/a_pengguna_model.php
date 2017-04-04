@@ -29,7 +29,9 @@ function data($param){
 	->join("m_level l",'l.id=a.level','left');
 
 	if($param['nama'] <> '') {
-		$this->db->like('nama',$param['nama']);
+		$nama = $param['nama'];
+		//$this->db->like('nama',$param['nama']);
+		$this->db->where(" ( nama like '%$nama%' or user_id like '%$nama%' )",null,false);
 	}
 
 	extract($param); 
