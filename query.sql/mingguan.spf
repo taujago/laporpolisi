@@ -105,171 +105,127 @@ on gk.id = x.id_gol_kejahatan
 	<array/>
 	<key>queryHistory</key>
 	<array>
+		<string>select lp.lap_a_id, lp.user_id,p.id_polres , p.id_polsek
+,p.jenis
+from lap_a lp 
+
+join pengguna p on p.id = lp.user_id
+left join m_polsek sek on sek.`id_polsek` = p.id_polsek
+left join m_polres res on res.`id_polres` = sek.id_polsek</string>
+		<string>select lp.lap_a_id, lp.user_id,p.id_polres 
+,p.jenis
+from lap_a lp 
+
+join pengguna p on p.id = lp.user_id
+left join m_polsek sek on sek.`id_polsek` = p.id_polsek
+left join m_polres res on res.`id_polres` = sek.id_polsek</string>
+		<string>select lp.lap_a_id, lp.user_id,p.id_polres 
+,p.jenis
+from lap_a lp 
+
+join pengguna p on p.id = lp.user_id
+left join m_polsek sek on sek.`id_polsek` = p.id_polsek</string>
+		<string>select lp.lap_a_id, lp.user_id,p.id_polres 
+,p.jenis
+from lap_a lp 
+
+join pengguna p on p.id = lp.user_id
+join m_polsek sek on sek.`id_polsek` = p.id_polsek</string>
+		<string>select lp.lap_a_id, lp.user_id,p.id_polres 
+,p.jenis
+from lap_a lp 
+
+join pengguna p on p.id = lp.user_id</string>
+		<string>select lp.lap_a_id, lp.user_id,p.id_polres 
+,p.jenis
+from lap_a lp 
+
+join pengguna p on p.id = lp.`user_id`</string>
+		<string>select lp.user_id,p.id_polres 
+,p.jenis
+from lap_a lp 
+
+join pengguna p on p.id = lp.`user_id`</string>
+		<string>select lp.user_id,p.id_polres 
+,p.jenis
+from lap_a lp 
+join pengguna p on p.id = lp.`user_id`</string>
+		<string>select lp.user_id,p.id_polres from lap_a lp 
+join pengguna p on p.id = lp.`user_id`</string>
+		<string>select lp.user_id,u.id_polres from lap_a lp 
+join pengguna p on p.id = lp.`user_id`</string>
+		<string>select lp.user_id,id_polres from lap_a lp 
+join pengguna p on p.id = lp.`user_id`</string>
+		<string>select lp.user_id from lap_a lp 
+join pengguna p on p.id = lp.`user_id`</string>
+		<string>select a.user_id from lap_a lp 
+join pengguna p on p.id = lp.`user_id`</string>
+		<string>select user_id from lap_a lp 
+join pengguna p on p.id = lp.`user_id`</string>
+		<string>select user_id from lap_a</string>
+		<string>select lap_a_id as id, `id_gol_kejahatan` from `lap_a`
+where tanggal &lt; '2017-03-1'
+union 
+select lap_b_id as id, `id_gol_kejahatan` from `lap_b`
+where tanggal &lt; '2017-03-1'</string>
+		<string>select 'a' as tb, id_gol_kejahatan, month(tanggal) bulan, year(tanggal) tahun,
+if(penyelesaian='p21',1,0) as p21,
+if(penyelesaian='dihentikan' and alasan='tidakcukupbukti' ,1,0) as tcb,
+if(penyelesaian='dihentikan' and alasan='bukanpkrpidana' ,1,0) as bpp,
+if(penyelesaian='dihentikan' and alasan='aduandicabut' ,1,0) as adc,
+if(penyelesaian='dihentikan' and alasan='nebisinidem' ,1,0) as nii,
+if(penyelesaian='dihentikan' and alasan='tskmati' ,1,0) as tm,
+if(penyelesaian='dihentikan' and alasan='tskgila' ,1,0) as tg,
+if(penyelesaian='dihentikan' and alasan='kadaluarsa' ,1,0) as exp,
+if(penyelesaian='sidik',1,0) as sidik,
+if(penyelesaian='lidik',1,0) as lidik
+from lap_a 
+-- where  month(tanggal) = 3 and year(tanggal) = 2017
+union 
+select 'b' as tb, id_gol_kejahatan, month(tanggal) bulan, year(tanggal) tahun,
+if(penyelesaian='p21',1,0) as p21,
+if(penyelesaian='dihentikan' and alasan='tidakcukupbukti' ,1,0) as tcb,
+if(penyelesaian='dihentikan' and alasan='bukanpkrpidana' ,1,0) as bpp,
+if(penyelesaian='dihentikan' and alasan='aduandicabut' ,1,0) as adc,
+if(penyelesaian='dihentikan' and alasan='nebisinidem' ,1,0) as nii,
+if(penyelesaian='dihentikan' and alasan='tskmati' ,1,0) as tm,
+if(penyelesaian='dihentikan' and alasan='tskgila' ,1,0) as tg,
+if(penyelesaian='dihentikan' and alasan='kadaluarsa' ,1,0) as exp,
+if(penyelesaian='sidik',1,0) as sidik,
+if(penyelesaian='lidik',1,0) as lidik
+from lap_b 
+-- where month(tanggal) = 3 and year(tanggal) = 2017</string>
+		<string>select 'a' as tb, id_gol_kejahatan, month(tanggal) bulan, year(tanggal) tahun,
+if(penyelesaian='p21',1,0) as p21,
+if(penyelesaian='dihentikan' and alasan='tidakcukupbukti' ,1,0) as tcb,
+if(penyelesaian='dihentikan' and alasan='bukanpkrpidana' ,1,0) as bpp,
+if(penyelesaian='dihentikan' and alasan='aduandicabut' ,1,0) as adc,
+if(penyelesaian='dihentikan' and alasan='nebisinidem' ,1,0) as nii,
+if(penyelesaian='dihentikan' and alasan='tskmati' ,1,0) as tm,
+if(penyelesaian='dihentikan' and alasan='tskgila' ,1,0) as tg,
+if(penyelesaian='dihentikan' and alasan='kadaluarsa' ,1,0) as exp,
+if(penyelesaian='sidik',1,0) as sidik,
+if(penyelesaian='lidik',1,0) as lidik
+from lap_a where  month(tanggal) = 3 and year(tanggal) = 2017
+union 
+select 'b' as tb, id_gol_kejahatan, month(tanggal) bulan, year(tanggal) tahun,
+if(penyelesaian='p21',1,0) as p21,
+if(penyelesaian='dihentikan' and alasan='tidakcukupbukti' ,1,0) as tcb,
+if(penyelesaian='dihentikan' and alasan='bukanpkrpidana' ,1,0) as bpp,
+if(penyelesaian='dihentikan' and alasan='aduandicabut' ,1,0) as adc,
+if(penyelesaian='dihentikan' and alasan='nebisinidem' ,1,0) as nii,
+if(penyelesaian='dihentikan' and alasan='tskmati' ,1,0) as tm,
+if(penyelesaian='dihentikan' and alasan='tskgila' ,1,0) as tg,
+if(penyelesaian='dihentikan' and alasan='kadaluarsa' ,1,0) as exp,
+if(penyelesaian='sidik',1,0) as sidik,
+if(penyelesaian='lidik',1,0) as lidik
+from lap_b where month(tanggal) = 3 and year(tanggal) = 2017</string>
 		<string>select id_gol_kejahatan, month(tanggal) bulan, 
 if(penyelesaian='p21',1,0) as p21
 from lap_a</string>
 		<string>select month(tanggal) bulan, 
 if(penyelesaian='p21',1,0) as p21
 from lap_a</string>
-		<string>select month(tanggal), 
-if(penyelesaian='p21',1,0) as p21
-from lap_a</string>
-		<string>select month(tanggal) from lap_a</string>
-		<string>select gk.golongan_kejahatan, ifnull(md,0)  md ,  ifnull(lr,0) lr,  ifnull(lb,0) lb, ifnull(kejadian,0) kejadian, ifnull(kerugian,0) as kerugian
-from m_golongan_kejahatan gk 
-join ( 
-
-select d.id_gol_kejahatan, 
-sum((korban_mati_l + korban_mati_p )) md, 
-sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
-sum((korban_luka_berat_l +  korban_luka_berat_p)) lb,
-count(*) as kejadian, 
-sum(d.korban_seluruh_jumlah) as kerugian 		
-from m_golongan gol 
-		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
-		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
-
-join lap_d d  on d.id_gol_kejahatan = gk.id
-where d.tanggal between '2017-03-1' and '2017-03-31'
-group by gk.id ) x 
-on gk.id = x.id_gol_kejahatan</string>
-		<string>select * from m_golongan_kejahatan gk 
-join ( 
-
-select d.id_gol_kejahatan, 
-sum((korban_mati_l + korban_mati_p )) md, 
-sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
-sum((korban_luka_berat_l +  korban_luka_berat_p)) lb,
-count(*) as kejadian, 
-sum(d.korban_seluruh_jumlah) as kerugian 		
-from m_golongan gol 
-		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
-		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
-
-join lap_d d  on d.id_gol_kejahatan = gk.id
-where d.tanggal between '2017-03-1' and '2017-03-31'
-group by gk.id ) x 
-on gk.id = x.id_gol_kejahatan</string>
-		<string>select d.id_gol_kejahatan, 
-sum((korban_mati_l + korban_mati_p )) md, 
-sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
-sum((korban_luka_berat_l +  korban_luka_berat_p)) lb,
-count(*) as kejadian, 
-sum(d.korban_seluruh_jumlah) as kerugian 		
-from m_golongan gol 
-		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
-		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
-
-join lap_d d  on d.id_gol_kejahatan = gk.id
-where d.tanggal between '2017-03-1' and '2017-03-31'
-group by gk.id</string>
-		<string>select d.id_gol_kejahatan, gol.golongan, kel.kelompok, gk.golongan_kejahatan,   
-sum((korban_mati_l + korban_mati_p )) md, 
-sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
-sum((korban_luka_berat_l +  korban_luka_berat_p)) lb,
-count(*) as kejadian, 
-sum(d.korban_seluruh_jumlah) as kerugian 		
-from m_golongan gol 
-		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
-		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
-
-join lap_d d  on d.id_gol_kejahatan = gk.id
-where d.tanggal between '2017-03-1' and '2017-03-31'
-group by gk.id</string>
-		<string>select d.id_gol_kejahatan, gol.golongan, kel.kelompok, gk.golongan_kejahatan,   
-sum((korban_mati_l + korban_mati_p )) md, 
-sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
-sum((korban_luka_berat_l +  korban_luka_berat_p)) lb,
-count(*) as kejadian 		
-from m_golongan gol 
-		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
-		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
-
-join lap_d d  on d.id_gol_kejahatan = gk.id
-where d.tanggal between '2017-03-1' and '2017-03-31'
-group by gk.id</string>
-		<string>select d.id_gol_kejahatan, gol.golongan, kel.kelompok, gk.golongan_kejahatan,   
-sum((korban_mati_l + korban_mati_p )) md, 
-sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
-sum((korban_luka_berat_l +  korban_luka_berat_p)) lb 		
-from m_golongan gol 
-		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
-		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
-
-join lap_d d  on d.id_gol_kejahatan = gk.id
-where d.tanggal between '2017-03-1' and '2017-03-31'
-group by gk.id</string>
-		<string>select gol.golongan, kel.kelompok, gk.golongan_kejahatan,   
-sum((korban_mati_l + korban_mati_p )) md, 
-sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
-sum((korban_luka_berat_l +  korban_luka_berat_p)) lb 		
-from m_golongan gol 
-		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
-		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
-
-join lap_d d  on d.id_gol_kejahatan = gk.id
-where d.tanggal between '2017-03-1' and '2017-03-31'
-group by gk.id</string>
-		<string>select gol.golongan, kel.kelompok, gk.golongan_kejahatan,   
-sum((korban_mati_l + korban_mati_p )) md, 
-sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
-sum((korban_luka_berat_l +  korban_luka_berat_p)) lb 		
-from m_golongan gol 
-		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
-		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
-
-join lap_d d  on d.id_gol_kejahatan = gk.id
-group by gk.id
-where d.tanggal between '2017-03-1' and '2017-03-31'</string>
-		<string>select gol.golongan, kel.kelompok, gk.golongan_kejahatan,   
-sum((korban_mati_l + korban_mati_p )) md, 
-sum((korban_luka_ringan_l +  korban_luka_ringan_p)) lr,  
-sum((korban_luka_berat_l +  korban_luka_berat_p)) lb 		
-from m_golongan gol 
-		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
-		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
-
-join lap_d d  on d.id_gol_kejahatan = gk.id
-group by gk.id</string>
-		<string>select gol.golongan, kel.kelompok, gk.golongan_kejahatan,   (korban_mati_l + korban_mati_p ) md, 
-(korban_luka_ringan_l +  korban_luka_ringan_p) lr,  
-(korban_luka_berat_l +  korban_luka_berat_p) lb 		from m_golongan gol 
-		join m_kelompok_kejahatan kel on kel.id_golongan = gol.id 
-		join m_golongan_kejahatan gk on gk.id_kelompok = kel.id_kelompok 
-
-join lap_d d  on d.id_gol_kejahatan = gk.id</string>
-		<string>select   (korban_mati_l + korban_mati_p ) md, 
-(korban_luka_ringan_l +  korban_luka_ringan_p) lr,  
-(korban_luka_berat_l +  korban_luka_berat_p) lb 
-
-from 
-
-lap_d d</string>
-		<string>select d.id_gol_kejahatan, tanggal, korban_mati_l , korban_mati_p,  (korban_mati_l + korban_mati_p ) md, 
-korban_luka_ringan_l, korban_luka_ringan_p, (korban_luka_ringan_l +  korban_luka_ringan_p) lr,  
-korban_luka_berat_l, korban_luka_berat_p, (korban_luka_berat_l +  korban_luka_berat_p) lb 
-
-from 
-
-lap_d d</string>
-		<string>select d.id_gol_kejahatan, tanggal, korban_mati_l , korban_mati_p
-
-from 
-
-lap_d d</string>
-		<string>select d.id_gol_kejahatan, tanggal
-
-from 
-
-lap_d d</string>
-		<string>select d.id_gol_kejahatan
-
-from 
-
-lap_d d</string>
-		<string>select * from 
-
-lap_d d</string>
 	</array>
 	<key>rdbms_type</key>
 	<string>mysql</string>

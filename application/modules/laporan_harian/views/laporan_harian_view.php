@@ -9,6 +9,7 @@
 <!-- <script src="<?php echo base_url('assets/highcharts/highcharts.js'); ?>"></script> -->
 <script type="text/javascript">
    $(document).ready(function(){
+    
     $(".tanggal").datepicker()
     .on('changeDate', function(ev){                 
         $(this).datepicker('hide');

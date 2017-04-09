@@ -2,9 +2,9 @@
    $(document).ready(function(){
    
 
-   $('<p>').appendTo('#sleman').text('SELEMAN').css({position:'absolute',
-                                                 top:'100px',
-                                                 left:'70px'});
+   // $('<p>').appendTo('#sleman').text('SELEMAN').css({position:'absolute',
+   //                                               top:'100px',
+   //                                               left:'70px'});
 
 
 
@@ -13,6 +13,30 @@
         $(this).datepicker('hide');
     });
    
+
+
+$(".ma").on("click", function(e){
+    e.preventDefault();
+    
+    fdata = $("#frmlaporan").serialize();
+ 
+    vid = $(this).prop('id');
+
+    $.ajax({
+
+      url : '<?php echo site_url("$this->controller/get_data_per_polsek") ?>/'+vid,
+      data : fdata,
+      
+      success : function(obj) {
+
+      }
+
+    });
+
+
+    // alert('id '+ vid);
+
+});
 
 $("#peta").hide();
 
@@ -98,48 +122,20 @@ function tampildata(){
         $("#peta").show();
 
         $("#sleman").prop('title',  'SLEMAN =  ' +  obj.a34_4);
-        $("#wonosari").prop('title',  'GUNUNG KIDUL ' +  obj.a34_3);
-        $("#jogja").prop('title',  'KOTA JOGJA ' +  obj.a34_71);
-        $("#bantul").prop('title',  'BANTUL ' +  obj.a34_2);
-        $("#wates").prop('title',  'KULON PROGO '  + obj.a34_1);
+        $("#wonosari").prop('title',  'GUNUNG KIDUL = ' +  obj.a34_3);
+        $("#jogja").prop('title',  'KOTA JOGJA = ' +  obj.a34_71);
+        $("#bantul").prop('title',  'BANTUL = ' +  obj.a34_2);
+        $("#wates").prop('title',  'KULON PROGO = '  + obj.a34_1);
 
 
-$("#td_jogja").html(obj.a34_71);
-$("#td_bantul").html(obj.a34_2);
-$("#td_sleman").html(obj.a34_4);
-$("#td_gunung_kidul").html(obj.a34_3);
-$("#td_kulon_progo").html(obj.a34_1);
+        $("#td_jogja").html(obj.a34_71);
+        $("#td_bantul").html(obj.a34_2);
+        $("#td_sleman").html(obj.a34_4);
+        $("#td_gunung_kidul").html(obj.a34_3);
+        $("#td_kulon_progo").html(obj.a34_1);
 
 
-
-    //     var image = $('#petajogja');
-
-
-
-    // image.mapster(
-    // {
-    //     fillOpacity: 0.1,
-    //     fillColor: "d42e16",
-    //     isSelectable: false,
-    //     singleSelect: true,
-    //     mapKey: 'name',
-    //     listKey: 'name',
-    //     toolTipContainer: '<div style="width:100px; height:100px; color:#BBBBBB"> </div>',       
-    //     showToolTip: true,
-    //     toolTipClose: ["image-mouseout"],
-    //     areas: [    {
-    //                 key: "sleman",
-    //                 toolTip: obj.a34_4
-    //                 },
-                        
-    //                 { 
-    //                 key: "wonosari",
-    //                 toolTip: obj.a34_3
-    //                 }]
-    // })
-    //     .mapster('tooltip','sleman');
-
-
+ 
 
 
 

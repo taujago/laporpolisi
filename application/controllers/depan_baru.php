@@ -12,7 +12,7 @@ class depan_baru extends master_controller  {
 		// $this->set_content("WELCOME");
 		// $this->render_baru();
 
-		$content = $this->load->view("depan_view",array(),true);
+		$content = $this->load->view("op_depan_view",array(),true);
 
 		$this->set_subtitle("SELAMAT DATANG");
 		$this->set_title("SELAMAT DATANG");

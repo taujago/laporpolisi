@@ -31,8 +31,30 @@ function get_laporan(){
 
 	echo json_encode($data['stat']);
 
-	//$this->load->view("laporan_per_lokasi_view_map",$data);
+	 
 }
+
+
+function get_data_per_polsek($id_polsek){
+	$data = $this->input->get();
+
+	$arr = array(
+
+			"sleman"  =>  "a34_4",
+			"wonosari"  => "a34_3",
+			"jogja"  => "a34_71",
+			"bantul"  => "a34_2",
+			"wates"  => "a34_1"		
+
+	);
+	$data['id_polres'] = $arr[id_polsek];
+	
+
+
+
+}
+
+
  
 }
 ?>

@@ -12,7 +12,7 @@ class index_admindik extends admindik_controller  {
 		// $this->set_content("WELCOME");
 		// $this->render_baru();
 
-		$content = $this->load->view("depan_view",array(),true);
+		$content = $this->load->view("admindik_depan_view",array(),true);
 
 		$this->set_subtitle("ADMINISTRATOR PENYIDIK DASHBOARD");
 		$this->set_title("ADMINISTRATOR PENYIDIK DASHBOARD");

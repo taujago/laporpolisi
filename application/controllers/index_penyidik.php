@@ -12,7 +12,7 @@ class index_penyidik extends penyidik_controller  {
 		// $this->set_content("WELCOME");
 		// $this->render_baru();
 
-		$content = $this->load->view("depan_view",array(),true);
+		$content = $this->load->view("penyidik_depan_view",array(),true);
 
 		$this->set_subtitle("PENYIDIK DASHBOARD");
 		$this->set_title("PENYIDIK DASHBOARD");

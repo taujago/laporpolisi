@@ -4,9 +4,12 @@
 <head>
     <meta charset="utf-8">
     <link rel="shortcut icon" href="<?php echo base_url("assets/images/favicon.ico"); ?>" />
-    <title>SISTEM PENCATATAN LAPORAN POLISI & PENYIDIKAN</title>
+    <title>SISTEM PENCATATAN LAPORAN POLISI &amp; PENYIDIKAN</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="<?php echo base_url("assets") ?>/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="<?php echo base_url("assets") ?>/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
     <style type="text/css">
     body{padding-top:20px;}    </style>
    
@@ -52,35 +55,114 @@
 		  
         });
     </script>
+
+<style type="text/css">
+ 
+	
+ body {
+ 	margin-top: 20px;
+ 	background-image: url('<?php echo base_url()."/assets/images/bg.jpg" ?>');
+ 	background-size: 80%;
+ 	width: 100%;
+ }
+
+/*#logo {
+ 	height: 70%;
+    width: 70%;
+}*/
+
+#collogo {
+display: block;  
+  margin-right: auto;  
+  margin-left: auto;  
+  text-align: center;
+}
+#textlogo {
+	text-align: center;
+	color: white;
+}
+
+.txtbox {
+  
+   background-color:  rgba(255, 255, 255, 0.6);
+   border:none;
+   color: #000;
+
+}
+
+.txtbox::-webkit-input-pl	aceholder, .txtbox:-moz-placeholder
+ {
+	color: red;
+}
+
+</style>
+
 </head>
 <body>
+
+<div class="row">
+	<div class="col-md-5">
+	</div>
+    <div class="col-md-2" id="collogo">
+    	<img align="center" id="logo" src="<?php echo base_url()."/assets/images/polda_diy.png" ?>" >
+
+
+    </div>
+</div>
+
+<div class="row">
+<div class="col-md-3">
+	</div>
+<div class="col-md-6" id="textlogo" >
+<H4>LAPORAN POLISI </H4>
+<H4>POLISI DAERAH DAERAH ISTIMEWA YOGYAKARTA</H4>
+    	</div>
+</div>
+
+
+
 	<div class="container">
-    <div class="row" style="height:100px">
+    <div class="row">
     </div>
     
-    
+    <p></p>
     <div class="row">
 		<div class="col-md-4 col-md-offset-4">
-    		<div class="panel panel-primary">
-			  	<div class="panel-heading">
-			    	<h3 class="panel-title">LOGIN APLIKASI</h3>
-			 	</div>
-			  	<div class="panel-body">
+    		 
 			    	<form method="post" id="fm-login" accept-charset="UTF-8" role="form">
                     <fieldset>
 			    	  	<div class="form-group">
-			    		    <input id="username" class="form-control" placeholder="Username" name="username" type="text">
+
+			    		    <div class="input-group">
+			    		    <span class="input-group-addon btn-default">
+			    		    	<i class="fa fa-user"></i>
+			    		    </span>
+			    		    <input id="username" class="form-control txtbox input-lg" placeholder="Username" name="username" type="text">
+
+			    		    </div>
+
 			    		</div>
 			    		<div class="form-group">
-			    			<input class="form-control" placeholder="Password" name="password" type="password" value="" id="password">
+
+			    			<div class="input-group">
+			    		    <span class="input-group-addon btn-default">
+			    		    	<i class="fa fa-key"></i>
+			    		    </span>
+			    			<input class="form-control txtbox input-lg" placeholder="Password" name="password" type="password" value="" id="password">
+			    			</div>
 			    		</div>
 			    		 
-			    		<input class="btn btn-lg btn-success btn-block" 
-                        type="submit" value="Login">
-			    	</fieldset>
+
+			    		<button type="submit"  class="btn btn-lg btn-default btn-block">
+			    			<span class="fa fa-sign-in"></span>
+			    		MASUK 
+			    		</button>
+
+			    		<!-- <input class="btn btn-lg btn-default btn-block" 
+                        type="submit" value="MASUK"> -->
+			    	 
 			      	</form>
-			    </div>
-			</div>
+			 
 		</div>
 	</div>
     
