@@ -3,6 +3,7 @@ class depan_baru extends master_controller  {
 	function depan_baru(){
 		parent::__construct();
 		// echo "pilihan ".$this->session->userdata("pilihan"); exit;
+		$this->load->model("coremodel","cm");
 	}
 	
 	

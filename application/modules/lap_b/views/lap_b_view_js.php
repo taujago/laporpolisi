@@ -47,6 +47,7 @@ $(".tanggal").datepicker()
 				 dt.column(1).search(tanggal_awal)
 				 .column(2).search(tanggal_akhir)
 				 .column(3).search(id_fungsi)
+				 .column(4).search($("#pelapor_nama").val())
 				 .draw();
 
 				 return false;
@@ -60,8 +61,8 @@ $(".tanggal").datepicker()
 function hapus(id){
 
 BootstrapDialog.show({
-            message : 'ANDA AKAN MENGHAPUS DATA PANGKAT. ANDA YAKIN  ?  ',
-            title: 'KONFIRMASI HAPUS DATA PANGKAT',
+            message : 'ANDA AKAN MENGHAPUS DATA LP. ANDA YAKIN  ?  ',
+            title: 'KONFIRMASI HAPUS DATA LP',
             draggable: true,
             buttons : [
               {
@@ -120,6 +121,7 @@ function reset_cari(){
 
 $("#tanggal_awal").val('');
 $("#tanggal_akhir").val('');
+$("#pelapor_nama").val('');
 $("#id_fungsi").val(0).attr('selected','selected');
 $("#cari_button").click();
 return false;

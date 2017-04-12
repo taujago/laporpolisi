@@ -29,7 +29,7 @@
     </tr>
     <tr>
       <td width="161">Nomor</td>
-      <td width="516"><input readonly="readonly" type="text" class="form-control" name="nomor" id="nomor" placeholder="(auto generated)" /></td>
+      <td width="516"><input   type="text" class="form-control" name="nomor" id="nomor" placeholder="Nomor LP" /></td>
     </tr>
     <tr>
       <td width="161">Jam Dilaporkan</td>

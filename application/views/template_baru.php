@@ -198,16 +198,16 @@
     <div class="collapse navbar-collapse" style="padding-left: 0px;">       
       <ul class="nav navbar-nav">
         <li class="active"><a href="<?php echo site_url("depan_baru"); ?>">HOME</a></li>
-        <li>
+        <!-- <li>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           DATA MASTER<b class="caret"></b></a>
           <ul class="dropdown-menu multi-level">
                 <li><a href="<?php echo site_url("master_pangkat"); ?>">PANGKAT</a></li>
-               <!--  <li><a href="<?php echo site_url("master_pelaksana"); ?>">PELAKSANA</a></li> -->
+              
                  <li><a href="<?php echo site_url("pasal"); ?>">PASAL</a></li>
                 
            </ul>
-        </li>
+        </li> -->
         
         <li>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">LAPORAN<b class="caret"></b></a>
@@ -248,12 +248,22 @@
 
         <ul class="nav navbar-nav navbar-right">
 
-          <?php 
+        <?php 
           $userdata = $_SESSION['userdata'];
+
+          if($userdata['jenis']=="polres") {
+               $inst =  $this->cm->get_detail_polres($userdata['id_polres']);
+          }
+          if($userdata['jenis']=="polsek") {
+               $inst =  $this->cm->get_detail_polsek($userdata['id_polsek']);
+          }
+          if($userdata['jenis']=="polda") {
+               $inst =  ' D.I.Y';
+          }
 
         ?>
         
-        <li class="dropdown" ><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo strtoupper($userdata['jenis'])." - ". $userdata['user_id']. " ". $userdata['nama'] ?><span class="caret"></span></a>
+        <li class="dropdown" ><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo strtoupper($userdata['jenis'])." $inst "." - ". $userdata['user_id']. " ". $userdata['nama'] ?><span class="caret"></span></a>
         <ul class="dropdown-menu">
         <li><a href="<?php echo site_url("login/logout"); ?>">GANTI PASSWORD USER </a></li>
         <li><a href="<?php echo site_url("login/logout"); ?>">KELUAR</a></li>

@@ -45,7 +45,7 @@
                
 
 
-              <tr><td>Tingkat User</td>
+              <!-- <tr><td>Tingkat User</td>
               <TD>
               <?php 
               $arr_jenis = array("polda"=>"POLDA","polres"=>"POLRES","polsek"=>"POLSEK");
@@ -70,7 +70,7 @@
               
               echo form_dropdown("id_polsek",array(),'','class="form-control" id="id_polsek"');
               ?>
-              </TD></tr>
+              </TD></tr> -->
 
 
 

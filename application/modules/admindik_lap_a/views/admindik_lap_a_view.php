@@ -100,6 +100,23 @@
                       </div>
 
                       <div class="form-group">
+                         
+                        <input type="text" class="form-control" 
+                        id="pelapor_nama" placeholder="Nama pelapor"
+                        style="width:150px"
+                        name="pelapor_nama"  >
+                      </div>
+
+                      <div class="form-group">
+                         
+                        <input type="text" class="form-control" 
+                        id="nomor" placeholder="NOMOR LP"
+                        style="width:150px"
+                        name="nomor"  >
+                      </div>
+                      
+
+                      <div class="form-group">
                        <?php 
 
             $arr_fungsi = $this->cm->get_arr_dropdown("m_fungsi", 

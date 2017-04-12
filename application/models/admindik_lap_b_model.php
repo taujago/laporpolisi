@@ -14,7 +14,23 @@ function data($param){
 
 	$sort_by = $arr_column[$param['sort_by']];
 
-	$this->db->select('*')->from('v_lap_b'); 
+	$this->db->select('*')->from('v_lap_bb'); 
+	$this->db->join('pengguna u','v_lap_bb.user_id = u.id');
+	 
+
+	$userdata = $_SESSION['userdata'];
+
+	if($userdata['jenis']=="polres") {
+		$this->db->where("u.id_polres",$userdata['id_polres']);
+	}
+	if($userdata['jenis']=="polsek") {
+		$this->db->where("u.id_polsek",$userdata['id_polsek']);
+	}
+
+
+	$this->db->where("u.jenis",$userdata['jenis']);
+	 
+
 
 
 				// "tanggal_awall" => $tanggal_awal, 
@@ -30,6 +46,18 @@ function data($param){
     if($param['id_fungsi'] > 0 ){
     	$this->db->where("id_fungsi",$param['id_fungsi']);
     }
+
+    if($param['pelapor_nama'] <> '' ){
+    	$x = $param['pelapor_nama'];
+    	$this->db->where("pelapor_nama like '%$x%'",null,false);
+    }
+
+    if($param['nomor'] <> '' ){
+    	$x = $param['nomor'];
+    	$this->db->where("nomor like '%$x%'",null,false);
+    }
+
+
 
 
 
@@ -266,9 +294,24 @@ function get_data_penyidik($param){
 
 function get_arr_data_penyidik(){
 	 
+	$userdata = $_SESSION['userdata'];
 
 	$this->db->where("level","2");
 	$this->db->order_by("nama");
+
+	if($userdata['jenis']=='polres'){
+		$this->db->where("id_polres",$userdata['id_polres']);
+
+	}
+	if($userdata['jenis']=='polsek'){
+
+		$this->db->where("id_polsek",$userdata['id_polsek']);
+	}
+	
+
+	$this->db->where("jenis",$userdata['jenis']);
+
+
 	$res = $this->db->get("pengguna a");
 
 

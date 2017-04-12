@@ -38,6 +38,8 @@ $(document).ready(function(){
 				 dt.column(1).search(tanggal_awal)
 				 .column(2).search(tanggal_akhir)
 				 .column(3).search(id_fungsi)
+				 .column(4).search($("#pelapor_nama").val())
+				 .column(5).search($("#nomor").val())
 				 .draw();
 
 				 return false;
@@ -48,7 +50,16 @@ $(document).ready(function(){
 	
 });
 
+function reset_cari(){
 
+$("#tanggal_awal").val('');
+$("#tanggal_akhir").val('');
+$("#id_fungsi").val(0).attr('selected','selected');
+$("#pelapor_nama").val('')
+$("#nomor").val('')
+$("#cari_button").click();
+return false;
 
+}
 
 </script>

@@ -33,6 +33,19 @@ function data($param){
 
 	extract($param); 
 
+	if($userdata['jenis']=="polres"){
+		$this->db->where("a.id_polres",$userdata['id_polres']);
+	}
+	if ($userdata['jenis']=="polsek") {
+		$this->db->where("a.id_polsek",$userdata['id_polsek']);
+	}
+
+	if ($userdata['jenis']=="polda") {
+		$this->db->where("a.id_polda",$userdata['id_polda']);
+	}
+
+
+
 	//echo "level = $level";
 
 	// if($level <> 'x' ) {

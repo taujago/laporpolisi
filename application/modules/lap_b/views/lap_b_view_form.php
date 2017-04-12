@@ -2,6 +2,13 @@
 <link href="<?php echo base_url("assets") ?>/css/datepicker.css" rel="stylesheet">
 <link href="<?php echo base_url("assets") ?>/select2/dist/css/select2.min.css" rel="stylesheet">
 
+<link href="<?php echo base_url("assets") ?>/bootstrap-timepicker/css/datepicker.css" rel="stylesheet">
+
+
+
+
+
+
 
 <script src="<?php echo base_url("assets") ?>/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url("assets") ?>/js/bootstrap-datepicker.js"></script>
@@ -24,6 +31,8 @@
 
 
 
+
+
 <form id="formulir" method="post" action="<?php echo site_url("$controller/$action"); ?>">
 <table class='table table-bordered' width="100%">
       <tr class="separator"> <td colspan="2"> <b> LAP B</b>  </td> </tr>
@@ -34,7 +43,7 @@
 
               />        </td>
       <tr><td>Nomor </td>
-            <td><input readonly="readonly" type="text" class="form-control" name="nomor" id="nomor" placeholder="(auto generated)" />        </td>
+            <td><input   type="text" class="form-control" name="nomor" id="nomor" placeholder="Nomor LP" />        </td>
      
 
      <tr><td> Golongan Kejahatan</td>

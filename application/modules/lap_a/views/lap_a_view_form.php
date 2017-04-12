@@ -29,7 +29,7 @@
 
               />        </td>
       <tr><td>Nomor </td>
-            <td><input readonly="readonly" type="text" class="form-control" name="nomor" id="nomor" placeholder="(auto generated)" />        </td>
+            <td><input   type="text" class="form-control" name="nomor" id="nomor" placeholder="Nomor LP " />        </td>
      
 
        <tr><td> Golongan Kejahatan</td>

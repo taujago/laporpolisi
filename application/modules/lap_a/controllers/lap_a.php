@@ -140,7 +140,7 @@ function baru(){
 
 		$temp_lap_a_id = $this->session->userdata("temp_lap_a_id"); 
 		if($temp_lap_a_id == "") {
-			$xx = md5(date("dmyhis").round(0,100)); 
+			$xx = md5(date("dmyhis").round(0,100).microtime()); 
 			$this->session->set_userdata("temp_lap_a_id",$xx);
 			$temp_lap_a_id = $this->session->userdata("temp_lap_a_id"); 
 		}
@@ -242,9 +242,9 @@ function simpan(){
 			$userdata = $this->userdata;
 			$data['user_id'] = $userdata['id'];
 
-			unset($data['nomor']);
+			// unset($data['nomor']);
 
-			$data['nomor'] = $this->cm->get_lap_number($this->controller,$data);
+			// $data['nomor'] = $this->cm->get_lap_number($this->controller,$data);
 
 			// echo "Nomor ".$data['nomor']; 
 			// exit;
@@ -285,6 +285,11 @@ function simpan(){
 			 	$this->session->unset_userdata("temp_lap_a_id");
 
 			 	$ret = array("error"=>false,"message"=>"data laporan MODEL-A berhasil disimpan");
+
+			 	$xx = md5(date("dmyhis").round(0,100).microtime()); 
+				$this->session->set_userdata("temp_lap_a_id",$xx);
+
+
 			 }
 			 else {
 			 	$ret = array("error"=>true,"message"=>$this->db->_error_message());

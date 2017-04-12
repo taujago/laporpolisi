@@ -17,7 +17,7 @@
           <td width="64%"><input type="text" class="tanggal form-control" name="tanggal" id="tanggal" placeholder="Tanggal" data-date-format="dd-mm-yyyy" />        </td>
       <tr>
         <td colspan="2">Nomor </td>
-        <td><input readonly="readonly" type="text" class="form-control" name="nomor" id="nomor" placeholder="(auto generated)" />   </td>
+        <td><input   type="text" class="form-control" name="nomor" id="nomor" placeholder="Nomor LP" />   </td>
       <tr>
 
 

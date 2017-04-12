@@ -3,6 +3,7 @@ class index_penyidik extends penyidik_controller  {
 	function index_penyidik(){
 		parent::__construct();
 		// echo "pilihan ".$this->session->userdata("pilihan"); exit;
+		$this->load->model("coremodel","cm");
 	}
 	
 	

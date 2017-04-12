@@ -365,6 +365,19 @@ function get_arr_gol_kejahatan(){
 
 }
  
+function get_detail_polres($id_polres) {
+  $this->db->where("id_polres",$id_polres);
+  $data = $this->db->get("m_polres")->row();
+  // echo $this->db->last_query(); 
+  return $data->nama_polres;
+
+}
+
+function get_detail_polsek($id_polsek) {
+   $this->db->where("id_polsek",$id_polsek);
+  $data = $this->db->get("m_polsek")->row();
+  return $data->nama_polsek;
+}
 
 }
 ?>

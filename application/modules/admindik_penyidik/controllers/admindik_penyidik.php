@@ -48,12 +48,15 @@ function get_data(){
 
 
       //  order[0][column]
+
+        $userdata = $_SESSION['userdata'];
         $req_param = array (
 				"sort_by" => $sidx,
 				"sort_direction" => $sord,
 				"limit" => null,
 				"nama" =>$nama,
-				"level"=>($level == "")?"x":$level
+				"level"=>($level == "")?"x":$level,
+				"userdata" => $userdata
 				 
 		);     
            
@@ -173,6 +176,11 @@ function cek_user_id($user_id) {
 }
 
 function simpan(){
+
+
+
+
+
 		$data=$this->input->post();
 		
 		$this->load->library('form_validation');
@@ -192,6 +200,26 @@ function simpan(){
 			$data['user_pass'] = md5($data['user_pass']);
 
 			$data['level'] = 2;
+			$data['id'] = md5(microtime());
+
+
+
+			$userdata = $_SESSION['userdata'];
+
+			if($userdata['jenis'] == "polda") {
+				$data['jenis'] = 'polda';
+
+			}
+			if($userdata['jenis'] == "polres") {
+				$data['jenis'] = 'polres';
+				$data['id_polres'] = $userdata['id_polres'];
+			}
+			if($userdata['jenis'] == "polsek") {
+				$data['jenis'] = 'polsek';
+				$data['id_polsek'] = $userdata['id_polsek'];
+			}
+
+
 
 			 $res = $this->db->insert("pengguna",$data);
 			 if($res) {

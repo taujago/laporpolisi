@@ -17,10 +17,11 @@ class admindik_lap_b extends admindik_controller {
 
 	function index(){
 		// echo "fuckkk.."; exit;
-		$userdata = $this->session->userdata("userdata");
+		$userdata = $this->userdata;
 
 		$controller = get_class($this);
 
+        //show_array($userdata); exit;
 
 		// $data['leasing_id'] = $userdata['leasing_id'];
 		 
@@ -46,7 +47,8 @@ class admindik_lap_b extends admindik_controller {
 
 function get_data(){
 		$controller = get_class($this);
-	 	$userdata = $this->session->userdata("userdata");
+	 	//$userdata = $this->session->userdata("userdata");
+        $userdata = $this->userdata;
       	$draw = $_REQUEST['draw']; // get the requested page 
     	$start = $_REQUEST['start'];
         $limit = $_REQUEST['length']; // get how many rows we want to have into the grid 
@@ -57,6 +59,8 @@ function get_data(){
         $tanggal_awal = $_REQUEST['columns'][1]['search']['value'];
         $tanggal_akhir = $_REQUEST['columns'][2]['search']['value'];
         $id_fungsi = $_REQUEST['columns'][3]['search']['value'];
+        $nomor = $_REQUEST['columns'][5]['search']['value'];
+        $pelapor_nama = $_REQUEST['columns'][4]['search']['value'];
 
 
       //  order[0][column]
@@ -66,7 +70,10 @@ function get_data(){
 				"limit" => null ,
 				"tanggal_awal" => $tanggal_awal, 
 				"tanggal_akhir" => $tanggal_akhir, 
-				"id_fungsi" => $id_fungsi 
+				"id_fungsi" => $id_fungsi, 
+                "userdata" => $userdata,
+                "nomor" =>$nomor,
+                "pelapor_nama"=>$pelapor_nama
 				 
 		);     
            

@@ -7,6 +7,10 @@
       </div>
       <div class="modal-body">
         
+
+<!-- <a href="#" onclick="copypelapor()" >Salin data pelapor </a> -->
+
+
 <form action="" id="form_korban" method="post">
             <table width="100%"  class='table table-bordered'>
               <tr>
@@ -19,7 +23,7 @@
               <TD>
               <?php 
                 $arr_jk = array("L"=>"Laki-laki","P"=>"Perempuan");
-                echo form_dropdown("korban_jk",$arr_jk,'','id="tersangja_jk" class="form-control"');
+                echo form_dropdown("korban_jk",$arr_jk,'','id="korban_jk" class="form-control"');
               ?>
               </TD></tr>
 
@@ -107,7 +111,7 @@
               <tr><td>Residivis ? </td>
               <TD>
               <?php 
-                  $arr_rsdv = array("ya"=>"Ya","tidak"=>"Tidak");
+                  $arr_rsdv = array("tidak"=>"Tidak","ya"=>"Ya");
 
                   echo form_dropdown("korban_residivis",$arr_rsdv,'','id="tesangka_residivis" class="form-control"');                ?>
                 

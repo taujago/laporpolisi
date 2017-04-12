@@ -31,6 +31,12 @@ function data($param){
     	$this->db->where("id_fungsi",$param['id_fungsi']);
     }
 
+    if($param['pelapor_nama'] != "" ){
+    	$pelapor_nama = $param['pelapor_nama'];
+    	$this->db->where("pelapor_nama like '%$pelapor_nama%'",null,false);
+    }
+
+
 
     if($param['userdata']['jenis']=="polres") {
     	$this->db->where("id_polres",$param['userdata']['id_polres']); 

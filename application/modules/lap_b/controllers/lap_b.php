@@ -58,6 +58,7 @@ function get_data(){
         $tanggal_awal = $_REQUEST['columns'][1]['search']['value'];
         $tanggal_akhir = $_REQUEST['columns'][2]['search']['value'];
         $id_fungsi = $_REQUEST['columns'][3]['search']['value'];
+        $pelapor_nama = $_REQUEST['columns'][4]['search']['value'];
 
 
       //  order[0][column]
@@ -68,7 +69,8 @@ function get_data(){
 				"tanggal_awal" => $tanggal_awal, 
 				"tanggal_akhir" => $tanggal_akhir,
 				"id_fungsi" => $id_fungsi, 
-				"userdata" => $this->userdata 
+				"userdata" => $this->userdata ,
+				"pelapor_nama" => $pelapor_nama
 				 
 		);     
            
@@ -138,7 +140,7 @@ function baru(){
 
 		$temp_lap_b_id = $this->session->userdata("temp_lap_b_id"); 
 		if($temp_lap_b_id == "") {
-			$xx = md5(date("dmyhis").round(0,100)); 
+			$xx = md5(date("dmyhis").round(0,100).microtime()); 
 			$this->session->set_userdata("temp_lap_b_id",$xx);
 			$temp_lap_b_id = $this->session->userdata("temp_lap_b_id"); 
 		}
@@ -237,9 +239,9 @@ function simpan(){
 			$data['user_id'] = $userdata['id'];
 			// $data['tanggal'] = flipdate($data['tanggal']);
 
-			unset($data['nomor']);
+			// unset($data['nomor']);
 
-			$data['nomor'] = $this->cm->get_lap_number($this->controller,$data);
+			// $data['nomor'] = $this->cm->get_lap_number($this->controller,$data);
 
 			// echo "bangkeehh..";
 			// echo $data['nomor']; 
@@ -301,6 +303,9 @@ function simpan(){
 
 
 			 	$ret = array("error"=>false,"message"=>"data laporan MODEL-B berhasil disimpan");
+
+			 	$xx = md5(date("dmyhis").round(0,100).microtime()); 
+				$this->session->set_userdata("temp_lap_b_id",$xx);
 			 }
 			 else {
 			 	$ret = array("error"=>true,"message"=>$this->db->_error_message());
@@ -392,6 +397,7 @@ function edit($id){
 		$this->render_baru();
 	}
 function update(){
+		// sleep(2);
 		$data=$this->input->post();
 		
 		$this->load->library('form_validation');
@@ -1716,7 +1722,7 @@ function tmp_tersangka_simpan(){
 		$this->load->library('form_validation');
 		
 		$this->form_validation->set_rules('tersangka_nama','Nama','required'); 
-		$this->form_validation->set_rules('tersangka_id_desa','Desa','required'); 
+		// $this->form_validation->set_rules('tersangka_id_desa','Desa','required'); 
 		 
 		$this->form_validation->set_message('required', ' %s Harus diisi ');
 		
@@ -1725,12 +1731,16 @@ function tmp_tersangka_simpan(){
 			unset($data['tersangka_id']);
 			 
 
+			if($data['tersangka_id_desa']=='x' or $data['tersangka_id_desa']==""){
+				unset($data['tersangka_id_desa']);
+			}
+
 
 			$data['tersangka_tgl_lahir'] = flipdate($data['tersangka_tgl_lahir']);
 
 			$data['temp_lap_b_id'] = $temp_lap_b_id;
 			 
-
+			// show_array($data);
 			 
 			// $data['tanggal'] = flipdate($data['tanggal']);
 

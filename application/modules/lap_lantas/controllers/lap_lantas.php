@@ -144,7 +144,7 @@ function baru(){
 		$temp_lap_laka_lantas_id = $this->session->userdata("temp_lap_laka_lantas_id"); 
 
 		if($temp_lap_laka_lantas_id == "") {
-			$xx = md5(date("dmyhis").round(0,100)); 
+			$xx = md5(date("dmyhis").round(0,100).microtime()); 
 			$this->session->set_userdata("temp_lap_laka_lantas_id",$xx);
 			$temp_lap_laka_lantas_id = $this->session->userdata("temp_lap_laka_lantas_id"); 
 		}
@@ -239,9 +239,9 @@ function simpan(){
 			$userdata = $this->userdata;
 			$data['user_id'] = $userdata['id'];
 
-			unset($data['nomor']);
+			// unset($data['nomor']);
 
-			$data['nomor'] = $this->cm->get_lap_number($this->controller,$data);
+			// $data['nomor'] = $this->cm->get_lap_number($this->controller,$data);
 
 		 
 			$data['lap_laka_lantas_id'] = md5(microtime());
@@ -280,6 +280,9 @@ function simpan(){
 			 	
 
 			 	$ret = array("error"=>false,"message"=>"data laporan tipe Laka Lantas berhasil disimpan");
+
+			 	$xx = md5(date("dmyhis").round(0,100).microtime()); 
+				$this->session->set_userdata("temp_lap_laka_lantas_id",$xx);
 			 }
 			 else {
 			 	$ret = array("error"=>true,"message"=>$this->db->_error_message());

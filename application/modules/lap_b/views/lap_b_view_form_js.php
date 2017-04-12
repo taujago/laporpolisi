@@ -131,22 +131,31 @@ var dt_terlapor = $("#terlapor").DataTable(
 	
 	$("#formulir").submit(function(){
 
-		// $('#myPleaseWait').modal('show');
+		$('#myPleaseWait').modal('show');
 		
 		$.ajax({
 			url : $("#formulir").attr('action'),
 			data : $(this).serialize(),
 			dataType : 'json',
 			type : 'post',
+			error : function (a,b,c) {
+
+				BootstrapDialog.alert({
+			                type: BootstrapDialog.TYPE_DANGER,
+			                title: 'Error',
+			                message: 'Koneksi terputus'  
+			                 
+			    }); 
+			},
 			success : function(obj) {
 				$('#myPleaseWait').modal('hide');
 				 console.log(obj);
 				if(obj.error==false){
 					 	 
-					 	 BootstrapDialog.alert({
+					 	BootstrapDialog.alert({
 			                type: BootstrapDialog.TYPE_PRIMARY,
 			                title: 'Informasi',
-			                message: obj.message,
+			                message: obj.message 
 			                 
 			            });   
 						 
@@ -1285,6 +1294,36 @@ BootstrapDialog.show({
 }
 
 
+function copypelapor(){
+	$("#korban_nama").val($("#pelapor_nama").val());
+	$("#korban_jk").val($("#pelapor_jk").val()).attr('selected','selected');
+	
+	$("#korban_tmp_lahir").val($("#pelapor_nama").val());
+
+	$("#korban_tgl_lahir").val($("#pelapor_nama").val());
+	$("#korban_tmp_lahir").val($("#pelapor_nama").val());
+	$("#korban_id_agama").val($("#pelapor_nama").val());
+	$("#korban_id_pekerjaan").val($("#pelapor_nama").val());
+	$("#korban_email").val($("#pelapor_nama").val());
+	$("#korban_telpon").val($("#pelapor_nama").val());
+	$("#korban_id_pendidikan").val($("#pelapor_nama").val());
+	$("#korban_wn").val($("#pelapor_nama").val());
+	$("#korban_nik").val($("#pelapor_nama").val());
+
+	$("#korban_alamat").val($("#pelapor_nama").val());
+	$("#korban_id_provinsi").val($("#pelapor_nama").val());
+	$("#korban_id_kota").val($("#pelapor_nama").val());
+	$("#korban_id_kota").val($("#pelapor_nama").val());
+	$("#korban_id_kecamatan").val($("#pelapor_nama").val());
+	$("#korban_id_desa").val($("#pelapor_nama").val());
+	
+	 
+	
+
+
+
+
+}
 
 
 </script>

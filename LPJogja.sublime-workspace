@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"mar",
+				"margin-bottom"
+			],
+			[
+				"text-a",
+				"text-align"
+			],
+			[
+				"bag",
+				"background-image"
+			],
+			[
 				"st",
 				"style\tTag"
 			],
@@ -151,105 +163,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "application/modules/laporan_per_lokasi/models/laporan_lokasi_model.php",
-			"settings":
-			{
-				"buffer_size": 3265,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/firman/Desktop/spot.jogja.credential.txt",
-			"settings":
-			{
-				"buffer_size": 225,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "A. Polda \n1. Dit res krim Um\n    1. Admin staf bag binopsnal\n    2. Admin staf masing masing subdit berjumlah 4\n\n2. Dit reskrim sus\n    1. Admin staf bag binopsnal\n    2. Admin staf masing masing subdit berjumlah 4\n\n3. Dit res Narkoba\n    1. Admin staf bag binopsnal\n    2. Admin staf masing masing subdit berjumlah 3\n\nB. Polres Polres Jajaran Polda DIY : 5 Polres \n1. Sat reskrim\n    1. Admin staf KBO\n    2. Admin staf masing masing unit berjumlah 4\n\n2. Sat res Narkoba\n    1. Admin staf KBO\n    2. Admin staf masing masing unit berjumlah 2\n\nC. Polsek Polsek Jajaran Polda DIY : 80 Polsek  Unit reskrim\n   \n Admin unit reskrim4",
-			"settings":
-			{
-				"buffer_size": 629,
-				"line_ending": "Unix",
-				"name": "A. Polda"
-			}
-		},
-		{
-			"contents": "create or replace FUNCTION INSERT_KONVERSI_MKS2(vWilayah VARCHAR2)\n   RETURN VARCHAR2\nIS\n   C_NOBPKB           VARCHAR2 (40);\n   C_NO_RANGKA        VARCHAR2 (60);\n   C_NOMESIN          VARCHAR2 (60);\n   C_MERK             NUMBER;\n   C_TIPE             VARCHAR2 (100);\n   C_JENIS            NUMBER;\n   C_MODEL            NUMBER;\n   C_BHN_BAKAR        NUMBER;\n   C_WARNA            NUMBER;\n   C_JLRODA           VARCHAR2 (10);\n   C_THNBUAT          VARCHAR2 (10);\n   C_THNRAKIT         VARCHAR2 (10);\n   C_ISI_SILINDER     VARCHAR2 (10);\n   C_WARNA_TNKB       NUMBER;\n   C_NO_POLISI        VARCHAR2 (20);\n   C_NOPOLA           VARCHAR2 (4);\n   C_NOPOLB           VARCHAR2 (4);\n   C_NOPOLC           VARCHAR2 (4);\n   C_NAMA_PEMILIK     VARCHAR2 (100);\n   C_ALAMAT_PEMILIK   VARCHAR2 (255);\n   C_NOHP             VARCHAR2 (40);\n   C_NOFAKTUR         VARCHAR2 (100);\n   C_TGL_FAKTUR       VARCHAR2 (10);\n   C_WILAYAH          NUMBER;\n   C_WILAYAH_NAMA     VARCHAR2 (100);\n   v_code             VARCHAR2 (500);\n   v_errm             VARCHAR2 (500);\n   vl_jml             NUMBER;\n   vl_status          VARCHAR2 (255);\n   vl_jml_data        NUMBER;\n   v_counter number :=0;\n\n   CURSOR c\n   IS\n      SELECT NVL (A.NOBPKB, TRUNC (DBMS_RANDOM.VALUE (10000000, 99999999))) NOBPKB,\n             SUBSTR(A.NO_RANGKA,1,30),\n             SUBSTR(A.NOMESIN,1,30),\n             D.MERK_ID,\n             SUBSTR(A.TIPE,1,30),\n             NVL(E.MODEL_ID,45),\n             F.JENIS_ID,\n             B.BB_ID,\n             C.WARNA_ID,\n             A.JLRODA,\n             A.THNBUAT,\n             A.THNRAKIT,\n             A.ISI_SILINDER,\n             NVL(H.WARNATNKB_ID,1),\n             A.NO_POLISI,\n             A.NOPOLA,\n             A.NOPOLB,\n             A.NOPOLC,\n             A.NAMA_PEMILIK,\n             A.ALAMAT_PEMILIK,\n             A.NOHP,\n             A.NOFAKTUR,\n             CASE WHEN LENGTH(A.TGL_FAKTUR)=8 THEN A.TGL_FAKTUR\n                  ELSE NULL\n             END AS TGL_FAKTUR, \n             G.WILAYAH_ID,\n             G.WILAYAH_NAMA\n        FROM T_DATA_DISPENDA2 A\n             LEFT JOIN M_BAHANBAKAR B ON A.BHN_BAKAR = B.BB_NAMA\n             LEFT JOIN M_WARNA C ON A.WARNA = C.WARNA_NAMA\n             LEFT JOIN\n             M_MERK D\n                ON     A.MERK = D.MERK_NAMA\n                   AND D.R2 =\n                          (CASE\n                              WHEN A.MODEL = 'MB. PENUMPANG' THEN '0'\n                              WHEN A.MODEL = 'MB. BUS' THEN '0'\n                              WHEN A.MODEL = 'KEND. KHUSUS' THEN '0'\n                              WHEN A.MODEL = 'SPD. MOTOR' THEN '1'\n                              WHEN A.MODEL = 'MB. BARANG' THEN '0'\n                           END)\n             LEFT JOIN M_MODEL E ON A.MODEL = E.MODEL_NAMA\n             LEFT JOIN M_JENIS F\n                ON (CASE\n                       WHEN A.MODEL = 'MB. PENUMPANG' THEN 'MB PENUMPANG'\n                       WHEN A.MODEL = 'MB. BUS' THEN 'MB BUS'\n                       WHEN A.MODEL = 'KEND. KHUSUS' THEN 'RANSUS'\n                       WHEN A.MODEL = 'SPD. MOTOR' THEN 'SEPEDA MOTOR'\n                       WHEN A.MODEL = 'MB. BARANG' THEN 'MB BARANG'\n                    END) = F.JENIS_NAMA\n             LEFT JOIN M_WILAYAH G ON A.WILAYAH = G.WILAYAH_NAMA\n             LEFT JOIN M_WARNATNKB H ON A.WARNA_TNKB = H.WARNATNKB\n             WHERE A.WILAYAH=vWilayah AND A.STATUS IS NULL;\n   PRAGMA AUTONOMOUS_TRANSACTION;\nBEGIN\n   OPEN c;\n\n  v_counter := v_counter +1;\n   LOOP\n      vl_jml := 0;\n      vl_jml_data := 0;\n\n      FETCH c\n         INTO C_NOBPKB,\n              C_NO_RANGKA,\n              C_NOMESIN,\n              C_MERK,\n              C_TIPE,\n              C_MODEL,\n              C_JENIS,\n              C_BHN_BAKAR,\n              C_WARNA,\n              C_JLRODA,\n              C_THNBUAT,\n              C_THNRAKIT,\n              C_ISI_SILINDER,\n              C_WARNA_TNKB,\n              C_NO_POLISI,\n              C_NOPOLA,\n              C_NOPOLB,\n              C_NOPOLC,\n              C_NAMA_PEMILIK,\n              C_ALAMAT_PEMILIK,\n              C_NOHP,\n              C_NOFAKTUR,\n              C_TGL_FAKTUR,\n              C_WILAYAH,\n              C_WILAYAH_NAMA;\n\n      EXIT WHEN c%NOTFOUND;\n      \n      dbms_output.put_line('sedang proses data ke ' || v_counter || 'No rangka '|| C_NOBPKB  ||' dari ' || c%rowcount);\n      \n      SELECT COUNT(*) INTO vl_jml_data FROM T_BPKB_MASTER WHERE NO_RANGKA=C_NO_RANGKA;\n      IF vl_jml_data = 0 THEN\n         vl_status :=\n         BPKB_ADD2_REFERENSI_KONF (\n            9, --vBERKAS_ID\n            C_NOBPKB, --vNO_BPKB ***\n            TO_CHAR(SYSDATE,'yyyymmdd'), --vTGL_BPKB ***\n            C_TGL_FAKTUR, --vTGL_FAKTUR\n            C_NO_RANGKA, --vNO_RANGKA\n            C_NOMESIN, --vNO_MESIN\n            TRIM (C_NOPOLA || ' ' || C_NOPOLB || ' ' || C_NOPOLC), --vNO_POLISI\n            NULL, --vTPT_DAFTAR_STNK\n            NULL, --vTGL_DAFTAR_STNK\n            'NREG-KONFERSI-' || C_NOBPKB, --vNREG_BPKB\n            C_JLRODA, --vJML_RODA\n            C_THNBUAT, --vTHN_BUAT\n            C_THNRAKIT, --vTHN_RAKIT\n            NULL, --vJML_SUMBU\n            C_ISI_SILINDER, --vVOL_SILINDER\n            C_BHN_BAKAR, --vBB_ID\n            C_WARNA, --vWARNA_ID\n            C_MERK, --vMERK_ID\n            C_TIPE, --vTIPE\n            C_MODEL, --vMODEL_ID\n            C_JENIS, --vJENIS_ID\n            '-', --vNO_IDENTITAS ***\n            C_NAMA_PEMILIK, --vNAMA_PEMILIK\n            C_NOHP, --vNO_PONSEL\n            C_ALAMAT_PEMILIK, --vALAMAT_PEMILIK\n            '', --vKEL_ID\n            '', --vKEC_ID\n            '', --vKAB_ID\n            '', --vPROP_ID\n            '', --vKODE_POS\n            C_WILAYAH, --vWILAYAH_ID\n            '', --vPEKERJAAN_PEMILIK\n            '', --vNO_UJI_TIPE\n            '', --vNO_UJI_BERKALA\n            C_WARNA_TNKB, --vWARNATNKB_ID\n            C_WILAYAH_NAMA, --vTEMPAT_KELUAR\n            '', --vJD_ID\n            '', --vNO_PABEAN\n            '', --vTGL_PABEAN\n            '', --vPELABUHAN\n            '', --vIMPMTHD_ID\n            C_NOFAKTUR, --vNO_FAKTUR\n            '', --vNO_CKD\n            '', --vKETR_PABEAN\n            5, --vPRT_ID ***\n            '', --vNO_PIB\n            '', --vTGL_PIB\n            '', --vNAMA_IMPORTIR\n            '', --vPREVBPKB_ID\n            '', --vNO_PREVBPKB\n            '', --vTGL_PREVBPKB\n            '', --vNREG_PREVBPKB\n            '', --vTPT_KELUAR_PREVBPKB\n            '', --vNAMA_PREVPEMILIK\n            '', --vALAMAT_PREVPEMILIK\n            '', --vSEBAB_TDKBERLAKU\n            '', --vSEBAB_TDKBERLAKU_CODE\n            '', --vKPKMBR_ID\n            15115, --vOP_ID\n            '', --vNOPOL_REQUEST\n            '', --vIS_REPLACEMENT\n            '', --vNO_RESI_BAYAR\n            '', --vPMT_PROD\n            '0', --vIS_BBN2\n            '', --vENROLLMENT_TYPE\n            21, --vPOLDA_ID\n            '', --vPOLRES_ID\n            '', --vKISIGN_ID\n            TO_CHAR (SYSDATE, 'YYYYMMDD'), --vTGLREGISTER\n            ''); --vPemohonID;\n\n        UPDATE T_DATA_DISPENDA\n           SET STATUS = vl_status\n          WHERE --NOBPKB = C_NOBPKB AND \n               NO_RANGKA = C_NO_RANGKA\n               AND NOMESIN = C_NOMESIN;\n      ELSE\n        UPDATE T_DATA_DISPENDA\n           SET STATUS = 'DATA SUDAH ADA DI DATABASE BPKB'\n          WHERE --NOBPKB = C_NOBPKB AND \n               NO_RANGKA = C_NO_RANGKA\n               AND NOMESIN = C_NOMESIN;\n      END IF;\n      \n      --COMMIT;\n   END LOOP;\n\n   COMMIT;\n\n   CLOSE c;\n\n   RETURN ('00');\nEXCEPTION\n   WHEN NO_DATA_FOUND\n   THEN\n      ROLLBACK;\n      v_code := SQLCODE;\n      v_errm := SUBSTR (SQLERRM, 1, 255);\n      RETURN (   'ERROR CODE : '\n              || v_code\n              || ' ERROR MESSAGE : '\n              || v_errm\n              || ' [DATA TIDAK DITEMUKAN]');\n   WHEN OTHERS\n   THEN\n      ROLLBACK;\n      v_code := SQLCODE;\n      v_errm := SUBSTR (SQLERRM, 1, 255);\n      RETURN ('ERROR CODE : ' || v_code || ' ERROR MESSAGE : ' || v_errm);\nEND;\n/",
-			"settings":
-			{
-				"buffer_size": 7922,
-				"line_ending": "Unix",
-				"name": "create or replace FUNCTION INSERT_KONVERSI_MKS2(vW"
-			}
-		},
-		{
-			"contents": "yum -y install ea-php54-php-memcache\nyum -y install ea-php54-php-memcached\n\nyum -y install ea-php53-php-memcache\nyum -y install ea-php53-php-memcached\n\nyum -y install ea-php55-php-memcache\nyum -y install ea-php55-php-memcached\n\nyum -y install ea-php70-php-memcache\nyum -y install ea-php70-php-memcached\n\nyum -y install ea-php71-php-memcache\nyum -y install ea-php71-php-memcached",
-			"settings":
-			{
-				"buffer_size": 378,
-				"line_ending": "Unix",
-				"name": "yum -y install ea-php54-php-memcache"
-			}
-		},
-		{
-			"file": "application/modules/laporan_per_lokasi/controllers/laporan_per_lokasi.php",
-			"settings":
-			{
-				"buffer_size": 1014,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "application/modules/laporan_per_lokasi/views/laporan_per_lokasi_view_js.php",
-			"settings":
-			{
-				"buffer_size": 3072,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "application/modules/laporan_per_lokasi/views/laporan_per_lokasi_view.php",
-			"settings":
-			{
-				"buffer_size": 9264,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "application/modules/laporan_bulanan/views/laporan_bulanan_view.php",
-			"settings":
-			{
-				"buffer_size": 3798,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "application/modules/laporan_harian/views/laporan_harian_result_view.php",
-			"settings":
-			{
-				"buffer_size": 944,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "<link href=\"<?php echo base_url(\"assets\") ?>/css/datepicker.css\" rel=\"stylesheet\">\n<link href=\"<?php echo base_url(\"assets\") ?>/css/jquery.dataTables.css\" rel=\"stylesheet\">\n\n<script src=\"<?php echo base_url(\"assets\") ?>/js/bootstrap-datepicker.js\"></script>\n\n<script src=\"<?php echo base_url(\"assets\") ?>/js/jquery.dataTables.min.js\"></script>\n<script src=\"<?php echo base_url(\"assets\") ?>/js/jquery.loadJSON.js\"></script>\n<link href=\"<?php echo base_url(\"assets\") ?>/css/eblokir.css\" rel=\"stylesheet\">\n<!-- <script src=\"<?php echo base_url('assets/highcharts/highcharts.js'); ?>\"></script> -->\n<script type=\"text/javascript\">\n   $(document).ready(function(){\n    \n    $(\".tanggal\").datepicker()\n    .on('changeDate', function(ev){                 \n        $(this).datepicker('hide');\n    });\n   });\n\n\nfunction reset_cari() {\n  $(\"#tanggal\").val('');\n\n\n\n}\n\nfunction tampildata(){\n\n  $('#myPleaseWait').modal('show');\n\n  $.ajax({\n      url : '<?php echo site_url(\"$this->controller/get_laporan\") ?>',\n      data : $(\"#frmlaporan\").serialize(),\n      type : 'post', \n      // dataType : 'json',\n      success : function(html) {\n        $(\"#hasil\").html(html);\n\n        $('#myPleaseWait').modal('hide');\n      }\n    });\n //alert('whatadaa');\n  return false;\n}\n</script>\n\n\n<div class=\"row\">\n  <div id=\"salah\" class=\"col-lg-12\" style=\"display:none\">\n            <div class=\"alert alert-danger\" role=\"alert\" id=\"message\">\n            \t\n            </div>\n        </div>\n    </div>\n    \n  <div class=\"row\">\n  <div id=\"benar\" class=\"col-lg-12\" style=\"display:none\">\n            <div class=\"alert alert-success\" role=\"alert\" id=\"message2\">\n            \t\n            </div>\n        </div>\n    </div> \n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n\n    <div class=\"panel panel-default\">\n                <div class=\"panel-heading\"><b>PENCARIAN</b></div>\n                <div class=\"panel-body\">\n                  <div class=\"form-inline\">\n\n                  \n                     <form id=\"frmlaporan\" method=\"get\" action=\"<?php echo site_url(\"$this->controller/pdf\") ?>\" target=\"blank\" >   \n                    \n                    <div class=\"form-group\">  \n                       <input type=\"text\" placeholder=\"Tanggal\"  name=\"tanggal\" class=\"tanggal form-control\" data-date-format=\"dd-mm-yyyy\" id=\"tanggal\" >\n\n                       <a id=\"query_button\" class=\"btn btn-primary\" type=\"submit\" onclick=\"tampildata()\"><i class=\"fa fa-eye\"></i> Tampilkan</a>\n\n                         <button id=\"cari_button\" class=\"btn btn-primary\" type=\"submit\"><i class=\"glyphicon glyphicon-print\"></i> Cetak</button>\n                          <a href=\"#\" onclick=\"reset_cari();\" class=\"btn btn-danger\"><i class=\"glyphicon glyphicon-remove\"></i> Reset</a>\n                    \n                    </div>\n\n                  </form>\n                </div>\n                </div>\n    </div>\n\n \n</div>\n</div>\n\n<div class=\"row\">\n<div class=\"col-md-12\" style=\"min-height: 300px;\"> \n  <div id=\"hasil\"> </div>\n</div>\n</div>\n\n",
-			"file": "application/modules/laporan_harian/views/laporan_harian_view.php",
-			"file_size": 2987,
-			"file_write_time": 131354949210000000,
-			"settings":
-			{
-				"buffer_size": 2992,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -294,38 +207,51 @@
 		"/Users/firman/htdocs/laporjogja",
 		"/Users/firman/htdocs/laporjogja/application",
 		"/Users/firman/htdocs/laporjogja/application/modules",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_bulanan",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_bulanan/controllers",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_bulanan/models",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_bulanan/views",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_bulanan/views/pdf",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_harian",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_harian/controllers",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_harian/models",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_harian/views",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_per_lokasi",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_per_lokasi/controllers",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_per_lokasi/models",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_per_lokasi/views"
+		"/Users/firman/htdocs/laporjogja/assets"
 	],
 	"file_history":
 	[
+		"/Users/firman/htdocs/laporjogja/revisi.txt",
+		"/Users/firman/htdocs/laporjogja/application/views/template_baru.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_lantas/controllers/lap_lantas.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_d/controllers/lap_d.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/controllers/lap_b.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/controllers/lap_a.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/models/lap_a_model.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_c/controllers/lap_c.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_lantas/views/lap_lantas_view_form.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/views/lap_b_view_form.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_d/views/lap_d_view_form.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/views/lap_a_view_form.php",
+		"/Users/firman/htdocs/laporjogja/application/views/template_penyidik.php",
+		"/Users/firman/htdocs/laporjogja/application/views/template_admindik.php",
+		"/Users/firman/htdocs/laporjogja/application/controllers/depan_baru.php",
+		"/Users/firman/htdocs/laporjogja/application/libraries/master_controller.php",
+		"/Users/firman/htdocs/laporjogja/application/controllers/index_admindik.php",
+		"/Users/firman/htdocs/laporjogja/application/controllers/index_administrator.php",
+		"/Users/firman/htdocs/laporjogja/application/controllers/index_penyidik.php",
+		"/Users/firman/htdocs/laporjogja/application/views/penyidik_depan_view.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/login/views/login_view.php",
+		"/Users/firman/Desktop/spot.jogja.credential.txt",
+		"/Users/firman/htdocs/laporjogja/application/modules/laporan_per_lokasi/models/laporan_lokasi_model.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/laporan_per_lokasi/controllers/laporan_per_lokasi.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/laporan_per_lokasi/views/laporan_per_lokasi_view_js.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/laporan_per_lokasi/views/laporan_per_lokasi_view.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/laporan_bulanan/views/laporan_bulanan_view.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/laporan_harian/views/laporan_harian_result_view.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/laporan_harian/views/laporan_harian_view.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_per_lokasi/views/laporan_per_lokasi_view_map.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/views/lap_a_view_form_js.php",
 		"/Users/firman/htdocs/laporjogja/application/views/template_admin.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_per_lokasi/views/laporan_per_lokasi_view.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/views/lap_a_view_form.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_pengguna/models/a_pengguna_model.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_polda/controllers/admin_polda.php",
 		"/Users/firman/htdocs/laporjogja/index.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_polda/views/admin_polda_view.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/models/lap_a_model.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_mingguan/views/laporan_mingguan_view.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_bulanan/views/laporan_bulanan_view_js.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_bulanan/models/laporan_bulan_model.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_bulanan/controllers/laporan_bulanan.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_bulanan/views/laporan_bulanan_result_view.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_bulanan/views/laporan_bulanan_view.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_bulanan/views/pdf/laporan_bulanan_pdf_view.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_mingguan/controllers/laporan_mingguan.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_mingguan/views/pdf/laporan_mingguan_pdf_view.php",
@@ -340,14 +266,8 @@
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_pengguna/views/admin_pengguna_view_form.php",
 		"/Users/firman/htdocs/laporjogja/application/controllers/general.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_pengguna/views/admin_pengguna_view.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_harian/views/laporan_harian_result_view.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/laporan_harian/views/laporan_harian_view.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_harian/controllers/laporan_harian.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_polres/views/admin_polres_view_js.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/controllers/lap_a.php",
-		"/Users/firman/htdocs/laporjogja/application/libraries/master_controller.php",
-		"/Users/firman/htdocs/laporjogja/application/views/template_baru.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/controllers/lap_b.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_polres/controllers/admin_polres.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_polres/views/admin_polres_view_form.php",
 		"/Users/firman/htdocs/laporjogja/application/helpers/tanggal_helper.php",
@@ -363,19 +283,13 @@
 		"/Users/firman/htdocs/laporjogja/application/controllers/service.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_pengguna/controllers/admin_pengguna.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/login/controllers/login.php",
-		"/Users/firman/Desktop/spot.jogja.credential.txt",
-		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/views/lap_b_view_form.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/views/lap_b_view_form_js.php",
 		"/Users/firman/Desktop/list-get-rid.txt",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_tempat/controllers/admin_tempat.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_harian/views/pdf/laporan_harian_pdf_view.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/lap_c/controllers/lap_c.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_harian/views/grafik_lap_grafik_view.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_d/models/lap_d_model.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/lap_d/controllers/lap_d.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/lap_d/views/lap_d_view_form.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_d/views/lap_d_view_form_js.php",
-		"/Users/firman/htdocs/laporjogja/application/controllers/index_administrator.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/models/lap_b_model.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/views/lap_a_view_detail_js.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/views/lap_a_view_js.php",
@@ -424,20 +338,7 @@
 		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_info_pnbp.html",
 		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_cek_fisik.html",
 		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_info_balik_nama.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_info_mutasi_masuk.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_reminder.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_info_sim.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_info_mutasi_keluar.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/umum_info_proses_perubahan.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_info_proses_perubahan.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_lapor_kejadian.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/umum_lapor_kejadian.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/index_umum.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/umum_cek_fisik.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/login.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/umum_info_balik_nama.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/umum_info_mutasi_masuk.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/umum_info_mutasi_keluar.html"
+		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_info_mutasi_masuk.html"
 	],
 	"find":
 	{
@@ -455,6 +356,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"nomor",
+			"admindik",
+			"\"lap",
+			"lap",
+			"Lap",
+			"lap",
+			"lap_b",
+			"H3",
+			"h3",
+			"H3",
+			"h3",
 			"yum",
 			"55",
 			"obj",
@@ -571,18 +483,7 @@
 			"          ",
 			"         ",
 			"        ",
-			"       ",
-			"      ",
-			"     ",
-			" ",
-			"  ",
-			"LEFT JOIN dbsifik_mks.",
-			"INNER JOIN dbsifik_mks.",
-			"ON",
-			"LEFT JOIN",
-			"INNER JOIN",
-			"INNER JOIN dbsifik_mks.t_HISTORY hist\n",
-			"dbsifik_mks"
+			"       "
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -600,1393 +501,8 @@
 	"groups":
 	[
 		{
-			"selected": 4,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "application/modules/laporan_per_lokasi/models/laporan_lokasi_model.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3265,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1861,
-								1861
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										3257,
-										3258
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/curly_bracket.png",
-										"brackethighlighter.default"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										1830,
-										1831
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1539.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/Users/firman/Desktop/spot.jogja.credential.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 225,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								90,
-								90
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 629,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								68,
-								111
-							]
-						],
-						"settings":
-						{
-							"auto_name": "A. Polda",
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content"
-							],
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7922,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								27,
-								27
-							]
-						],
-						"settings":
-						{
-							"auto_name": "create or replace FUNCTION INSERT_KONVERSI_MKS2(vW",
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content"
-							],
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3782.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 378,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								81,
-								81
-							]
-						],
-						"settings":
-						{
-							"auto_name": "yum -y install ea-php54-php-memcache",
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content"
-							],
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "application/modules/laporan_per_lokasi/controllers/laporan_per_lokasi.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1014,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1000,
-								1000
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										1004,
-										1005
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/curly_bracket.png",
-										"brackethighlighter.default"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										778,
-										779
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 431.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "application/modules/laporan_per_lokasi/views/laporan_per_lokasi_view_js.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3072,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2415,
-								2421
-							],
-							[
-								2459,
-								2464
-							],
-							[
-								2479,
-								2487
-							],
-							[
-								2530,
-								2535
-							],
-							[
-								2550,
-								2555
-							],
-							[
-								2596,
-								2602
-							],
-							[
-								2617,
-								2623
-							],
-							[
-								2660,
-								2665
-							],
-							[
-								2680,
-								2685
-							],
-							[
-								2727,
-								2732
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										2421,
-										2422
-									],
-									"10":
-									[
-										2732,
-										2733
-									],
-									"2":
-									[
-										2464,
-										2465
-									],
-									"3":
-									[
-										2487,
-										2488
-									],
-									"4":
-									[
-										2535,
-										2536
-									],
-									"5":
-									[
-										2555,
-										2556
-									],
-									"6":
-									[
-										2602,
-										2603
-									],
-									"7":
-									[
-										2623,
-										2624
-									],
-									"8":
-									[
-										2665,
-										2666
-									],
-									"9":
-									[
-										2685,
-										2686
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/double_quote.png",
-										"brackethighlighter.default"
-									],
-									"10":
-									[
-										"Packages/BracketHighlighter/icons/round_bracket.png",
-										"brackethighlighter.default"
-									],
-									"2":
-									[
-										"Packages/BracketHighlighter/icons/round_bracket.png",
-										"brackethighlighter.default"
-									],
-									"3":
-									[
-										"Packages/BracketHighlighter/icons/double_quote.png",
-										"brackethighlighter.default"
-									],
-									"4":
-									[
-										"Packages/BracketHighlighter/icons/round_bracket.png",
-										"brackethighlighter.default"
-									],
-									"5":
-									[
-										"Packages/BracketHighlighter/icons/double_quote.png",
-										"brackethighlighter.default"
-									],
-									"6":
-									[
-										"Packages/BracketHighlighter/icons/round_bracket.png",
-										"brackethighlighter.default"
-									],
-									"7":
-									[
-										"Packages/BracketHighlighter/icons/double_quote.png",
-										"brackethighlighter.default"
-									],
-									"8":
-									[
-										"Packages/BracketHighlighter/icons/round_bracket.png",
-										"brackethighlighter.default"
-									],
-									"9":
-									[
-										"Packages/BracketHighlighter/icons/double_quote.png",
-										"brackethighlighter.default"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										2413,
-										2414
-									],
-									"10":
-									[
-										2692,
-										2693
-									],
-									"2":
-									[
-										2428,
-										2429
-									],
-									"3":
-									[
-										2477,
-										2478
-									],
-									"4":
-									[
-										2494,
-										2495
-									],
-									"5":
-									[
-										2548,
-										2549
-									],
-									"6":
-									[
-										2562,
-										2563
-									],
-									"7":
-									[
-										2615,
-										2616
-									],
-									"8":
-									[
-										2630,
-										2631
-									],
-									"9":
-									[
-										2678,
-										2679
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1999.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "application/modules/laporan_per_lokasi/views/laporan_per_lokasi_view.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9264,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6642,
-								6648
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										6055,
-										6059
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/tag.png",
-										"brackethighlighter.default"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										6055,
-										6059
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3682.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "application/modules/laporan_bulanan/views/laporan_bulanan_view.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3798,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								3798
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "application/modules/laporan_harian/views/laporan_harian_result_view.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 944,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										56,
-										58
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/tag.png",
-										"brackethighlighter.default"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										1,
-										3
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "application/modules/laporan_harian/views/laporan_harian_view.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2992,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								669,
-								799
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 126.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -2039,8 +555,64 @@
 		"selected_items":
 		[
 			[
+				"templateb",
+				"application/views/template_baru.php"
+			],
+			[
+				"lantas",
+				"application/modules/lap_lantas/controllers/lap_lantas.php"
+			],
+			[
+				"lapd",
+				"application/modules/lap_d/controllers/lap_d.php"
+			],
+			[
+				"lap_c",
+				"application/modules/lap_c/controllers/lap_c.php"
+			],
+			[
+				"lapb",
+				"application/modules/lap_b/controllers/lap_b.php"
+			],
+			[
+				"lap_a.ph",
+				"application/modules/lap_a/controllers/lap_a.php"
+			],
+			[
+				"template_pe",
+				"application/views/template_penyidik.php"
+			],
+			[
 				"template",
-				"application/views/template_admin.php"
+				"application/views/template_admindik.php"
+			],
+			[
+				"template_baru.php",
+				"application/views/template_baru.php"
+			],
+			[
+				"master",
+				"application/libraries/master_controller.php"
+			],
+			[
+				"depan",
+				"application/controllers/depan_baru.php"
+			],
+			[
+				"indexpenyi",
+				"application/controllers/index_penyidik.php"
+			],
+			[
+				"indexadmindik",
+				"application/controllers/index_admindik.php"
+			],
+			[
+				"depanvi",
+				"application/views/depan_view.php"
+			],
+			[
+				"indexad",
+				"application/controllers/index_administrator.php"
 			],
 			[
 				"ind",
@@ -2081,10 +653,6 @@
 			[
 				"templatebar",
 				"application/views/template_baru.php"
-			],
-			[
-				"master",
-				"application/libraries/master_controller.php"
 			],
 			[
 				"tanggal",
@@ -2281,10 +849,6 @@
 			[
 				"ebloki",
 				"assets/css/eblokir.css"
-			],
-			[
-				"templateb",
-				"application/views/template_baru.php"
 			],
 			[
 				"templatebau",
