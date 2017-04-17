@@ -9,6 +9,20 @@ $(".ds2").select2({
 });
 
 
+
+$("#jenis_korban").change(function(){
+
+	if($("#jenis_korban").val() == "bo") {
+	$(".bo").hide();
+	}
+	else {
+		$(".bo").show();
+	}
+
+});
+
+
+
 $("#id_gol_kejahatan").change(function(){
 	//alert('ini dan itu');
 	$.ajax({
@@ -670,6 +684,14 @@ function korban_edit(id){
 
 
 
+      $("#jenis_korban").val(jsonData.jenis_korban).attr('selected','selected');
+
+		if( jsonData.jenis_korban == "bo") {
+			$(".bo").hide();
+			}
+			else {
+				$(".bo").show();
+			}
 
 
 

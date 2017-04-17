@@ -62,6 +62,9 @@ function get_data(){
         $tanggal_akhir = $_REQUEST['columns'][2]['search']['value'];
         $id_fungsi = $_REQUEST['columns'][3]['search']['value'];
 
+        $pelapor_nama = $_REQUEST['columns'][4]['search']['value'];
+        $nomor = $_REQUEST['columns'][5]['search']['value'];
+
 
       //  order[0][column]
 
@@ -73,7 +76,9 @@ function get_data(){
 				"tanggal_awal" => $tanggal_awal, 
 				"tanggal_akhir" => $tanggal_akhir, 
 				"id_fungsi" => $id_fungsi , 
-				"userdata" => $this->userdata
+				"userdata" => $this->userdata,
+				"pelapor_nama" => $pelapor_nama,
+				"nomor" => $nomor
 				 
 		);     
            
@@ -100,12 +105,12 @@ $id = $row['lap_a_id'];
          
         	$arr_data[] = array(
         		 
-								$row['nomor'],
+								strtoupper($row['nomor']),
 								flipdate($row['tanggal']),
-								$row['pelapor_nama'],
-								$row['terlapor'],
-								$row['tindak_pidana'],
-								$row['operator'],
+								strtoupper($row['pelapor_nama']),
+								strtoupper($row['terlapor']),
+								strtoupper($row['tindak_pidana']),
+								strtoupper($row['operator']),
         		  			 
         		  			  
         		  				"<div class=\"btn-group\"> 
@@ -1102,7 +1107,22 @@ function korban_simpan($lap_a_id){
 			 
 
 
-			$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			// $data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			if($data['jenis_korban']=="o") {
+				$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			}
+			else {
+				unset($data['korban_id_agama']);
+				unset($data['korban_id_pekerjaan']);
+				unset($data['korban_id_suku']);
+				unset($data['korban_id_pendidikan']);
+			}
+			
+
+			if($data['korban_id_desa']=="x"){
+				unset($data['korban_id_desa']);
+
+			}
 			$data['lap_a_id'] = $lap_a_id;
 			 
 
@@ -1183,7 +1203,26 @@ function korban_update($lap_a_id){
 			 
 
 
-			$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			// $data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+
+			if($data['jenis_korban']=="o") {
+				$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			}
+			else {
+				unset($data['korban_id_agama']);
+				unset($data['korban_id_pekerjaan']);
+				unset($data['korban_id_suku']);
+				unset($data['korban_id_pendidikan']);
+			}
+			
+
+			if($data['korban_id_desa']=="x"){
+				unset($data['korban_id_desa']);
+
+			}
+
+			
+
 			$data['lap_a_id'] = $lap_a_id;
 			 
 
@@ -2072,9 +2111,27 @@ function tmp_korban_simpan(){
 			 
 			$data['id'] = md5(microtime());
 
-			$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			
 
 			$data['temp_lap_a_id'] = $temp_lap_a_id;
+
+			if($data['jenis_korban']=="o") {
+				$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			}
+			else {
+				unset($data['korban_id_agama']);
+				unset($data['korban_id_pekerjaan']);
+				unset($data['korban_id_suku']);
+				unset($data['korban_id_pendidikan']);
+			}
+			
+
+			if($data['korban_id_desa']=="x"){
+				unset($data['korban_id_desa']);
+
+			}
+
+
 			 
 
 			 
@@ -2125,11 +2182,27 @@ function tmp_korban_update(){
 			 
 
 
-			$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
-			//$data['lap_a_id'] = $lap_a_id;
 			 
 
 			 
+			if($data['jenis_korban']=="o") {
+				$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			}
+			else {
+				unset($data['korban_id_agama']);
+				unset($data['korban_id_pekerjaan']);
+				unset($data['korban_id_suku']);
+				unset($data['korban_id_pendidikan']);
+			}
+			
+
+			if($data['korban_id_desa']=="x"){
+				unset($data['korban_id_desa']);
+
+			}
+
+
+
 			// $data['tanggal'] = flipdate($data['tanggal']);
 			 $this->db->where("id",$data['id']);
 

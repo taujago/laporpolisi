@@ -12,9 +12,9 @@
 <style type="text/css">
 
   #page-header {
-  background-image:url('<?php echo base_url("assets/images/User.png") ?>');
-   height:168px;
-   background-size:cover;
+  background-image:url('<?php echo base_url("assets/images/user_jogja2.png") ?>');
+   height:50px;
+   /*background-size:cover;*/
    border-radius : 6px;
    margin : 0px auto;
    padding: 10px;

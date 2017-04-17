@@ -7,6 +7,7 @@
 
         <th width="16%">NOMOR</th>
         <th width="10%">TGL. KEJADIAN</th>
+        <th width="10%">WAKTU</th>
         <th width="15%">GOL. KEJAHATAN</th>
         <th width="15%">LOKASI</th>
         <th width="76%">TINDAK PIDANA</th>
@@ -24,6 +25,7 @@ foreach($record->result() as $row) :
     <tr>
       <td ><?php echo $row->nomor; ?></td>
         <td ><?php echo flipdate($row->kp_tanggal); ?></td>
+        <td ><?php echo $row->waktu; ?></td>
         <td ><?php echo $row->golongan_kejahatan; ?></td>
         <td ><?php echo $row->jenis_lokasi; ?></td>
         <td ><?php echo $row->tindak_pidana; ?></td>

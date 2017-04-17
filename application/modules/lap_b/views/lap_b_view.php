@@ -109,6 +109,14 @@
                       </div>
 
                       <div class="form-group">
+                         
+                        <input type="text" class="form-control" 
+                        id="nomor" placeholder="Nomor LP"
+                        style="width:150px"
+                        name="nomor"  >
+                      </div>
+
+                      <div class="form-group">
                        <?php 
 
             $arr_fungsi = $this->cm->get_arr_dropdown("m_fungsi", 

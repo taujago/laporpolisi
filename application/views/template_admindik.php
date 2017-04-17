@@ -12,9 +12,9 @@
 <style type="text/css">
 
   #page-header {
-  background-image:url('<?php echo base_url("assets/images/Admindik.png") ?>');
-   height:168px;
-   background-size:cover;
+  background-image:url('<?php echo base_url("assets/images/admindik_jogja2.png") ?>');
+   height:50px;
+   /*background-size:cover;*/
    border-radius : 6px;
    margin : 0px auto;
    padding: 10px;
@@ -192,7 +192,7 @@
  <!-- navigation start here --> 
  
  
-<div class="navbar navbar-inverse" role="navigation">
+<div class="navbar navbar-inverse" role="navigation" style="margin-bottom: 0px;">
   <div class="container">
     
     <div class="collapse navbar-collapse" style="padding-left: 0px;">       
@@ -242,7 +242,7 @@
 
         ?>
         
-        <li class="dropdown" ><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo strtoupper($userdata['jenis'])." $inst "." - ". $userdata['user_id']. " ". $userdata['nama'] ?><span class="caret"></span></a>
+        <li class="dropdown" ><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo strtoupper($userdata['jenis'])." $inst "." - ". $userdata['user_id']. " ". $userdata['nama'] ?>- ADMINDIK <span class="caret"></span></a>
         <ul class="dropdown-menu">
         <li><a href="<?php echo site_url("login/logout"); ?>">GANTI PASSWORD USER </a></li>
         <li><a href="<?php echo site_url("login/logout"); ?>">KELUAR</a></li>

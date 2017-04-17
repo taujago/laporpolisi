@@ -12,12 +12,12 @@
 <style type="text/css">
 
   #page-header {
-  background-image:url('<?php echo base_url("assets/images/Operator.png") ?>');
-   height:168px;
-   background-size:cover;
+  background-image:url('<?php echo base_url("assets/images/operator_jogja2.png") ?>');
+   height:50px;
+   /*background-size:cover;*/
    border-radius : 6px;
    margin : 0px auto;
-   padding: 10px;
+   padding: 5px;
 }
 
 .dropdown-submenu {
@@ -84,7 +84,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PUSIKNAS <?php echo $title; ?></title>
+    <title>SISTEM PELAPORAN DAN PENYELIDIKAN <?php echo $title; ?></title>
 <!-- 
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/jseasyui/themes/default/easyui.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/jseasyui/themes/icon.css">
@@ -192,7 +192,7 @@
  <!-- navigation start here --> 
  
  
-<div class="navbar navbar-inverse" role="navigation">
+<div class="navbar navbar-inverse" role="navigation" style="margin-bottom: 0px;">
   <div class="container">
     
     <div class="collapse navbar-collapse" style="padding-left: 0px;">       
@@ -221,6 +221,10 @@
             
         </li>
         <li><a href="<?php echo site_url("pencarian"); ?>">PENCARIAN</a></li> 
+        <?php 
+          $userdata = $_SESSION['userdata'];
+        ?>
+        <li><a href="<?php echo site_url("pengaturan"); ?>">PENGATURAN DATA <?php echo strtoupper($userdata['jenis']) ?> </a></li>
         <li><a href="<?php echo site_url("login/logout"); ?>">KELUAR</a></li> 
 
 
@@ -263,7 +267,7 @@
 
         ?>
         
-        <li class="dropdown" ><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo strtoupper($userdata['jenis'])." $inst "." - ". $userdata['user_id']. " ". $userdata['nama'] ?><span class="caret"></span></a>
+        <li class="dropdown" ><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo strtoupper($userdata['jenis'])." $inst "." - ". $userdata['user_id']. " ". $userdata['nama'] ?> - OPERATOR <span class="caret"></span></a>
         <ul class="dropdown-menu">
         <li><a href="<?php echo site_url("login/logout"); ?>">GANTI PASSWORD USER </a></li>
         <li><a href="<?php echo site_url("login/logout"); ?>">KELUAR</a></li>

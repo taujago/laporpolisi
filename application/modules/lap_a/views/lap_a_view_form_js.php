@@ -8,6 +8,19 @@ $(".ds2").select2({
 });
 
 
+$("#jenis_korban").change(function(){
+
+	if($("#jenis_korban").val() == "bo") {
+	$(".bo").hide();
+	}
+	else {
+		$(".bo").show();
+	}
+
+});
+
+
+
 //$(".ds2").select2().select2('303', null);
 
 $("#id_gol_kejahatan").change(function(){
@@ -637,6 +650,7 @@ function korban_edit(id){
        $("#form_korban").loadJSON(jsonData);
        $("#korban_jk").val(jsonData.korban_jk).attr('selected','selected');
       $("#korban_id_suku").val(jsonData.korban_id_suku).attr('selected','selected');
+      
      
       $("#korban_id_agama").val(jsonData.korban_id_agama).attr('selected','selected');
       $("#korban_id_pekerjaan").val(jsonData.korban_id_pekerjaan).attr('selected','selected');
@@ -646,7 +660,16 @@ function korban_edit(id){
 		$("#korban_residivis").val(jsonData.korban_residivis).attr('selected','selected');
 		$("#korban_klasifikasi").val(jsonData.korban_klasifikasi).attr('selected','selected');
 
-      
+      $("#jenis_korban").val(jsonData.jenis_korban).attr('selected','selected');
+
+		if( jsonData.jenis_korban == "bo") {
+			$(".bo").hide();
+			}
+			else {
+				$(".bo").show();
+			}
+
+
 
 
     

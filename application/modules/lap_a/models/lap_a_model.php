@@ -14,12 +14,23 @@ function data($param){
 
 	$sort_by = $arr_column[$param['sort_by']];
 
-	$this->db->select('*')->from('v_lap_a'); 
+	$this->db->select('*')->from('v_lap_aa'); 
 
 
-				// "tanggal_awall" => $tanggal_awal, 
-				// "tanggal_akhir" => $tanggal_akhir,
-				// "id_fungsi" => $id_fungsi 
+	$this->db->join('pengguna u','v_lap_aa.user_id = u.id');
+	 
+
+	$userdata = $_SESSION['userdata'];
+
+	if($userdata['jenis']=="polres") {
+		$this->db->where("u.id_polres",$userdata['id_polres']);
+	}
+	if($userdata['jenis']=="polsek") {
+		$this->db->where("u.id_polsek",$userdata['id_polsek']);
+	}
+
+
+	$this->db->where("u.jenis",$userdata['jenis']);
 
     if($param['tanggal_awal']<> '') {
     	$tanggal_awal = flipdate($param['tanggal_awal']); 

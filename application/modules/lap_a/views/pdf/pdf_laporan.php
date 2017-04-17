@@ -12,13 +12,14 @@ font-size : 9px;
 $setting = $this->cm->get_setting();
 ?>
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
-  <tr>
+ <tr>
     <td width="49%" align="center">KEPOLISIAN NEGARA REPUBLIK INDONESIA<br />
-      <?php echo $ttd['nama_polda']. "<br />"; 
-	echo $ttd['instansi']; 
+        <?php echo $ttd['nama_polda']. "<br />"; 
+	echo $ttd['instansi'].'<br />'; 
+	echo $ttd['alamat']; 
 	
 	?>
-    <hr></td>
+        <hr></td>
     <td width="24%">&nbsp;</td>
     <td width="27%">&nbsp;</td>
   </tr>
@@ -27,11 +28,7 @@ $setting = $this->cm->get_setting();
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
-  <tr>
-    <td align="center">&nbsp;</td>
-    <td>&nbsp;</td>
-    <td align="right">&nbsp;</td>
-  </tr>
+  
   <tr>
     <td colspan="3" align="center"><img width="30px" height="30px" src="<?php  echo FCPATH; ?>/assets/images/logo.png>" /></td>
   </tr>
@@ -86,24 +83,32 @@ $setting = $this->cm->get_setting();
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. Korban </td>
     <td>: </td>
     <td><?php 
-			$n=0; 
-			foreach($korban->result() as $row) :  
-			$n++;
-			?>  
-    		<b><?php 
+			$n=0;
+			foreach($korban->result() as $row) : 
 			$break = ($n>1)?"<br />":"";
-			echo  $break . $n. ". ". $row->korban_nama; ?></b>, 
-			<?php echo umur($row->korban_tgl_lahir); ?> Th,
-			<?php echo ($korban_jk=="P")?" PEREMPUAN ":"LAKI - LAKI "; ?>, 
-			<?php echo $row->pekerjaan; ?> d/a  
- 
-    	    <?php echo $row->korban_alamat; ?> - <?php echo $row->desa ?> - <?php echo $row->kecamatan; ?> - <?php echo $row->kota; ?> - <?php echo $row->provinsi; ?>
-   	     <?php endforeach; ?> </td>
+			$n++;
+			//echo $row->korban_nama; 
+			echo  $break . '<b> '. $n. ". ". $row->korban_nama." </b> ";
+			
+			if($row->jenis_korban=="o") { 
+			echo ', '.umur($row->korban_tgl_lahir)." Th , ";
+			echo ($korban_jk=="P")?" PEREMPUAN, ":"LAKI - LAKI, ";
+			echo $row->pekerjaan.' ';
+			}
+			echo ' , d/a '.$row->korban_alamat.' ';
+			if($row->desa<>'') {
+				echo "$row->desa - $row->kecamatan - $row->kota -  $row->provinsi ";
+			}
+			
+			
+			
+			endforeach;
+	?> </td>
   </tr>
   <tr>
     <td>5. Bagaimana terjadi </td>
     <td>: </td>
-    <td><?php echo $kp_bagaimana_terjadi; ?></td>
+    <td align="justify"><?php echo $kp_bagaimana_terjadi; ?></td>
   </tr>
   <tr>
     <td>6. Dilaporkan pada </td>

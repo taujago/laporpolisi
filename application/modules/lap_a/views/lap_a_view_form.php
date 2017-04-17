@@ -270,7 +270,7 @@
       <tr><td> Dilaporkan Pada </td>
             <td><input type="text" class="tanggal form-control" name="kp_dilaporkan_pada" id="kp_dilaporkan_pada" placeholder="Dilaporkan Pada" data-date-format="dd-mm-yyyy" />        </td>
       <tr><td>Jam Dilaporkan </td>
-            <td><input type="text" class="form-control" name="kp_jam_dilaporkan" id="kp_jam_dilaporkan" placeholder="Jam Dilaporkan" />        </td>
+            <td><input type="text" class="form-control" name="kp_jam_dilaporkan" id="kp_jam_dilaporkan" placeholder="contoh :  19:30" />        </td>
       <tr><td>Tempat Melaporkan </td>
             <td><input type="text" class="form-control" name="kp_tempat_melaporkan" id="kp_tempat_melaporkan" placeholder="Tempat Melaporkan" />        </td>
       <tr><td>Motif Kejahatan </td>

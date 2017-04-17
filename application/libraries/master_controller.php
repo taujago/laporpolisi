@@ -531,20 +531,28 @@ function generate_qrcode($file_name,$arr_data){
 }
 
 function get_header_by_user_id($user_id) {
+	// echo "vangkeeh";
 	$this->db->limit(1);
 	$data = $this->db->get("m_setting_polda")->row_array();
 
 	$this->db->where("id",$user_id);
 	$user = $this->db->get("pengguna")->row_array();
+	// echo $this->db->last_query(); 
+
 	$ret = array();
 	$ret['nama_polda']  = $data['nama_polda'];
 	if($user['jenis']=='polda') {
+
+	
+		$polda = $this->db->get('m_setting_polda')->row_array();
+
 		$ret['instansi'] = '<br />';
 		$ret['ttd_nama'] = $data['ttd_nama'];
 		$ret['ttd_nrp'] = $data['ttd_nrp'];
 		$ret['ttd_jabatan'] = $data['ttd_jabatan'];
 		$ret['ttd_pangkat'] = $data['ttd_pangkat'];
 		$ret['tempat'] = $data['tempat'];
+		$ret['alamat'] = $polda['alamat'];
 
 	}
 	else if ($user['jenis']=='polres') {
@@ -556,21 +564,27 @@ function get_header_by_user_id($user_id) {
 		$ret['ttd_nrp'] 		= $dt_polres['ttd_nrp'];
 		$ret['ttd_jabatan'] 	= $dt_polres['ttd_jabatan'];
 		$ret['ttd_pangkat'] 	= $dt_polres['ttd_pangkat'];
-		$ret['tempat'] = $data['tempat'];
+		$ret['tempat'] = $dt_polres['tempat'];
+		$ret['alamat'] = $dt_polres['alamat'];
 	}
 
 	else if ($user['jenis']=='polsek') {
-		$this->db->where("id_polsek",$user['id_polsek']);
-		$dt_polsek = $this->db->get("m_polsek")->row_array();
+		//echo "polsek";
+		$this->db->select('*')->from('m_polsek s')
+		->join('m_polres r','r.id_polres = s.id_polres');
+		$this->db->where("s.id_polsek",$user['id_polsek']);
+		$dt_polsek = $this->db->get()->row_array();
 
-		$ret['instansi'] = $dt_polsek['nama_polres'];
+		$ret['instansi'] = $dt_polsek['nama_polres'].'<br />'. $dt_polsek['nama_polsek'];
 		$ret['ttd_nama'] = $dt_polsek['ttd_nama'];
 		$ret['ttd_nrp'] = $dt_polsek['ttd_nrp'];
 		$ret['ttd_jabatan'] = $dt_polsek['ttd_jabatan'];
 		$ret['ttd_pangkat'] = $dt_polsek['ttd_pangkat'];
-		$ret['tempat'] = $data['tempat'];
+		$ret['tempat'] = $dt_polsek['tempat'];
+		$ret['alamat'] = $dt_polsek['alamat'];
 	}
 
+	//show_array($ret);
 	return $ret;
 
 }

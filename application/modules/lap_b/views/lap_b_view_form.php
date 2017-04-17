@@ -249,7 +249,7 @@
             <td><input type="text" class="tanggal form-control" name="kejadian_tanggal" id="kejadian_tanggal" placeholder="Tanggal" data-date-format="dd-mm-yyyy" />
         </td>
       <tr><td>Jam </td>
-            <td><input type="text" class="form-control" name="kejadian_jam" id="kejadian_jam" placeholder="Jam" />
+            <td><input type="text" class="form-control" name="kejadian_jam" id="kejadian_jam" placeholder="Jam kejadian. contoh 13:00" />
         </td>
       <tr><td>Tempat </td>
             <td><input type="text" class="form-control" name="kejadian_tempat" id="kejadian_tempat" placeholder="Tempat" />
@@ -329,7 +329,7 @@
             <td><input type="text" class="tanggal form-control" name="kejadian_tanggal_lapor" id="kejadian_tanggal_lapor" placeholder="Tanggal Dilaporkan" data-date-format="dd-mm-yyyy" />
         </td>
       <tr><td>Jam Dilaporkan</td>
-            <td><input type="text" class="form-control" name="kejadian_jam_lapor" id="kejadian_jam_lapor" placeholder="Jam Dilaporkan" />
+            <td><input type="text" class="form-control" name="kejadian_jam_lapor" id="kejadian_jam_lapor" placeholder="Jam Dilaporkan. contoh : 06:00" />
         </td> </tr>
      
 

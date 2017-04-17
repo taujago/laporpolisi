@@ -14,7 +14,23 @@ function data($param){
 
 	$sort_by = $arr_column[$param['sort_by']];
 
-	$this->db->select('*')->from('v_lap_b'); 
+	$this->db->select('*')->from('v_lap_bb'); 
+
+
+	$this->db->join('pengguna u','v_lap_bb.user_id = u.id');
+	 
+
+	$userdata = $_SESSION['userdata'];
+
+	if($userdata['jenis']=="polres") {
+		$this->db->where("u.id_polres",$userdata['id_polres']);
+	}
+	if($userdata['jenis']=="polsek") {
+		$this->db->where("u.id_polsek",$userdata['id_polsek']);
+	}
+
+
+	$this->db->where("u.jenis",$userdata['jenis']);
 
 
 				// "tanggal_awall" => $tanggal_awal, 
@@ -36,14 +52,19 @@ function data($param){
     	$this->db->where("pelapor_nama like '%$pelapor_nama%'",null,false);
     }
 
+    if($param['nomor'] != "" ){
+    	$nomor = $param['nomor'];
+    	$this->db->where("nomor like '%$nomor%'",null,false);
+    }
 
 
-    if($param['userdata']['jenis']=="polres") {
-    	$this->db->where("id_polres",$param['userdata']['id_polres']); 
-    }
-    else if ($param['userdata']['jenis']=="polsek") {
-    	$this->db->where("id_polsek",$param['userdata']['id_polsek']); 
-    }
+
+    // if($param['userdata']['jenis']=="polres") {
+    // 	$this->db->where("id_polres",$param['userdata']['id_polres']); 
+    // }
+    // else if ($param['userdata']['jenis']=="polsek") {
+    // 	$this->db->where("id_polsek",$param['userdata']['id_polsek']); 
+    // }
 
 
 
@@ -742,7 +763,7 @@ function get_data_korban($lap_b_id) {
 	->where("lap_b_id",$lap_b_id);
 
 	$res = $this->db->get();
-	// echo $this->db->last_query(); 
+	//echo $this->db->last_query();  exit;
 	return $res;
 }
 

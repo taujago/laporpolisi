@@ -67,7 +67,7 @@ class pencarian extends master_controller {
 			"label" => "Golongan Kejahatan",
 			"type" => "string",
 			"input" => "select",
-			"values" => $this->cm->get_arr_dropdown("m_golongan_kejahatan","id","golongan_kejahatan",'golongan_kejahatan')
+			"values" => $this->cm->add_arr_head($this->cm->get_arr_dropdown("m_golongan_kejahatan","id","golongan_kejahatan",'golongan_kejahatan'),'x','= SEMUA KEJAHATAN ==')
 			,
 			"operators" => array('equal')
 			 
@@ -151,6 +151,23 @@ class pencarian extends master_controller {
 		   	array(
 		   	"id" => "tanggal_awal",
 			"label" => "Tanggal Pelaporan Minimal",
+			"type" => "string",
+			"operators" => array('equal')			 
+		   	)  , 
+
+
+		   	array(
+		   	"id" => "waktu_awal",
+			"label" => "Waktu awal",
+			"type" => "string",
+			"operators" => array('equal', 'contains')
+		   	), 
+
+
+
+		   	array(
+		   	"id" => "waktu_akhir",
+			"label" => "Waktu akhir",
 			"type" => "string",
 			"operators" => array('equal')			 
 		   	)  , 
@@ -335,17 +352,20 @@ function cari(){
 
 			if($operator =='equal') {
 				
-				// if($field=="bulan") {
-				// 	$str .=" month(kp_tanggal) = '$value' " ;
-				// }
-				// else if ($field=="tahun"){
-				// 	$str .=" year(kp_tanggal) = '$value' " ;
-				// }
-				 if ($field=="tanggal_awal"){
+				 
+				if ($field=="tanggal_awal"){
 					$str .=" tanggal  >= '$value' " ;
 				}
 				else if ($field=="tanggal_akhir"){
 					$str .=" tanggal <= '$value' " ;
+				}
+				if ($field=="waktu_awal"){
+					//$value .= ":00";
+					$str .=" waktu  >= '$value' " ;
+				}
+				else if ($field=="waktu_akhir"){
+					//$value .= ":00";
+					$str .=" waktu <= '$value' " ;
 				}
 				else { 
 				$str .= " $field = '$value' ";

@@ -350,6 +350,13 @@ function perkembangan_simpan(){
         
         $this->form_validation->set_error_delimiters('', '<br>');
         if($this->form_validation->run() == TRUE ) { 
+
+            if($data['id_pn'] == "x"){
+                unset($data['id_pn']);
+            }
+            if($data['id_lapas'] == "x"){
+                unset($data['id_lapas']);
+            }
             
 
 

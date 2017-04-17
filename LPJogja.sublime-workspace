@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"id_pol",
+				"id_polres"
+			],
+			[
 				"mar",
 				"margin-bottom"
 			],
@@ -163,6 +167,15 @@
 	},
 	"buffers":
 	[
+		{
+			"contents": "License Status \nX2YX-QV37-5EG2-MBWB",
+			"settings":
+			{
+				"buffer_size": 35,
+				"line_ending": "Unix",
+				"name": "License Status"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -207,29 +220,66 @@
 		"/Users/firman/htdocs/laporjogja",
 		"/Users/firman/htdocs/laporjogja/application",
 		"/Users/firman/htdocs/laporjogja/application/modules",
+		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_a",
+		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_a/controllers",
+		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_a/views",
+		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_b",
+		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_b/controllers",
+		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_b/views",
 		"/Users/firman/htdocs/laporjogja/assets"
 	],
 	"file_history":
 	[
-		"/Users/firman/htdocs/laporjogja/revisi.txt",
+		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_a/controllers/penyidik_lap_a.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_b/controllers/penyidik_lap_b.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_b/views/penyidik_lap_b_view_detail_perkembangan.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_a/views/admindik_lap_a_view_detail_js.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_a/views/admindik_lap_a_view_detail_tersangka.php",
+		"/Users/firman/htdocs/laporjogja/application/models/coremodel.php",
+		"/Users/firman/htdocs/laporjogja/index.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/controllers/lap_a.php",
+		"/Users/firman/htdocs/laporjogja/application/views/template_admindik.php",
 		"/Users/firman/htdocs/laporjogja/application/views/template_baru.php",
+		"/Users/firman/htdocs/laporjogja/application/views/template_penyidik.php",
+		"/Users/firman/htdocs/laporjogja/application/controllers/index_admindik.php",
+		"/Users/firman/htdocs/laporjogja/application/controllers/index_penyidik.php",
+		"/Users/firman/htdocs/laporjogja/view.sq",
+		"/Users/firman/htdocs/laporjogja/application/controllers/depan_baru.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/admin_pengguna/controllers/admin_pengguna.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/admindik_penyidik/controllers/admindik_penyidik.php",
+		"/Users/firman/htdocs/laporjogja/application/libraries/admindik_controller.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_b/views/admindik_lap_b_view_js.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_a/views/admindik_lap_a_view_js.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_b/views/admindik_lap_b_view.php",
+		"/Users/firman/htdocs/laporjogja/application/models/admindik_lap_a_model.php",
+		"/Users/firman/htdocs/laporjogja/application/models/admindik_lap_b_model.php",
+		"/Users/firman/htdocs/laporjogja/revisi.txt",
+		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_b/controllers/admindik_lap_b.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_a/controllers/admindik_lap_a.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/views/lap_a_view_js.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_a/views/admindik_lap_a_view.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_b/views/admindik_lap_b_view_detail_penyidik.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_a/views/admindik_lap_a_view_detail_penyidik.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/admindik_penyidik/models/penyidik_model.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/admindik_penyidik/views/admindik_penyidik_view_form.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/views/lap_b_view.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/views/lap_b_view_js.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/controllers/lap_b.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/views/lap_a_view.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/views/pdf/pdf_laporan.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/models/lap_b_model.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/views/lap_b_view_form.php",
+		"/Users/firman/htdocs/laporjogja/application/libraries/master_controller.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/views/lap_b_view_form_korban.php",
+		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/views/lap_b_view_form_js.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_lantas/controllers/lap_lantas.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_d/controllers/lap_d.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/controllers/lap_b.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/controllers/lap_a.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/models/lap_a_model.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_c/controllers/lap_c.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_lantas/views/lap_lantas_view_form.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/views/lap_b_view_form.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_d/views/lap_d_view_form.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/views/lap_a_view_form.php",
-		"/Users/firman/htdocs/laporjogja/application/views/template_penyidik.php",
-		"/Users/firman/htdocs/laporjogja/application/views/template_admindik.php",
-		"/Users/firman/htdocs/laporjogja/application/controllers/depan_baru.php",
-		"/Users/firman/htdocs/laporjogja/application/libraries/master_controller.php",
-		"/Users/firman/htdocs/laporjogja/application/controllers/index_admindik.php",
 		"/Users/firman/htdocs/laporjogja/application/controllers/index_administrator.php",
-		"/Users/firman/htdocs/laporjogja/application/controllers/index_penyidik.php",
 		"/Users/firman/htdocs/laporjogja/application/views/penyidik_depan_view.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/login/views/login_view.php",
 		"/Users/firman/Desktop/spot.jogja.credential.txt",
@@ -245,7 +295,6 @@
 		"/Users/firman/htdocs/laporjogja/application/views/template_admin.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_pengguna/models/a_pengguna_model.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_polda/controllers/admin_polda.php",
-		"/Users/firman/htdocs/laporjogja/index.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_polda/views/admin_polda_view.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_mingguan/views/laporan_mingguan_view.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_bulanan/views/laporan_bulanan_view_js.php",
@@ -255,12 +304,9 @@
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_bulanan/views/pdf/laporan_bulanan_pdf_view.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_mingguan/controllers/laporan_mingguan.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_mingguan/views/pdf/laporan_mingguan_pdf_view.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_a/controllers/penyidik_lap_a.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_harian/models/laporan_model.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_b/controllers/penyidik_lap_b.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_mingguan/models/laporan_minggu_model.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_mingguan/views/laporan_mingguan_result_view.php",
-		"/Users/firman/htdocs/laporjogja/application/models/coremodel.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_pengguna/views/admin_pengguna_view_js.php",
 		"/Users/firman/htdocs/laporjogja/application/views/js/general_js.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_pengguna/views/admin_pengguna_view_form.php",
@@ -281,29 +327,21 @@
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_polres/models/polres_model.php",
 		"/Users/firman/htdocs/laporjogja/application/config/database.php",
 		"/Users/firman/htdocs/laporjogja/application/controllers/service.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/admin_pengguna/controllers/admin_pengguna.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/login/controllers/login.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/views/lap_b_view_form_js.php",
 		"/Users/firman/Desktop/list-get-rid.txt",
 		"/Users/firman/htdocs/laporjogja/application/modules/admin_tempat/controllers/admin_tempat.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_harian/views/pdf/laporan_harian_pdf_view.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/laporan_harian/views/grafik_lap_grafik_view.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_d/models/lap_d_model.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_d/views/lap_d_view_form_js.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/lap_b/models/lap_b_model.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/views/lap_a_view_detail_js.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/views/lap_a_view_js.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_a/views/penyidik_lap_a_view_detail_js.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_a/models/penyidik_lap_a_model.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_a/views/penyidik_lap_a_view_detail.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/penyidik_lap_a/views/penyidik_lap_a_view_detail_status.php",
 		"/Users/firman/htdocs/laporjogja/application/models/penyidik_lap_a_model.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_a/views/admindik_lap_a_view_detail_penyidik.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_a/controllers/admindik_lap_a.php",
-		"/Users/firman/htdocs/laporjogja/application/models/admindik_lap_a_model.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_a/views/admindik_lap_a_view_detail_pasal.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/views/lap_a_view_detail.php",
-		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_a/views/admindik_lap_a_view.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_a/views/admindik_lap_a_view_detail.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/admindik_lap_a/views/admindik_lap_a_view_detail_detail.php",
 		"/Users/firman/htdocs/laporjogja/application/modules/lap_a/views/lap_a_view_form_pasal.php",
@@ -319,26 +357,7 @@
 		"/Users/firman/htdocs/bpkbinventory/assets/clean/files/js/pages/dashboard1.js",
 		"/Users/firman/htdocs/bpkbinventory/application/modules/admin_user/controller/admin_user.php",
 		"/Users/firman/htdocs/bpkbinventory/application/views/admin_dashboard.php",
-		"/Users/firman/htdocs/bpkbinventory/application/controllers/test.php",
-		"/Users/firman/htdocs/bpkbinventory/application/controllers/rocknroll.php",
-		"/Users/firman/htdocs/bpkbinventory/assets/clean/files/blank.html",
-		"/Users/firman/htdocs/bpkbinventory/assets/js/pages/dashboard1.js",
-		"/Users/firman/htdocs/bpkbinventory/assets/js/app.js",
-		"/Users/firman/htdocs/wskalbar/koneksi.php",
-		"/Users/firman/Documents/arkifm.txt",
-		"/Users/firman/Downloads/www Update/www/index_polisi.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/index_admin.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/apps/public_cek_kendaraan.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_data_pajak.html",
-		"/Users/firman/htdocs/wskalbar/getdata.php",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_status_kendaraan.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_pendaftaran.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/index.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_daftar_nopol_pilihan.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_info_pnbp.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_cek_fisik.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_info_balik_nama.html",
-		"/Users/firman/htdocs/androidproject/KalbarMobile/www/static/public_info_mutasi_masuk.html"
+		"/Users/firman/htdocs/bpkbinventory/application/controllers/test.php"
 	],
 	"find":
 	{
@@ -356,6 +375,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"polres",
+			"v_lap_bb",
+			"lap_b",
+			"polres",
+			"',",
+			"`,",
+			"SPKT",
 			"nomor",
 			"admindik",
 			"\"lap",
@@ -476,14 +502,7 @@
 			"GOLONGAN",
 			"GOLOGNAN",
 			"KELOMPOK",
-			"dbsifik_mks",
-			" ",
-			"            ",
-			"           ",
-			"          ",
-			"         ",
-			"        ",
-			"       "
+			"dbsifik_mks"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -501,8 +520,111 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 35,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								35,
+								16
+							]
+						],
+						"settings":
+						{
+							"auto_name": "License Status",
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -555,6 +677,78 @@
 		"selected_items":
 		[
 			[
+				"penyidiklapb",
+				"application/modules/penyidik_lap_b/controllers/penyidik_lap_b.php"
+			],
+			[
+				"vi",
+				"view.sq"
+			],
+			[
+				"pengguna",
+				"application/modules/admin_pengguna/controllers/admin_pengguna.php"
+			],
+			[
+				"admindikpe",
+				"application/modules/admindik_penyidik/controllers/admindik_penyidik.php"
+			],
+			[
+				"coremo",
+				"application/models/coremodel.php"
+			],
+			[
+				"admindik",
+				"application/libraries/admindik_controller.php"
+			],
+			[
+				"index",
+				"index.php"
+			],
+			[
+				"template",
+				"application/views/template_admindik.php"
+			],
+			[
+				"admindiklapamod",
+				"application/models/admindik_lap_a_model.php"
+			],
+			[
+				"admindiklapb",
+				"application/models/admindik_lap_b_model.php"
+			],
+			[
+				"revi",
+				"revisi.txt"
+			],
+			[
+				"admindik_lap_a_model.php",
+				"application/models/admindik_lap_a_model.php"
+			],
+			[
+				"admindik_lap_b_model.php",
+				"application/models/admindik_lap_b_model.php"
+			],
+			[
+				"inde",
+				"index.php"
+			],
+			[
+				"lap_b",
+				"application/modules/lap_b/controllers/lap_b.php"
+			],
+			[
+				"master_controller.php",
+				"application/libraries/master_controller.php"
+			],
+			[
+				"revisi.",
+				"revisi.txt"
+			],
+			[
+				"lapb",
+				"application/modules/lap_b/controllers/lap_b.php"
+			],
+			[
 				"templateb",
 				"application/views/template_baru.php"
 			],
@@ -571,20 +765,12 @@
 				"application/modules/lap_c/controllers/lap_c.php"
 			],
 			[
-				"lapb",
-				"application/modules/lap_b/controllers/lap_b.php"
-			],
-			[
 				"lap_a.ph",
 				"application/modules/lap_a/controllers/lap_a.php"
 			],
 			[
 				"template_pe",
 				"application/views/template_penyidik.php"
-			],
-			[
-				"template",
-				"application/views/template_admindik.php"
 			],
 			[
 				"template_baru.php",
@@ -619,20 +805,8 @@
 				"index.php"
 			],
 			[
-				"inde",
-				"index.php"
-			],
-			[
 				"in",
 				"index.php"
-			],
-			[
-				"penyidiklapb",
-				"application/modules/penyidik_lap_b/controllers/penyidik_lap_b.php"
-			],
-			[
-				"coremo",
-				"application/models/coremodel.php"
 			],
 			[
 				"genre",
@@ -657,10 +831,6 @@
 			[
 				"tanggal",
 				"application/helpers/tanggal_helper.php"
-			],
-			[
-				"index",
-				"index.php"
 			],
 			[
 				"adminco",
@@ -709,10 +879,6 @@
 			[
 				"coremod",
 				"application/models/coremodel.php"
-			],
-			[
-				"admindik_lap_a_model.php",
-				"application/models/admindik_lap_a_model.php"
 			],
 			[
 				"gener",

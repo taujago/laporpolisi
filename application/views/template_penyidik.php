@@ -12,9 +12,9 @@
 <style type="text/css">
 
   #page-header {
-  background-image:url('<?php echo base_url("assets/images/Penyidik.png") ?>');
-   height:168px;
-   background-size:cover;
+  background-image:url('<?php echo base_url("assets/images/penyidik_jogja2.png") ?>');
+   height:50px;
+   /*background-size:cover;*/
    border-radius : 6px;
    margin : 0px auto;
    padding: 10px;
@@ -192,7 +192,7 @@
  <!-- navigation start here --> 
  
  
-<div class="navbar navbar-inverse" role="navigation">
+<div class="navbar navbar-inverse" role="navigation" style="margin-bottom: 0px;">
   <div class="container">
     
     <div class="collapse navbar-collapse" style="padding-left: 0px;">       

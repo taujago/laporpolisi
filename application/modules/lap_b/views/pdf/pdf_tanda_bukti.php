@@ -13,19 +13,15 @@ $setting = $this->cm->get_setting();
 ?>
 <table width="100%" border="0" cellpadding="3">
   <tr>
-    <td width="57%" align="center">KEPOLISIAN NEGARA REPUBLIK INDONESIA</td>
-    <td width="16%">&nbsp;</td>
+    <td width="49%" align="center">KEPOLISIAN NEGARA REPUBLIK INDONESIA<br />
+        <?php echo $ttd['nama_polda']. "<br />"; 
+	echo $ttd['instansi'].'<br />'; 
+	echo $ttd['alamat']; 
+	
+	?>
+        <hr></td>
+    <td width="24%">&nbsp;</td>
     <td width="27%">&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="center">DAERAH BANTEN</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="center"><U>Jl. Syekh Nawawi Al Bantani No. 76 Serang 42121</U></td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&quot;PROJUSTITIA&quot;</td>

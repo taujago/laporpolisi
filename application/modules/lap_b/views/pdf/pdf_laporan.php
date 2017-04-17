@@ -15,7 +15,8 @@ $setting = $this->cm->get_setting();
   <tr>
     <td width="49%" align="center">KEPOLISIAN NEGARA REPUBLIK INDONESIA<br />
         <?php echo $ttd['nama_polda']. "<br />"; 
-	echo $ttd['instansi']; 
+	echo $ttd['instansi'].'<br />'; 
+	echo $ttd['alamat']; 
 	
 	?>
         <hr></td>
@@ -90,17 +91,39 @@ $setting = $this->cm->get_setting();
 			<?php echo $row->pekerjaan; ?> d/a  
  
     	    <?php echo $row->tersangka_alamat; ?> - <?php echo $row->desa ?> - <?php echo $row->kecamatan; ?> - <?php echo $row->kota; ?> - <?php echo $row->provinsi; ?>
-   	     <?php endforeach; ?>    </td>
+   	     <?php endforeach; ?></td>
   </tr>
   <tr>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. Korban </td>
     <td>: </td>
-    <td><b><?php echo $pelapor_nama; ?>, </b><?php echo $pelapor_tmp_lahir; ?>, <?php echo (flipdate($pelapor_tgl_lahir)); ?>, <?php echo ($pelapor_jk=="P")?" PEREMPUAN ":"LAKI - LAKI "; ?>, <?php echo $agama; ?>, <?php echo $pekerjaan; ?> d/a <?php echo $pelapor_alamat; ?> - <?php echo $desa; ?> - <?php echo $kecamatan; ?> - <?php echo $kota; ?> - <?php echo $provinsi; ?> No. telp. <?php echo $pelapor_telpon; ?></td>
+    <td>  <?php 
+			$n=0;
+			foreach($korban->result() as $row) : 
+			$break = ($n>1)?"<br />":"";
+			$n++;
+			//echo $row->korban_nama; 
+			echo  $break . '<b> '. $n. ". ". $row->korban_nama." </b> ";
+			
+			if($row->jenis_korban=="o") { 
+			echo ', '.umur($row->korban_tgl_lahir)." Th , ";
+			echo ($korban_jk=="P")?" PEREMPUAN, ":"LAKI - LAKI, ";
+			echo $row->pekerjaan.' ';
+			}
+			echo ' , d/a '.$row->korban_alamat.' ';
+			if($row->desa<>'') {
+				echo "$row->desa - $row->kecamatan - $row->kota -  $row->provinsi ";
+			}
+			
+			
+			
+			endforeach;
+	?>
+      </td>
   </tr>
   <tr>
     <td>5. Bagaimana terjadi </td>
     <td>: </td>
-    <td><?php echo $kejadian_bagaimaan; ?></td>
+    <td align="justify"><?php echo $kejadian_bagaimaan; ?></td>
   </tr>
   <tr>
     <td>6. Dilaporkan pada </td>
@@ -165,25 +188,24 @@ $setting = $this->cm->get_setting();
 	?>
     </table></td>
     <td>&nbsp;</td>
-    <td><?php echo $kejadian_uraian; ?></td>
+    <td align="justify"><?php echo $kejadian_uraian; ?></td>
   </tr>
   <tr>
     <td colspan="3"><hr />
     TINDAKAN YANG DIAMBIL : Menerima laporan, Membuat LP, Membuat Surat Tanda Terima Laporan Polisi </td>
   </tr>
 </table>
-<p>&nbsp;</p>
 <table width="100%" border="0" cellpadding="0">
   <tr>
     <td width="50%">&nbsp;</td>
     <td width="50%">&nbsp;</td>
   </tr>
   <tr>
-    <td align="center">PELAPOR</td>
+    <td align="center">&nbsp;</td>
     <td align="center"><?php echo $ttd['tempat'] ?>, <?php echo tgl_indo(flipdate($tanggal)) ?> </td>
   </tr>
   <tr>
-    <td align="center">&nbsp;</td>
+    <td align="center">PELAPOR</td>
     <td align="center">Yang Menerima Laporan </td>
   </tr>
   <tr>
@@ -216,7 +238,6 @@ $setting = $this->cm->get_setting();
     <td colspan="2" align="center">Mengetahui <br />
       a.n KEPALA KEPOLISIAN <?php echo $ttd['instansi'];  ?><br />
       <?php echo $mengetahui_jabatan;  ?><br />
-      <br />
       <br />
       <br />
       <br />

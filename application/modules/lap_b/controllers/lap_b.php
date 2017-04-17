@@ -59,6 +59,7 @@ function get_data(){
         $tanggal_akhir = $_REQUEST['columns'][2]['search']['value'];
         $id_fungsi = $_REQUEST['columns'][3]['search']['value'];
         $pelapor_nama = $_REQUEST['columns'][4]['search']['value'];
+        $nomor = $_REQUEST['columns'][5]['search']['value'];
 
 
       //  order[0][column]
@@ -70,7 +71,8 @@ function get_data(){
 				"tanggal_akhir" => $tanggal_akhir,
 				"id_fungsi" => $id_fungsi, 
 				"userdata" => $this->userdata ,
-				"pelapor_nama" => $pelapor_nama
+				"pelapor_nama" => $pelapor_nama,
+				"nomor" => $nomor
 				 
 		);     
            
@@ -97,12 +99,12 @@ function get_data(){
          
         	$arr_data[] = array(
         		 
-								$row['nomor'],
+								strtoupper($row['nomor']),
 								flipdate($row['tanggal']),
-								$row['pelapor_nama'],
-								$row['terlapor'],
-								$row['tindak_pidana'],
-								$row['operator'],
+								strtoupper($row['pelapor_nama']),
+								strtoupper($row['terlapor']),
+								strtoupper($row['tindak_pidana']),
+								strtoupper($row['operator']),
         		  			 
         		  			  
         		  				"<div class=\"btn-group\"> 
@@ -1133,7 +1135,7 @@ function korban_simpan($lap_b_id){
 		$this->load->library('form_validation');
 		
 		$this->form_validation->set_rules('korban_nama','Nama','required'); 
-		$this->form_validation->set_rules('korban_id_desa','Desa','required'); 
+		// $this->form_validation->set_rules('korban_id_desa','Desa','required'); 
 		 
 		$this->form_validation->set_message('required', ' %s Harus diisi ');
 		
@@ -1143,7 +1145,27 @@ function korban_simpan($lap_b_id){
 			 
 
 
-			$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			// $data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+
+
+
+			if($data['jenis_korban']=="o") {
+				$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			}
+			else {
+				unset($data['korban_id_agama']);
+				unset($data['korban_id_pekerjaan']);
+				unset($data['korban_id_suku']);
+				unset($data['korban_id_pendidikan']);
+			}
+			
+
+			if($data['korban_id_desa']=="x" or $data['korban_id_desa']==""){
+				unset($data['korban_id_desa']);
+
+			}
+
+
 			$data['lap_b_id'] = $lap_b_id;
 			 
 			$data['id'] = md5(microtime());
@@ -1211,7 +1233,7 @@ function korban_update($lap_b_id){
 		$this->load->library('form_validation');
 		
 		$this->form_validation->set_rules('korban_nama','Nama','required'); 
-		$this->form_validation->set_rules('korban_id_desa','Desa','required'); 
+		// $this->form_validation->set_rules('korban_id_desa','Desa','required'); 
 		 
 		$this->form_validation->set_message('required', ' %s Harus diisi ');
 		
@@ -1223,7 +1245,26 @@ function korban_update($lap_b_id){
 			 
 
 
-			$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			// $data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+
+
+			if($data['jenis_korban']=="o") {
+				$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			}
+			else {
+				unset($data['korban_id_agama']);
+				unset($data['korban_id_pekerjaan']);
+				unset($data['korban_id_suku']);
+				unset($data['korban_id_pendidikan']);
+			}
+			
+
+			if($data['korban_id_desa']=="x" or $data['korban_id_desa']==""){
+				unset($data['korban_id_desa']);
+
+			}
+
+			
 			$data['lap_b_id'] = $lap_b_id;
 			 
 
@@ -2105,7 +2146,7 @@ function tmp_korban_simpan(){
 		$this->load->library('form_validation');
 		
 		$this->form_validation->set_rules('korban_nama','Nama','required'); 
-		$this->form_validation->set_rules('korban_id_desa','Desa','required'); 
+		// $this->form_validation->set_rules('korban_id_desa','Desa','required'); 
 		 
 		$this->form_validation->set_message('required', ' %s Harus diisi ');
 		
@@ -2115,7 +2156,26 @@ function tmp_korban_simpan(){
 			 
 
 
-			$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			// $data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+
+
+			if($data['jenis_korban']=="o") {
+				$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			}
+			else {
+				unset($data['korban_id_agama']);
+				unset($data['korban_id_pekerjaan']);
+				unset($data['korban_id_suku']);
+				unset($data['korban_id_pendidikan']);
+			}
+			
+
+			if($data['korban_id_desa']=="x" or $data['korban_id_desa']==""){
+				unset($data['korban_id_desa']);
+
+			}
+
+
 
 			$data['temp_lap_b_id'] = $temp_lap_b_id;
 			 
@@ -2156,7 +2216,7 @@ function tmp_korban_update(){
 		$this->load->library('form_validation');
 		
 		$this->form_validation->set_rules('korban_nama','Nama','required'); 
-		$this->form_validation->set_rules('korban_id_desa','Desa','required'); 
+		// $this->form_validation->set_rules('korban_id_desa','Desa','required'); 
 		 
 		$this->form_validation->set_message('required', ' %s Harus diisi ');
 		
@@ -2168,8 +2228,25 @@ function tmp_korban_update(){
 			 
 
 
-			$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			//$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
 			//$data['lap_b_id'] = $lap_b_id;
+
+
+			if($data['jenis_korban']=="o") {
+				$data['korban_tgl_lahir'] = flipdate($data['korban_tgl_lahir']);
+			}
+			else {
+				unset($data['korban_id_agama']);
+				unset($data['korban_id_pekerjaan']);
+				unset($data['korban_id_suku']);
+				unset($data['korban_id_pendidikan']);
+			}
+			
+
+			if($data['korban_id_desa']=="x" or $data['korban_id_desa']==""){
+				unset($data['korban_id_desa']);
+
+			}
 			 
 
 			 
@@ -2533,10 +2610,12 @@ function pasal_hapus(){
 function cetak_laporan($id) {
 		
 		$data = $this->dm->detail($id);
-		// show_array($data); exit;
+		
 
 		$data['ttd'] = $this->get_header_by_user_id($data['user_id']);
 
+
+		// show_array($data); exit;
 		$data['tersangka'] = $this->dm->get_data_tersangka($id);
 		$data['korban'] = $this->dm->get_data_korban($id);
 		$data['saksi'] = $this->dm->get_data_saksi($id);
@@ -2627,6 +2706,8 @@ function cetak_surat_pernyataan($id) {
 function cetak_tanda_bukti($id){
 		$data = $this->dm->detail($id);
 		$data['terlapor']= $this->dm->get_data_terlapor($id);
+
+		$data['ttd'] = $this->get_header_by_user_id($data['user_id']);
 
 		// show_array($data); exit;
 

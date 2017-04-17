@@ -100,12 +100,12 @@ $id = $row['lap_b_id'];
          
         	$arr_data[] = array(
         		 
-								$row['nomor'],
-								flipdate($row['tanggal']),
-								$row['pelapor_nama'],
-								$row['terlapor'],
-								$row['tindak_pidana'],								 
-        		  			 	($row['penyidik_nama']=="")?"<span style='color:red;'>BELUM ADA</span>":$row['penyidik_nama'], 
+								strtoupper($row['nomor']),
+                                flipdate($row['tanggal']),
+                                strtoupper($row['pelapor_nama']),
+                                strtoupper($row['terlapor']),
+                                strtoupper($row['tindak_pidana']),                               
+                                ($row['penyidik_nama']=="")?"<span style='color:red;'>BELUM ADA</span>":strtoupper($row['penyidik_nama']), 
         		  			  
         		  				" 
      <a class=\"btn btn-primary\" href=\" " . site_url("$controller/detail/".$id) ."\" >Detail </a>");

@@ -48,6 +48,7 @@ $(".tanggal").datepicker()
 				 .column(2).search(tanggal_akhir)
 				 .column(3).search(id_fungsi)
 				 .column(4).search($("#pelapor_nama").val())
+				 .column(5).search($("#nomor").val())
 				 .draw();
 
 				 return false;
@@ -123,6 +124,7 @@ $("#tanggal_awal").val('');
 $("#tanggal_akhir").val('');
 $("#pelapor_nama").val('');
 $("#id_fungsi").val(0).attr('selected','selected');
+$("#nomor").val('');
 $("#cari_button").click();
 return false;
 

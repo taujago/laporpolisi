@@ -15,8 +15,8 @@ class depan_baru extends master_controller  {
 
 		$content = $this->load->view("op_depan_view",array(),true);
 
-		$this->set_subtitle("SELAMAT DATANG");
-		$this->set_title("SELAMAT DATANG");
+		$this->set_subtitle("DASHBOARD OPERATOR ");
+		$this->set_title("DASHBOARD OPERATOR ");
 		$this->set_content($content);
 		$this->render_baru();
 	}
